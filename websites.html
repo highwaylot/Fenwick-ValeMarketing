@@ -6,7 +6,7 @@
 <title>Website design in Brevard County, FL, with the prices · Fenwick and Vale</title>
 <meta name="description" content="What a small-business website costs in Cocoa Beach and Brevard County: $900 for one page, $2,000 for five, $5,500 to $7,500 for the whole shop. Pick a base, add what you need, see the total.">
 <link rel="canonical" href="https://fenwickvale.com/websites">
-<meta name="theme-color" content="#F4F3EE">
+<meta name="theme-color" content="#F5F1E8">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
@@ -17,105 +17,81 @@
 <meta property="og:image" content="https://fenwickvale.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard County businesses. Prices on the page.">
+<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard businesses. Prices on the page.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="preload" href="/assets/fonts/schibsted-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/showroom.js"></script>
+<script src="/assets/clock.js" defer></script>
+<script src="/assets/estimate.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="/">Fenwick and Vale</a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="/websites" aria-current="page">Websites</a></li>
-        <li><a href="/google">Google</a></li>
-        <li><a href="/guides">Guides</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a class="mail" href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a></li>
-      </ul>
-    </nav>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="/"><svg class="mark-anim" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span></a>
+    <nav class="nav" aria-label="Main"><a href="/websites" aria-current="page">Websites</a><a href="/google">Google</a><a href="/guides">Guides</a><a href="/about">About</a></nav>
+    <p class="stamp"><time id="clock">Cocoa Beach, FL</time><a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a></p>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero">
-    <div class="wrap">
-      <h1>Pick a base. Add what you need. See the total.</h1>
-      <p class="lead">Three looks, three sizes, a short list of add-ons. The total updates as you choose. Nothing is hidden behind a quote.</p>
-    </div>
+  <section class="wrap hero-plain">
+    <h1>Pick a base. Add what you need. See the total.</h1>
+    <p class="lead">Five looks, three sizes, a short list of add-ons. The total updates as you choose. Nothing is hidden behind a quote.</p>
   </section>
 
   <section class="section" aria-label="Build sheet">
     <div class="wrap">
       <form id="build" class="sheet" novalidate>
         <div>
-          <fieldset class="step" style="border:0;padding:0;margin:0 0 40px;min-width:0">
-            <legend style="padding:0"><h2><span class="n">Step 1 ·</span> Pick a look</h2></legend>
-            <div class="looks">
-              <label class="tile">
-                <input class="vh" type="radio" name="look" value="The Board">
-                <span class="mark" aria-hidden="true"></span>
-                <span class="thumb" aria-hidden="true">
-                  <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" focusable="false"><rect width="160" height="120" fill="#16191C"/><rect x="12" y="12" width="64" height="52" fill="#F4F3EE"/><text x="20" y="52" font-family="Public Sans, Arial, sans-serif" font-weight="600" font-size="34" fill="#16191C">24</text><rect x="84" y="12" width="64" height="24" fill="#E8742C"/><rect x="84" y="40" width="64" height="24" fill="#2A2F35"/><rect x="12" y="72" width="136" height="12" fill="#2A2F35"/><rect x="12" y="92" width="88" height="12" fill="#2A2F35"/></svg>
-                </span>
-                <span class="name">The Board</span>
-                <span class="line">Bold and square. Big numbers, dark panels. For trades.</span>
-              </label>
-              <label class="tile">
-                <input class="vh" type="radio" name="look" value="The Ledger">
-                <span class="mark" aria-hidden="true"></span>
-                <span class="thumb" aria-hidden="true">
-                  <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" focusable="false"><rect width="160" height="120" fill="#F4F3EE"/><rect x="14" y="16" width="70" height="10" fill="#16191C"/><line x1="14" y1="40" x2="146" y2="40" stroke="#D9D7CF"/><rect x="14" y="48" width="100" height="6" fill="#4C5157"/><rect x="14" y="60" width="84" height="6" fill="#4C5157"/><line x1="14" y1="78" x2="146" y2="78" stroke="#D9D7CF"/><rect x="14" y="86" width="60" height="6" fill="#4C5157"/><rect x="104" y="84" width="42" height="18" rx="3" fill="#1E4D3B"/></svg>
-                </span>
-                <span class="name">The Ledger</span>
-                <span class="line">Paper, ink and rules. Calm. For offices and practices.</span>
-              </label>
-              <label class="tile">
-                <input class="vh" type="radio" name="look" value="The Highway">
-                <span class="mark" aria-hidden="true"></span>
-                <span class="thumb" aria-hidden="true">
-                  <svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" focusable="false"><rect width="160" height="120" fill="#0B0D10"/><rect x="14" y="18" width="80" height="10" fill="#F4F3EE"/><rect x="14" y="34" width="56" height="6" fill="#8A8F96"/><line x1="0" y1="72" x2="160" y2="72" stroke="#FFD23F" stroke-width="4"/><rect x="14" y="86" width="40" height="16" rx="3" fill="#F4F3EE"/><rect x="62" y="86" width="40" height="16" rx="3" fill="#1C2026"/><rect x="110" y="86" width="36" height="16" rx="3" fill="#1C2026"/></svg>
-                </span>
-                <span class="name">The Highway</span>
-                <span class="line">Dark, with one bright line. For shops open late.</span>
-              </label>
-            </div>
+          <fieldset class="step">
+            <legend><h2><span class="step-n">01</span> Pick a look</h2></legend>
+            <p class="measure">Same bones, your colors. Every client site gets its own layout; this shows the part you can see in ten seconds. They're marked sample because there are no client sites yet. Prices are the same in every color.</p>
+            <ul class="swatches">
+              <li><button type="button" class="swatch chip-fv" data-skin="" aria-pressed="true"><span class="chip" aria-hidden="true"></span><span class="who">Fenwick and Vale</span><span class="tag">this site</span></button></li>
+              <li><button type="button" class="swatch chip-pool" data-skin="pool" aria-pressed="false"><span class="chip" aria-hidden="true"></span><span class="who">Pool service</span><span class="tag">sample</span></button></li>
+              <li><button type="button" class="swatch chip-charter" data-skin="charter" aria-pressed="false"><span class="chip" aria-hidden="true"></span><span class="who">Fishing charter</span><span class="tag">sample</span></button></li>
+              <li><button type="button" class="swatch chip-hvac" data-skin="hvac" aria-pressed="false"><span class="chip" aria-hidden="true"></span><span class="who">HVAC and plumbing</span><span class="tag">sample</span></button></li>
+              <li><button type="button" class="swatch chip-dental" data-skin="dental" aria-pressed="false"><span class="chip" aria-hidden="true"></span><span class="who">Dental office</span><span class="tag">sample</span></button></li>
+              <li><button type="button" class="swatch chip-auto" data-skin="auto" aria-pressed="false"><span class="chip" aria-hidden="true"></span><span class="who">Auto repair</span><span class="tag">sample</span></button></li>
+            </ul>
           </fieldset>
 
-          <fieldset class="step" style="border:0;padding:0;margin:0 0 40px;min-width:0">
-            <legend style="padding:0"><h2><span class="n">Step 2 ·</span> Pick a size</h2></legend>
-            <div class="sizes">
-              <label class="size">
-                <input class="vh" type="radio" name="size" value="one" data-once="900" data-label="One page">
-                <span class="mark" aria-hidden="true"></span>
+          <fieldset class="step">
+            <legend><h2><span class="step-n">02</span> Pick a size</h2></legend>
+            <ul class="sizes">
+              <li><label class="size">
+                <input class="vh" type="radio" name="size" value="one" data-once="900" data-label="one page">
+                <span class="ix">01</span>
                 <span class="name">One page</span>
                 <span class="price">$900</span>
+                <span class="who">One page: charters, pool routes, a new shop.</span>
                 <span class="line">A landing page, written copy, your Google listing fixed. Live two weeks after content.</span>
-              </label>
-              <label class="size pick">
-                <input class="vh" type="radio" name="size" value="five" data-once="2000" data-label="Five pages" checked>
-                <span class="mark" aria-hidden="true"></span>
-                <span class="tag">Most people pick this</span>
+              </label></li>
+              <li><label class="size pick">
+                <input class="vh" type="radio" name="size" value="five" data-once="2000" data-label="five pages" checked>
+                <span class="ix">02</span>
                 <span class="name">Five pages</span>
                 <span class="price">$2,000</span>
+                <span class="who">Five pages: HVAC, dentists, auto repair.</span>
                 <span class="line">Home, services, about, reviews, contact. Written copy, photos handled, Google listing set up, review link and QR code. Live two to three weeks after content.</span>
-              </label>
-              <label class="size">
-                <input class="vh" type="radio" name="size" value="shop" data-once="5500" data-max="7500" data-label="The whole shop">
-                <span class="mark" aria-hidden="true"></span>
+                <span class="tag">Most people pick this</span>
+              </label></li>
+              <li><label class="size">
+                <input class="vh" type="radio" name="size" value="shop" data-once="5500" data-max="7500" data-label="the whole shop">
+                <span class="ix">03</span>
                 <span class="name">The whole shop</span>
                 <span class="price">$5,500 to $7,500</span>
+                <span class="who">The full build.</span>
                 <span class="line">Ten to fifteen pages, Google profile and reviews set up, ads tracking wired, 90 days of the care plan. Live four to six weeks after content.</span>
-              </label>
-            </div>
+              </label></li>
+            </ul>
           </fieldset>
 
-          <fieldset class="step" style="border:0;padding:0;margin:0;min-width:0">
-            <legend style="padding:0"><h2><span class="n">Step 3 ·</span> Add what you need</h2></legend>
+          <fieldset class="step" style="margin-bottom:0">
+            <legend><h2><span class="step-n">03</span> Add what you need</h2></legend>
             <ul class="addons">
               <li><label class="addon"><input type="checkbox" name="addon" value="booking" data-once="250" data-label="online booking page" checked><span class="what">Online booking page</span><span class="cost">$250</span></label></li>
               <li><label class="addon"><input type="checkbox" name="addon" value="photo" data-once="300" data-label="photo day"><span class="what">Photo day at your shop</span><span class="cost">$300</span></label></li>
@@ -140,9 +116,27 @@
     </div>
   </section>
 
+  <section class="section" aria-labelledby="compare">
+    <div class="wrap">
+      <div class="section-head"><h2 id="compare">Against the other two choices</h2></div>
+      <p class="compare"><span class="num">$499</span> from WordPress.com gets you five pages, no revisions, nobody in Brevard. A Melbourne agency starts at <span class="num">$5,000</span>. This is <span class="num">$2,000</span>.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="after">
+    <div class="wrap">
+      <div class="section-head"><h2 id="after">After launch</h2><p class="eyebrow">What a site costs to keep. Nothing else.</p></div>
+      <ol class="rows wide reveal">
+        <li><span class="ix">01</span><div><h3>Domain</h3><p>Registered in your name. Renews at the registrar, not through me.</p></div><span class="side mono">about $15 a year</span></li>
+        <li><span class="ix">02</span><div><h3>Hosting</h3><p>Part of the care plan. No separate hosting bill.</p></div><span class="side mono">in the care plan</span></li>
+        <li><span class="ix">03</span><div><h3>Care plan</h3><p>Hosting, updates, backups, security, 30 minutes of edits. Month to month, 30 days' notice.</p></div><span class="side mono">$99 a month</span></li>
+      </ol>
+    </div>
+  </section>
+
   <section class="section" aria-labelledby="every">
     <div class="wrap">
-      <h2 id="every">In every site, at every size</h2>
+      <div class="section-head"><h2 id="every">In every site, at every size</h2></div>
       <ul class="two-col">
         <li>Written copy, not placeholder text</li>
         <li>Works on a phone</li>
@@ -156,70 +150,22 @@
     </div>
   </section>
 
-  <section class="section dark" aria-labelledby="own">
+  <section class="section" aria-labelledby="own">
     <div class="wrap">
-      <h2 id="own">What you own</h2>
+      <div class="section-head"><h2 id="own">What you own</h2></div>
       <p class="measure">All of it. The domain is registered in your name. The site is yours. The Google accounts are yours. If you leave, I hand over every login the same day. No hostage hosting.</p>
     </div>
   </section>
 </main>
 
-<footer class="footer">
+<footer class="foot">
   <div class="wrap">
     <p>Fenwick and Vale · Cocoa Beach, Florida · <a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a> · Veteran-owned.</p>
     <p>A one-person business. Not affiliated with Google.</p>
-    <p class="small"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <p class="mono"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · v.2 — <a href="/v1/">see v.1</a></p>
+    <p class="mono colophon">Hand-coded in Cocoa Beach. No trackers, no cookies, no stock photos. Home page: 30.4 KB with styles and scripts, fonts aside; 2 scripts (showroom and clock), no framework. Updated October 23, 2026.</p>
+    <p class="mono skin-note" id="skin-note" hidden></p>
   </div>
 </footer>
-
-<script>
-(function () {
-  var form = document.getElementById('build');
-  if (!form) return;
-  var once = document.getElementById('t-once');
-  var month = document.getElementById('t-month');
-  var chosen = document.getElementById('t-chosen');
-  var book = document.getElementById('book');
-  var gbp = document.getElementById('gbp');
-  var gbpRow = document.getElementById('gbp-row');
-  var gbpCost = document.getElementById('gbp-cost');
-  function money(n) { return '$' + n.toLocaleString('en-US'); }
-  function update() {
-    var size = form.querySelector('input[name="size"]:checked');
-    var look = form.querySelector('input[name="look"]:checked');
-    var lo = size ? +size.getAttribute('data-once') : 0;
-    var hi = size && size.getAttribute('data-max') ? +size.getAttribute('data-max') : lo;
-    var included = !!size && size.value !== 'one';
-    gbp.disabled = included;
-    if (included) gbp.checked = false;
-    gbpRow.classList.toggle('included', included);
-    gbpCost.textContent = included ? 'Included' : '$350';
-    var per = 0;
-    var names = [];
-    if (size) names.push(size.getAttribute('data-label'));
-    var boxes = form.querySelectorAll('input[name="addon"]:checked');
-    for (var i = 0; i < boxes.length; i++) {
-      var b = boxes[i];
-      var o = b.getAttribute('data-once');
-      var m = b.getAttribute('data-month');
-      if (o) { lo += +o; hi += +o; }
-      if (m) { per += +m; }
-      names.push(b.getAttribute('data-label'));
-    }
-    var onceText = (lo === hi ? money(lo) : money(lo) + ' to ' + money(hi)) + ' once';
-    var monthText = per ? money(per) + ' a month' : '$0 a month';
-    if (per && size && size.value === 'shop') monthText += ', first 90 days included';
-    once.textContent = onceText;
-    month.textContent = monthText;
-    var list = names.length ? names.join(', ') + '.' : 'Pick a size.';
-    chosen.textContent = (look ? look.value + '. ' : '') + list;
-    book.href = 'mailto:hello@fenwickvale.com?subject=' + encodeURIComponent(
-      'Book a 20-minute call: ' + (look ? look.value + ', ' : '') + names.join(', ') + ' (' + onceText + ', ' + monthText + ')'
-    );
-  }
-  form.addEventListener('change', update);
-  update();
-})();
-</script>
 </body>
 </html>

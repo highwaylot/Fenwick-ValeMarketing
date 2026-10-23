@@ -6,7 +6,7 @@
 <title>Privacy · Fenwick and Vale</title>
 <meta name="description" content="What fenwickvale.com collects about you: nothing. No cookies, no analytics, no forms. The only data is the email you choose to send.">
 <link rel="canonical" href="https://fenwickvale.com/privacy">
-<meta name="theme-color" content="#F4F3EE">
+<meta name="theme-color" content="#F5F1E8">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
@@ -17,44 +17,41 @@
 <meta property="og:image" content="https://fenwickvale.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard County businesses. Prices on the page.">
+<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard businesses. Prices on the page.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="preload" href="/assets/fonts/schibsted-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/showroom.js"></script>
+<script src="/assets/clock.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="/">Fenwick and Vale</a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="/websites">Websites</a></li>
-        <li><a href="/google">Google</a></li>
-        <li><a href="/guides">Guides</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a class="mail" href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a></li>
-      </ul>
-    </nav>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="/"><svg class="mark-anim" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span></a>
+    <nav class="nav" aria-label="Main"><a href="/websites">Websites</a><a href="/google">Google</a><a href="/guides">Guides</a><a href="/about">About</a></nav>
+    <p class="stamp"><time id="clock">Cocoa Beach, FL</time><a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a></p>
   </div>
 </header>
 
 <main id="main" class="wrap plain">
   <h1>Privacy</h1>
-  <p class="small">Last updated October 23, 2026.</p>
+  <p class="meta">Last updated October 23, 2026.</p>
   <p>This site collects nothing about you. There are no cookies, no analytics, no tracking pixels, no forms and no accounts. Fenwick and Vale doesn't know who visits.</p>
 
   <h2>The only data: email you choose to send</h2>
   <p>Every contact point on this site is an email link to hello@fenwickvale.com. If you write, Fenwick and Vale gets your email address and what you wrote, and uses them to reply and to do the work you ask for. Nothing is sold, shared or added to a mailing list. If you ask for your emails to be deleted, they are.</p>
 
+  <h2>One setting, kept on your device</h2>
+  <p>If you pick a trade in the showroom on the Websites page, your browser remembers the choice so the colors stay the same from page to page. That is stored by your browser on your own device, not sent anywhere, and it isn't a cookie. Picking "Back to the Fenwick and Vale look" clears it.</p>
+
   <h2>What loads from other companies</h2>
-  <p>Two things load from other companies when you open a page:</p>
+  <p>One thing loads from another company when you open a page:</p>
   <ul>
     <li><strong>Hosting.</strong> The site is served by Vercel. Like any web host, its servers see the normal connection details (your IP address, browser type and the page you asked for) and may keep them in server logs for a short time. Fenwick and Vale doesn't use or look at them.</li>
-    <li><strong>Fonts.</strong> The two typefaces come from Google Fonts, so your browser requests the font files from Google's servers. That request is covered by <a href="https://policies.google.com/privacy">Google's privacy policy</a>.</li>
   </ul>
+  <p>The typefaces are served from this site, not from Google. The one exception is the archived first version of the site, under /v1/, which still loads its two typefaces from Google Fonts; that request is covered by <a href="https://policies.google.com/privacy">Google's privacy policy</a>.</p>
 
   <h2>Links</h2>
   <p>Links to other sites go where they say. Those sites have their own rules.</p>
@@ -66,11 +63,13 @@
   <p><a href="mailto:hello@fenwickvale.com?subject=Privacy%20question">hello@fenwickvale.com</a></p>
 </main>
 
-<footer class="footer">
+<footer class="foot">
   <div class="wrap">
     <p>Fenwick and Vale · Cocoa Beach, Florida · <a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a> · Veteran-owned.</p>
     <p>A one-person business. Not affiliated with Google.</p>
-    <p class="small"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <p class="mono"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · v.2 — <a href="/v1/">see v.1</a></p>
+    <p class="mono colophon">Hand-coded in Cocoa Beach. No trackers, no cookies, no stock photos. Home page: 30.4 KB with styles and scripts, fonts aside; 2 scripts (showroom and clock), no framework. Updated October 23, 2026.</p>
+    <p class="mono skin-note" id="skin-note" hidden></p>
   </div>
 </footer>
 </body>

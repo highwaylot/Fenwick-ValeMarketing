@@ -6,7 +6,7 @@
 <title>About Fenwick and Vale · a one-person web shop in Cocoa Beach, Florida</title>
 <meta name="description" content="Fenwick and Vale is a veteran-owned, one-person website and Google shop in Cocoa Beach, serving Brevard County. Public prices, month to month, and you own everything.">
 <link rel="canonical" href="https://fenwickvale.com/about">
-<meta name="theme-color" content="#F4F3EE">
+<meta name="theme-color" content="#F5F1E8">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
@@ -17,85 +17,90 @@
 <meta property="og:image" content="https://fenwickvale.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard County businesses. Prices on the page.">
+<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard businesses. Prices on the page.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Public+Sans:wght@400;500;600&display=swap">
+<link rel="preload" href="/assets/fonts/schibsted-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/showroom.js"></script>
+<script src="/assets/clock.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="/">Fenwick and Vale</a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="/websites">Websites</a></li>
-        <li><a href="/google">Google</a></li>
-        <li><a href="/guides">Guides</a></li>
-        <li><a href="/about" aria-current="page">About</a></li>
-        <li><a class="mail" href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a></li>
-      </ul>
-    </nav>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="/"><svg class="mark-anim" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span></a>
+    <nav class="nav" aria-label="Main"><a href="/websites">Websites</a><a href="/google">Google</a><a href="/guides">Guides</a><a href="/about" aria-current="page">About</a></nav>
+    <p class="stamp"><time id="clock">Cocoa Beach, FL</time><a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a></p>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero">
-    <div class="wrap">
-      <h1>One person. Fair terms. Cocoa Beach.</h1>
-    </div>
+  <section class="wrap hero-plain">
+    <h1>One person. Fair terms. Cocoa Beach.</h1>
   </section>
 
   <section class="section" aria-label="Story">
     <div class="wrap about">
-      <div class="photo" role="img" aria-label="A placeholder for the owner's photo: the letters F and V in paper on ink.">F&amp;V</div>
       <div>
+        <div class="photo"><svg viewBox="0 0 64 64" width="160" height="160" role="img" aria-label="The Fenwick and Vale mark: a hand-drawn F and V" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg></div>
+        <p class="photo-cap">I'll be the one doing the work.</p>
+      </div>
+      <div class="story">
         <p>Fenwick and Vale is a one-person shop. I build websites and set up Google for small businesses in Brevard County, and I build and run three sites of my own: HighwayLot, MOSTMATH and FleetCleared. I started this because the owners I meet keep getting sold things they don't need by people they can't reach afterward. I'd rather do fewer jobs at a fair price and still have you as a client in five years.</p>
+        <p>The shop is veteran-owned. That's a fact about who you're dealing with, not a reason to hire me.</p>
       </div>
     </div>
   </section>
 
   <section class="section" aria-labelledby="deal">
     <div class="wrap">
-      <h2 id="deal">The deal</h2>
-      <ul class="deal">
-        <li>Prices are on the page. Same price for everyone.</li>
-        <li>You own the domain, the site and every Google account from day one.</li>
-        <li>Care plans and Google work are month to month, 30 days' notice.</li>
-        <li>No ranking guarantees. Nobody can promise a Google ranking, and anyone who does is lying.</li>
-        <li>A one-page report every month, in plain English.</li>
-        <li>I answer within one business day.</li>
-        <li>If a $29-a-month site is enough for you, I'll say so.</li>
-        <li>I don't sell marketing to businesses listed on FleetCleared. That directory has to stay neutral.</li>
-      </ul>
+      <div class="section-head"><h2 id="deal">The deal</h2></div>
+      <ol class="rows reveal">
+        <li><span class="ix">01</span><p>Prices are on the page. Same price for everyone.</p></li>
+        <li><span class="ix">02</span><p>You own the domain, the site and every Google account from day one.</p></li>
+        <li><span class="ix">03</span><p>Care plans and Google work are month to month, <span class="num">30</span> days' notice.</p></li>
+        <li><span class="ix">04</span><p>No ranking guarantees. Nobody can promise a Google ranking, and anyone who does is lying.</p></li>
+        <li><span class="ix">05</span><p>A one-page report every month, in plain English.</p></li>
+        <li><span class="ix">06</span><p>I answer within one business day.</p></li>
+        <li><span class="ix">07</span><p>If a <span class="num">$29</span>-a-month site is enough for you, I'll say so.</p></li>
+        <li><span class="ix">08</span><p>I don't sell marketing to businesses listed on FleetCleared. That directory has to stay neutral.</p></li>
+      </ol>
     </div>
   </section>
 
   <section class="section" aria-labelledby="area">
     <div class="wrap">
-      <h2 id="area">Service area</h2>
+      <div class="section-head"><h2 id="area">Service area</h2></div>
       <p class="measure">Cocoa Beach, Cape Canaveral, Merritt Island, Rockledge, Cocoa, Viera, Melbourne and Titusville. Everything is done in person or on a call; nothing needs a visit to an office.</p>
+      <p class="now"><b>Now</b><span>October 2026</span><span>Building v.2 of this site. Taking two builds a month.</span></p>
     </div>
   </section>
 
   <section class="section" aria-labelledby="contact">
     <div class="wrap">
-      <h2 id="contact">Contact</h2>
-      <p class="measure"><a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a> · Veteran-owned · Cocoa Beach, Florida</p>
-      <div class="actions" style="margin-top:20px">
-        <a class="btn" href="mailto:hello@fenwickvale.com?subject=Book%20a%2020-minute%20call">Book a 20-minute call</a>
-      </div>
+      <div class="section-head"><h2 id="contact">Contact</h2></div>
+      <p class="measure mono"><a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a> · Veteran-owned · Cocoa Beach, Florida</p>
+      <p style="margin-top:20px"><a class="btn" href="mailto:hello@fenwickvale.com?subject=Book%20a%2020-minute%20call">Book a 20-minute call</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="site">
+    <div class="wrap">
+      <div class="section-head"><h2 id="site">This site</h2></div>
+      <p class="measure">This is v.2. v.1 looked like every other site, so I rebuilt it. <a class="lnk arrow" href="/v1/">See v.1</a></p>
+      <p class="measure soft">Hand-coded, two typefaces, no framework, no trackers. The mark is drawn by hand, not bought. Pick a trade on the <a href="/websites">Websites page</a> and this whole site changes color to show it.</p>
     </div>
   </section>
 </main>
 
-<footer class="footer">
+<footer class="foot">
   <div class="wrap">
     <p>Fenwick and Vale · Cocoa Beach, Florida · <a href="mailto:hello@fenwickvale.com?subject=Question%20for%20Fenwick%20and%20Vale">hello@fenwickvale.com</a> · Veteran-owned.</p>
     <p>A one-person business. Not affiliated with Google.</p>
-    <p class="small"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <p class="mono"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · v.2 — <a href="/v1/">see v.1</a></p>
+    <p class="mono colophon">Hand-coded in Cocoa Beach. No trackers, no cookies, no stock photos. Home page: 30.4 KB with styles and scripts, fonts aside; 2 scripts (showroom and clock), no framework. Updated October 23, 2026.</p>
+    <p class="mono skin-note" id="skin-note" hidden></p>
   </div>
 </footer>
 </body>
