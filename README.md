@@ -7,32 +7,37 @@ management to local businesses, with every price on the page.
 
 This is v.2. The direction is "a work order, not a brochure": one sentence at
 the top, every number in a typewriter face, the work as a numbered list of
-live links, a live clock, indexed rows instead of cards, and a showroom
-switch that reskins the site by trade. v.1 is kept at `/v1/`.
+live links, a live clock in the header, indexed rows instead of cards, and a
+short request form that stores to the site's own storage instead of a form service. v.1 is
+kept at `/v1/`.
 
 ## What's here
 
-Plain static files. No framework, no build step, no npm.
+Plain static files plus two small Python serverless functions for the
+request form. No framework, no build step, no npm, no `requirements.txt`.
 
 | File | Page |
 |---|---|
 | `index.html` | Home |
-| `websites.html` | Websites: the showroom, the sizes, the add-ons and the running total |
+| `websites.html` | Websites: the three sizes, the add-on list, the request form |
 | `google.html` | Google Business Profile, reviews and ads |
 | `guides.html` | Guides index |
 | `guides/*.html` | The four finished guides |
-| `about.html` | About, the deal, service area, the now line, contact, the v.1 note |
+| `about.html` | About, the deal, service area, the now line, the request form, the v.1 note |
+| `agencies.html` | For agencies: white-label build prices, what is and isn't included, the request form |
 | `privacy.html`, `terms.html` | Plain privacy page and terms |
 | `404.html` | Served by Vercel for any missing page |
-| `assets/site.css` | The one stylesheet, skins included |
+| `admin.html` | Private: reads the request list back. `noindex`, not in the nav or the sitemap, blocked in `robots.txt` |
+| `api/request.py` | `POST /api/request`: validates and stores one request |
+| `api/requests.py` | `GET`/`DELETE /api/requests`: the admin read-back, behind `ADMIN_TOKEN` |
+| `assets/site.css` | The one stylesheet |
 | `assets/clock.js` | The header clock (Cocoa Beach time, minutes only) |
-| `assets/showroom.js` | The showroom switch; loads in `<head>` so a remembered skin applies before first paint |
-| `assets/estimate.js` | The running total on the Websites page |
+| `assets/request.js` | Submits the request form without a reload; one script for every form on the site |
 | `assets/fonts/*.woff2` | The two typefaces, latin subsets, self-hosted |
 | `assets/og.png` | The 1200x630 share image, rendered from the v.2 look |
 | `v1/` | The first version of the site: five pages, its own stylesheet, `noindex`, a banner back to the current site |
 | `favicon.svg`, `site.webmanifest`, `robots.txt`, `sitemap.xml` | The usual. The sitemap leaves `/v1/` out |
-| `vercel.json` | Clean URLs, three security headers, a one-year cache on the fonts |
+| `vercel.json` | Clean URLs, three security headers, a one-year cache on the fonts. No `functions` block: Vercel detects `api/*.py` on its own |
 
 ## Type
 
@@ -60,57 +65,91 @@ Warm light page (`#F5F1E8`), near-black ink (`#16140F`), one accent:
 **Cape orange, `#C53B00`**. It is the orange of test rockets, buoys and
 safety gear, which is a local color here in a way navy, gold or green are
 not. It passes 4.6:1 on the page for text and is used in exactly three
-places: the showroom swatch in use, the running total, and the underline on
-the active nav link. Nowhere else.
+places: the underline on the active nav link, the focus ring, and a button
+on hover. Nowhere else.
 
-## The showroom
+## The request form
 
-On the Websites page, "01 Pick a look" is a row of six swatches: the Fenwick
-and Vale look and five samples (pool, fishing charter, HVAC and plumbing,
-dental office, auto repair). Each sample is labeled "sample" because there
-are no client sites yet; when a real client site exists in a trade, tie the
-swatch to it ("Pool — see business.com").
+Every page that used to end in a "Book a 20-minute call" email button now
+ends in a short form: name, phone or email, business (optional), "what's
+wrong with your site right now" (optional), and a hidden honeypot field.
+It is on the Websites page (beside the sizes), the Google page (under the
+three prices), the About page (Contact) and the For agencies page, titled
+"Send one over." there. The email address stays printed beside it.
 
 How it works:
 
-- Each skin is a set of CSS variables on `:root[data-theme="pool"]` and so on
-  in `assets/site.css`: page, ink, soft ink, rule, accent. Type and layout
-  never change, only color. The auto repair skin is dark; the default is
-  light and stays light.
-- `assets/showroom.js` sets `data-theme` on `<html>`. In browsers with
-  `document.startViewTransition`, the change runs inside a view transition
-  and the new page is revealed by a `clip-path` circle growing out of the
-  swatch you clicked, about 300 ms. Browsers without it swap instantly.
-  Under `prefers-reduced-motion: reduce`, the swap is instant too.
-- The choice is remembered in `localStorage` (`fv-skin`), so it survives a
-  page change. The footer then shows "Showing the pool service sample. Back
-  to the Fenwick and Vale look." on every page; that button clears it. The
-  script loads in `<head>` so a remembered skin applies before first paint.
-- The estimate's chosen-items line and the booking email subject mention the
-  sample in use, so a client who writes in after picking one says so.
-- To add a skin: add a `:root[data-theme="x"]` block and a `.chip-x` block to
-  the stylesheet, a swatch button to `websites.html`, and the name to the
-  `SKINS` list in both `showroom.js` and `estimate.js`. Check contrast of ink
-  and accent on the page color before shipping (4.5:1 for text).
+- `assets/request.js` posts the fields as JSON to `/api/request` with
+  `fetch`, no reload. On success the form is replaced with "Got it. I'll call
+  or write back within one business day." On a 503 or a network error it
+  shows "The form isn't connected yet. Email hello@fenwickvale.com and I'll
+  reply the same way."
+- `api/request.py` (Vercel Python function, stdlib only) checks the fields
+  (name 2 to 80 characters, contact 5 to 120, business up to 120, note up to
+  1000, honeypot empty), refuses cross-site requests, allows five requests
+  per IP per hour, and pushes one JSON record (id, timestamp, page, the
+  fields) onto a Redis list `fv:requests`, capped at 5,000. Storage is
+  Upstash Redis through Vercel's Marketplace (what Vercel KV became), talked
+  to over plain REST with `urllib.request`. With no storage connected it
+  returns 503 and the page shows the email fallback.
+- `api/requests.py` returns the newest 500 records for `/admin`, and deletes
+  one by id. It needs `Authorization: Bearer <ADMIN_TOKEN>`.
+- No email is sent from the site. Check `/admin`, or add a notification
+  later if that gets old.
+
+### Connect storage
+
+1. In the Vercel dashboard open the project, then **Storage**.
+2. **Marketplace** (or "Browse Marketplace"), pick **Upstash Redis**, choose
+   the free plan, create the database and **Connect to Project**.
+3. That sets the env vars for you: `KV_REST_API_URL` and `KV_REST_API_TOKEN`
+   (older projects) or `UPSTASH_REDIS_REST_URL` and
+   `UPSTASH_REDIS_REST_TOKEN`. The functions read either pair.
+4. Redeploy once so the functions pick them up.
+
+### Set the admin token
+
+1. Project **Settings**, then **Environment Variables**.
+2. Add `ADMIN_TOKEN` with any long random string (30 characters or more;
+   `openssl rand -hex 24` in a terminal, or a password manager's generator).
+   Apply it to Production and Preview.
+3. Redeploy. Never put the token in the repo or in a URL.
+
+### Open the admin page
+
+Go to `https://fenwickvale.com/admin`, paste the token once, and the page
+keeps it in `sessionStorage` for that tab. "Forget token" clears it. Each
+row has a Delete button; "Copy as text" copies every row as plain lines for
+pasting into notes or a reply. The page is `noindex`, not in the nav or the
+sitemap, and `robots.txt` disallows `/admin` and `/api/`.
+
+### Python runtime
+
+Vercel runs `api/*.py` on its Python runtime without any config; each file
+exports a `handler` class built on `BaseHTTPRequestHandler`. There is no
+`requirements.txt` on purpose. To check the code without a server:
+`python3 -m py_compile api/request.py api/requests.py`.
 
 ## Motion
 
-Eight moves, all plain CSS or a few lines of JavaScript, all short: the
-showroom reveal, cross-document view transitions between pages, rows easing
-in as they scroll into view (below the first screen only, inside
+Seven moves, all plain CSS or a few lines of JavaScript, all short:
+cross-document view transitions between pages, rows easing in as they
+scroll into view (below the first screen only, inside
 `@supports (animation-timeline: view())`, opacity never from zero), the
-header hairline arriving on scroll, the running total's tick, underline and
-arrow on hover, the mark entering once on load, and the clock. The H1 and
+header hairline arriving on scroll, underline and arrow on hover, the mark
+entering once on load, the focus ring, and the clock. The H1 and
 the photo block never fade. Everything honors `prefers-reduced-motion`. No
 scroll library, no GSAP, no Lottie, no video.
 
 ## Weight
 
-The home page is about 30 KB with its stylesheet and both scripts, fonts
-aside; the fonts are 76 KB more. Two script files on the home page, three on
-the Websites page. The real numbers are printed in the footer colophon;
-update them when the files change (sizes of `index.html` + `assets/site.css`
-+ the scripts the home page loads).
+The home page is about 25 KB with its stylesheet and its one script, fonts
+aside; the fonts are 76 KB more. One script file on the home page (the
+clock), two on the Websites, Google, About and For agencies pages (the
+clock and the form). The real numbers are printed in the footer colophon; update them when
+the files change (sizes of `index.html` + `assets/site.css` +
+`assets/clock.js`). The colophon also carries the line "I use AI tools for
+drafting and code. Every page is read, checked and signed off by me."
 
 ## How it deploys
 
@@ -125,6 +164,9 @@ Vercel, connected to this repo.
 
 To work locally, serve the folder with any static server that maps `/x` to
 `x.html` (plain `python3 -m http.server` needs the `.html` added by hand).
+The form will show its email fallback until something answers
+`/api/request`; `vercel dev` runs the Python functions locally if you have
+the Vercel CLI.
 
 ## Before launch
 
@@ -135,15 +177,20 @@ To work locally, serve the folder with any static server that maps `/x` to
   and add the name to the story paragraph. Not a studio backdrop, not a
   sunset.
 - Confirm hello@fenwickvale.com exists and receives mail. Every contact
-  point on the site goes there.
-- Add a 321 phone number if you want calls: header stamp next to the email,
-  the About contact line and the footer, as a tap-to-call link, set in the
-  mono face like the email.
+  point on the site goes there or into the request form.
+- Connect Upstash Redis and set `ADMIN_TOKEN` (see "The request form"
+  above), then send one test request from the live site and check it shows
+  up at `/admin`. Until storage is connected the form shows the email
+  fallback.
+- Add a 321 phone number if you want calls: beside the email next to each
+  form and in the footer, as a tap-to-call link, set in the mono face like
+  the email. (The header carries only the clock now; with five nav links
+  there was no room left for the email on one row.)
 - Register the Fenwick and Vale Google Business Profile.
 - Keep the "Now" line (home and About) current. It is dated October 2026 and
   says "Building v.2 of this site. Taking two builds a month."
-- The three add-on prices on the build sheet (booking $250, photo day $300,
-  Spanish $600) are proposals, not researched figures.
+- The three add-on prices on the Websites page (booking $250, photo day
+  $300, Spanish $600) are proposals, not researched figures.
 - Write the remaining four guides and add them to `guides.html`, the home
   page if wanted, and `sitemap.xml`:
   - Who owns your website? Check before you sign
