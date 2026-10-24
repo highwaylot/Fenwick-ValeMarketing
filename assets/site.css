@@ -358,3 +358,50 @@ td .note { display: block; font-size: 16px; color: var(--soft); }
 .founding-copy h2 { font-size: clamp(32px, 3.6vw, 48px); }
 @media (max-width: 900px) { .founding { grid-template-columns: 1fr; } }
 [id] { scroll-margin-top: 96px; }
+
+/* Your list: add buttons, the floating pill, the drawer */
+.add { justify-self: start; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 16px 8px 12px; margin-top: 6px; font-family: var(--display); font-weight: 600; font-size: 17px; color: var(--ink); background: transparent; border: 1px solid var(--line-2); border-radius: 999px; cursor: pointer; transition: border-color 200ms, background-color 250ms, color 250ms, transform 200ms; }
+.add:hover { border-color: var(--gold); transform: translateY(-1px); }
+.add .plus { position: relative; width: 18px; height: 18px; border: 1px solid var(--gold); border-radius: 50%; flex: none; transition: transform 300ms cubic-bezier(.2,1.4,.4,1), background-color 250ms; }
+.add .plus::before, .add .plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 1.5px; background: var(--gold); transform: translate(-50%, -50%); transition: transform 300ms, background-color 250ms; }
+.add .plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+.add[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--btn-fg); }
+.add[aria-pressed="true"] .plus { border-color: var(--btn-fg); transform: rotate(360deg); }
+.add[aria-pressed="true"] .plus::before { width: 4px; background: var(--btn-fg); transform: translate(-90%, 0) rotate(45deg); }
+.add[aria-pressed="true"] .plus::after { width: 8px; background: var(--btn-fg); transform: translate(-25%, -40%) rotate(-50deg); }
+.add-sm { display: flex; min-height: 40px; font-size: 15.5px; padding: 6px 14px 6px 10px; margin-top: 10px; width: max-content; }
+td .add-sm { font-family: var(--display); }
+.list-pill { position: fixed; z-index: 55; right: max(18px, env(safe-area-inset-right, 0px)); bottom: max(18px, env(safe-area-inset-bottom, 0px)); display: inline-flex; align-items: center; gap: 10px; min-height: 54px; padding: 8px 10px 8px 14px; font-family: var(--display); font-weight: 600; font-size: 18px; color: var(--ink); background: color-mix(in srgb, var(--ground) 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid var(--gold); border-radius: 999px; cursor: pointer; box-shadow: 0 16px 40px -18px var(--shade), 0 0 30px -10px var(--glow); }
+.list-pill svg { width: 30px; height: 30px; color: var(--gold); }
+.list-pill .n { display: inline-grid; place-items: center; min-width: 32px; height: 32px; padding: 0 8px; border-radius: 999px; background: var(--gold); color: var(--btn-fg); font-variant-numeric: lining-nums; }
+.list-pill.bump { animation: bump 600ms cubic-bezier(.2,1.6,.4,1); }
+.list-pill.bump .n { animation: glowpop 700ms ease; }
+@keyframes bump { 0% { transform: scale(1); } 35% { transform: scale(1.12); } 100% { transform: scale(1); } }
+@keyframes glowpop { 0% { box-shadow: 0 0 0 0 var(--gold-hi); } 100% { box-shadow: 0 0 0 14px transparent; } }
+.fly-dot { position: fixed; left: 0; top: 0; z-index: 80; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--gold-hi); box-shadow: 0 0 18px 4px var(--glow); pointer-events: none; }
+dialog.list { margin: 0 0 0 auto; height: 100%; max-height: 100%; width: min(440px, 100%); padding: calc(28px + env(safe-area-inset-top, 0px)) max(26px, env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) 26px; border: 0; border-left: 1px solid var(--gold); background: var(--ground); color: var(--ink); display: none; flex-direction: column; gap: 16px; }
+dialog.list[open] { display: flex; animation: slidein 360ms cubic-bezier(.2,.7,.2,1); }
+dialog.list::backdrop { background: rgba(8, 6, 4, 0.55); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+@keyframes slidein { from { transform: translateX(40px); opacity: 0.4; } to { transform: none; opacity: 1; } }
+.list-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.list-head h2 { font-size: 40px; }
+.list-sub { color: var(--faint); font-size: 16px; font-style: italic; }
+.list-items { list-style: none; display: grid; overflow-y: auto; }
+.list-items li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.list-items .li-t { font-family: var(--display); font-size: 21px; line-height: 1.2; }
+.list-items .li-p { font-family: var(--display); font-size: 19px; color: var(--gold-text); white-space: nowrap; }
+.list-items .li-x { width: 36px; height: 36px; border: 1px solid var(--line-2); border-radius: 50%; background: none; color: var(--soft); font-size: 20px; line-height: 1; cursor: pointer; }
+.list-items .li-x:hover { border-color: var(--gold); color: var(--ink); }
+.list-empty { color: var(--soft); }
+.list-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 12px; }
+.list-actions .btn[aria-disabled="true"] { opacity: 0.45; pointer-events: none; }
+
+/* First-three spots */
+.spots { display: flex; align-items: center; gap: 12px; margin-top: 10px; font-family: var(--display); font-weight: 600; font-size: 17px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-text); }
+.spots .dots { display: inline-flex; gap: 8px; }
+.spots .dots i { width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 10px var(--glow); }
+.spots .dots i.taken { background: transparent; border: 1px solid var(--gold); box-shadow: none; opacity: 0.5; }
+.spots-inline { color: var(--gold-text); font-style: italic; }
+.founding-add { margin-top: 4px; }
+.founding.gone .founding-add { display: none; }
+.founding.gone .founding-price span { color: var(--faint); text-decoration: line-through; text-decoration-color: var(--gold); }
