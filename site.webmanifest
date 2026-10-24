@@ -4,8 +4,8 @@
   "description": "Websites and Google for Brevard County businesses. Prices on the page.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#F5F1E8",
-  "theme_color": "#F5F1E8",
+  "background_color": "#F4F3EE",
+  "theme_color": "#1E4D3B",
   "icons": [
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]

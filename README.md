@@ -5,11 +5,16 @@ Cocoa Beach, Brevard County, Florida. It sells websites, Google Business
 Profile setup, review requests done by Google's rules, and Google Ads
 management to local businesses, with every price on the page.
 
-This is v.2. The direction is "a work order, not a brochure": one sentence at
-the top, every number in a typewriter face, the work as a numbered list of
-live links, a live clock in the header, indexed rows instead of cards, and a
-short request form that stores to the site's own storage instead of a form service. v.1 is
-kept at `/v1/`.
+The look: warm paper, near-black ink, one dark green, a serif for headings
+(Fraunces) and a plain sans for everything else (Public Sans). Price cards,
+tables for add-ons, a dark band for the important parts. No configurator:
+every price is printed, and every page that asks for contact ends in a short
+request form that stores to the site's own storage instead of a form service.
+
+A second design (v.2, "a work order, not a brochure": grotesque and mono type,
+indexed rows, a live clock, Cape orange) ran briefly in October 2026 and was
+set aside in favor of this one. It is in the git history, not on the site.
+`/v1` and anything under it redirect to the home page.
 
 ## What's here
 
@@ -19,13 +24,13 @@ request form. No framework, no build step, no npm, no `requirements.txt`.
 | File | Page |
 |---|---|
 | `index.html` | Home |
-| `websites.html` | Websites: the three sizes, the add-on list, the request form |
+| `websites.html` | Websites: the three sizes as cards, the add-ons and running costs as tables, the request form |
 | `work.html` | Work: the three live sites, then seven design concepts as full-width screenshots that open the concept pages |
-| `work/*.html`, `work/shots/*.jpg` | The seven concept pages (self-contained demos, `noindex`) and their 1280x800 tile screenshots. See "The Work gallery" |
-| `google.html` | Google Business Profile, reviews and ads |
+| `work/*.html`, `work/shots/*.jpg` | The seven concept pages (self-contained demos, `noindex`) and their 1280x800 screenshots. See "The Work gallery" |
+| `google.html` | Google Business Profile, reviews and ads, the request form |
 | `guides.html` | Guides index |
 | `guides/*.html` | The four finished guides |
-| `about.html` | About, the deal, service area, the now line, the request form, the v.1 note |
+| `about.html` | About, the deal, service area, the request form |
 | `agencies.html` | For agencies: white-label build prices, what is and isn't included, the request form |
 | `privacy.html`, `terms.html` | Plain privacy page and terms |
 | `404.html` | Served by Vercel for any missing page |
@@ -33,42 +38,31 @@ request form. No framework, no build step, no npm, no `requirements.txt`.
 | `api/request.py` | `POST /api/request`: validates and stores one request |
 | `api/requests.py` | `GET`/`DELETE /api/requests`: the admin read-back, behind `ADMIN_TOKEN` |
 | `assets/site.css` | The one stylesheet |
-| `assets/clock.js` | The header clock (Cocoa Beach time, minutes only) |
 | `assets/request.js` | Submits the request form without a reload; one script for every form on the site |
 | `assets/fonts/*.woff2` | The two typefaces, latin subsets, self-hosted |
-| `assets/og.png` | The 1200x630 share image, rendered from the v.2 look |
-| `v1/` | The first version of the site: five pages, its own stylesheet, `noindex`, a banner back to the current site |
-| `favicon.svg`, `site.webmanifest`, `robots.txt`, `sitemap.xml` | The usual. The sitemap lists `/work` but leaves `/v1/` and the `/work/*.html` concept pages out |
-| `vercel.json` | Clean URLs, three security headers, a one-year cache on the fonts. No `functions` block: Vercel detects `api/*.py` on its own |
+| `assets/og.png` | The 1200x630 share image |
+| `favicon.svg`, `site.webmanifest`, `robots.txt`, `sitemap.xml` | The usual. The sitemap lists `/work` but leaves the `/work/*.html` concept pages out |
+| `vercel.json` | Clean URLs, the `/v1` redirects, three security headers, a one-year cache on the fonts. No `functions` block: Vercel detects `api/*.py` on its own |
 
 ## Type
 
-Two families, three files, 76 KB in all, served from `/assets/fonts/`. No
-request goes to Google Fonts.
+Two families, two files, about 44 KB, served from `/assets/fonts/`. No
+request goes to Google Fonts from the main site.
 
-- **Schibsted Grotesk** (variable, 400 to 900) for headings and body. A
-  newspaper grotesque: sturdy, slightly compact, the kind of letter you see
-  on a shop sign or a boat transom. It isn't the default in any design tool,
-  none of the hand-coded shops in the research use it, and there is no serif
-  anywhere on the site. Open Font License.
-- **IBM Plex Mono** (400 and 500) for every price, number, date, label, index,
-  the clock and the email. It reads as typewriter type, which is the point:
-  the numbers should look like they came off a ticket, not a SaaS pricing
-  card. Open Font License.
+- **Fraunces** 600 for headings and the brand name. Open Font License.
+- **Public Sans** (variable, 400 to 600) for body text, prices, labels and
+  buttons. Open Font License.
 
 Both were downloaded from the Google Fonts css2 endpoint as latin subsets and
-are committed here; the site never calls Google at runtime. To change a
-weight or add a glyph range, fetch a new file the same way and update the
-`@font-face` block at the top of `assets/site.css`.
+are committed here. To change a weight, fetch a new file the same way and
+update the `@font-face` block at the top of `assets/site.css`.
 
 ## Color
 
-Warm light page (`#F5F1E8`), near-black ink (`#16140F`), one accent:
-**Cape orange, `#C53B00`**. It is the orange of test rockets, buoys and
-safety gear, which is a local color here in a way navy, gold or green are
-not. It passes 4.6:1 on the page for text and is used in exactly three
-places: the underline on the active nav link, the focus ring, and a button
-on hover. Nowhere else.
+Paper `#F4F3EE`, white `#FFFFFF` for cards, ink `#16191C`, soft gray
+`#4C5157` for secondary text, line `#D9D7CF`, and one accent: dark green
+`#1E4D3B` for links, buttons, the focus ring and the "most people pick this"
+card (on `#E3EBE5`).
 
 ## The request form
 
@@ -136,11 +130,11 @@ exports a `handler` class built on `BaseHTTPRequestHandler`. There is no
 
 `/work` is the portfolio: section 01 is the same three live sites as the
 home page; section 02 is seven website designs (four directions for
-HighwayLot, three for FleetCleared), one full-width screenshot per row with a
-mono label above ("01 · HighwayLot · The Board") and one plain sentence under
-it. The screenshot is the link. The concept pages live at
+HighwayLot, three for FleetCleared), one full-width screenshot per row with
+the client and design name above ("HighwayLot / The Board") and one plain
+sentence under it. The screenshot is the link. The concept pages live at
 `/work/<slug>` and are the original self-contained design documents with
-three changes: a small Fenwick and Vale bar across the top (mark, "Fenwick
+three changes: a small Fenwick and Vale bar across the top ("Fenwick
 and Vale · Work", "← All work", previous and next), a `noindex,follow` meta
 and a new `<title>`, and their old gallery navigation removed (the Swiss
 page keeps its 44 px bar because it holds the live EN|ES and day/night
@@ -164,7 +158,7 @@ To add a tile:
 2. Render the first 1280x800 of it at device scale 1 as a JPG, quality 82,
    with `#fv-bar` hidden, to `work/shots/<slug>.jpg`. Any headless browser
    will do; the current shots came from Playwright.
-3. Add one `<li>` to the `tiles` list in `work.html`: the label, the
+3. Add one `<li>` to the `shots` list in `work.html`: the label, the
    `<img>` with `width="1280" height="800" loading="lazy"` and a real alt,
    and the one-line sentence, written from the concept page's own header.
 4. Do not add it to `sitemap.xml`; `/work` is already there and the
@@ -172,34 +166,29 @@ To add a tile:
 
 ## Motion
 
-Seven moves, all plain CSS or a few lines of JavaScript, all short:
-cross-document view transitions between pages, rows easing in as they
-scroll into view (below the first screen only, inside
-`@supports (animation-timeline: view())`, opacity never from zero), the
-header hairline arriving on scroll, underline and arrow on hover, the mark
-entering once on load, the focus ring, and the clock. The H1 and
-the photo block never fade. Everything honors `prefers-reduced-motion`. No
-scroll library, no GSAP, no Lottie, no video.
+Almost none, on purpose: underlines on hover, the arrow on a Work screenshot
+nudging three pixels, and the focus ring. The arrow nudge honors
+`prefers-reduced-motion`.
 
 ## Weight
 
-The home page is about 27 KB with its stylesheet and its one script, fonts
-aside; the fonts are 76 KB more. One script file on the home page (the
-clock and nothing else on the Work page too), two on the Websites, Google, About and For agencies pages (the
-clock and the form). The seven concept pages under `/work/` carry their own
-inline scripts (palette and language switchers) and are not counted here. The real numbers are printed in the footer colophon; update them when
-the files change (sizes of `index.html` + `assets/site.css` +
-`assets/clock.js`). The colophon also carries the line "I use AI tools for
-drafting and code. Every page is read, checked and signed off by me."
+One script file, `assets/request.js`, on the pages with the form (Websites,
+Google, About, For agencies). No script on the other pages. The seven
+concept pages under `/work/` carry their own inline scripts (palette and
+language switchers). The footer colophon carries the line "I use AI tools
+for drafting and code. Every page is read, checked and signed off by me."
 
 ## How it deploys
 
 Vercel, connected to this repo.
 
 - `cleanUrls` is on, so `websites.html` is served at `/websites`, the guides
-  at `/guides/<slug>`, and the archive at `/v1/`, `/v1/websites` and so on.
-  Internal links use the clean form.
-- A push to `main` is production (fenwickvale.com).
+  at `/guides/<slug>`. Internal links use the clean form.
+- A push to `main` is production (fenwickvale.com). Push `main` in the same
+  push as `preview`, or on its own: when `main` is moved later to a commit
+  Vercel already built as a preview, Vercel may not build it again for
+  production. If that happens, promote the preview deployment in the
+  dashboard (Deployments, the row's menu, Promote to Production).
 - A push to any other branch is a preview deployment with its own URL.
 - `404.html` at the root is what Vercel serves for a missing page.
 
@@ -212,7 +201,7 @@ the Vercel CLI.
 ## Before launch
 
 - **Add a first name and a photo.** The About page is written in first
-  person without a name, and the photo slot holds the hand-drawn F&V mark.
+  person without a name, and the photo slot holds an F&V placeholder.
   Put a real photo there, taken at a nameable local spot (the Port, the
   pier, a client's shop), with the first name in the caption and alt text,
   and add the name to the story paragraph. Not a studio backdrop, not a
@@ -224,12 +213,8 @@ the Vercel CLI.
   up at `/admin`. Until storage is connected the form shows the email
   fallback.
 - Add a 321 phone number if you want calls: beside the email next to each
-  form and in the footer, as a tap-to-call link, set in the mono face like
-  the email. (The header carries only the clock now; with five nav links
-  there was no room left for the email on one row.)
+  form and in the footer, as a tap-to-call link.
 - Register the Fenwick and Vale Google Business Profile.
-- Keep the "Now" line (home and About) current. It is dated October 2026 and
-  says "Building v.2 of this site. Taking two builds a month."
 - The three add-on prices on the Websites page (booking $250, photo day
   $300, Spanish $600) are proposals, not researched figures.
 - Write the remaining four guides and add them to `guides.html`, the home
@@ -238,10 +223,5 @@ the Vercel CLI.
   - Is Facebook enough? When you need a site and when you don't
   - The 19 things a real website has
   - Hurricane season: keep your phone, site and listing working
-- The v.1 archive still loads its two typefaces from Google Fonts, as it did
-  when it was live; the privacy page says so. Strip the link from `v1/*.html`
-  if you'd rather it didn't.
 - The seven concept pages under `/work/` load their typefaces from Google
-  Fonts as well (see "The Work gallery"); the privacy page covers both.
-- If someone draws a better mark, credit them by name in the About page's
-  "This site" section.
+  Fonts (see "The Work gallery"); the privacy page says so.

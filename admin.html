@@ -5,49 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Requests · Fenwick and Vale</title>
-<meta name="theme-color" content="#F5F1E8">
+<meta name="theme-color" content="#F4F3EE">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/schibsted-grotesk-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/ibm-plex-mono-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/public-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
-<script src="/assets/clock.js" defer></script>
-<style>
-  .admin { padding: 40px 0 64px; }
-  .admin h1 { font-size: clamp(32px, 4vw, 46px); margin-bottom: 8px; }
-  .admin .meta { color: var(--soft); margin: 0 0 28px; }
-  .admin .tools { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; margin: 0 0 24px; }
-  .admin .tools .btn { min-height: 44px; }
-  .admin .btn.quiet { background: none; color: var(--ink); }
-  .admin .btn.quiet:hover { background: var(--ink); color: var(--page); border-color: var(--ink); }
-  .admin .count { color: var(--soft); font-family: var(--mono); font-size: 15px; }
-  .req { width: 100%; }
-  .req th, .req td { text-align: left; padding: 12px 12px 12px 0; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: 16px; line-height: 1.45; }
-  .req th { font-family: var(--mono); font-weight: 400; font-size: 15px; color: var(--soft); border-top: 1px solid var(--rule); white-space: nowrap; }
-  .req td.when, .req td.page { font-family: var(--mono); font-size: 15px; color: var(--soft); white-space: nowrap; }
-  .req td.note { white-space: pre-wrap; max-width: 36ch; }
-  .req td:last-child { padding-right: 0; text-align: right; }
-  .req .del { font: inherit; font-family: var(--mono); font-size: 15px; min-height: 44px; padding: 8px 10px; margin: -8px -10px -8px 0; background: none; border: 0; color: var(--ink); text-decoration: underline; cursor: pointer; }
-  .req .del:hover { color: var(--accent); }
-  .admin .state { color: var(--soft); font-family: var(--mono); font-size: 15px; min-height: 1.5em; margin: 16px 0 0; }
-  @media (max-width: 720px) {
-    .req thead { display: none; }
-    .req, .req tbody, .req tr, .req td { display: block; width: 100%; }
-    .req tr { border-bottom: 1px solid var(--rule); padding: 12px 0; }
-    .req td { border: 0; padding: 2px 0; white-space: normal; }
-    .req td.when, .req td.page { white-space: normal; }
-    .req td:last-child { text-align: left; padding-top: 6px; }
-    .req .del { margin: 0; padding: 10px 0; }
-    .req td.note { max-width: none; }
-  }
-</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="top">
-  <div class="wrap bar">
-    <a class="brand" href="/"><svg class="mark-anim" viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span></a>
-    <nav class="nav" aria-label="Main"><a href="/websites">Websites</a><a href="/work">Work</a><a href="/google">Google</a><a href="/guides">Guides</a><a href="/about">About</a><a href="/agencies">For agencies</a></nav>
-    <p class="stamp"><time id="clock">Cocoa Beach, FL</time></p>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="/">Fenwick and Vale</a>
   </div>
 </header>
 
@@ -58,14 +26,14 @@
   <form id="gate" class="ask" novalidate>
     <div class="field"><label for="token">Admin token</label><input id="token" name="token" type="password" autocomplete="off" required></div>
     <button class="btn" type="submit">Open</button>
-    <p class="ask-status mono" role="status" aria-live="polite" id="gate-status"></p>
+    <p class="ask-status" role="status" aria-live="polite" id="gate-status"></p>
   </form>
 
   <div id="list" hidden>
     <div class="tools">
-      <button class="btn quiet" type="button" id="copy">Copy as text</button>
-      <button class="btn quiet" type="button" id="reload">Reload</button>
-      <button class="btn quiet" type="button" id="forget">Forget token</button>
+      <button class="btn secondary" type="button" id="copy">Copy as text</button>
+      <button class="btn secondary" type="button" id="reload">Reload</button>
+      <button class="btn secondary" type="button" id="forget">Forget token</button>
       <span class="count" id="count"></span>
     </div>
     <table class="req" id="table">
@@ -76,9 +44,9 @@
   </div>
 </main>
 
-<footer class="foot">
+<footer class="footer">
   <div class="wrap">
-    <p class="mono">Fenwick and Vale · <a href="/">Back to the site</a></p>
+    <p class="small">Fenwick and Vale · <a href="/">Back to the site</a></p>
   </div>
 </footer>
 

@@ -390,27 +390,27 @@ figcaption{ font-size:13px; color:var(--ink-2); margin-top:8px; }
 <noscript><style>.fit{ overflow:auto !important; } .fit > *{ position:static !important; transform:none !important; }</style></noscript>
 <style id="fv-bar-css">
 /* Fenwick and Vale top bar. The page below it is the work and keeps its own look. */
-@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url(/assets/fonts/schibsted-grotesk-latin-var.woff2) format("woff2")}
-@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-400.woff2) format("woff2")}
+@font-face{font-family:"Public Sans";font-style:normal;font-weight:400 600;font-display:swap;src:url(/assets/fonts/public-sans-latin-var.woff2) format("woff2")}
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/fraunces-latin-600.woff2) format("woff2")}
 #fv-bar,#fv-bar *{box-sizing:border-box;margin:0;letter-spacing:0;text-transform:none;border-radius:0;box-shadow:none}
-#fv-bar{position:relative;z-index:10001;background:#F5F1E8;color:#16140F;border-bottom:1px solid #CFC8B8;font:400 15px/1.5 "Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}
+#fv-bar{position:relative;z-index:10001;background:#F4F3EE;color:#16191C;border-bottom:1px solid #D9D7CF;font:400 15px/1.5 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
 #fv-bar .fv-in{max-width:1120px;margin:0 auto;padding:0 32px;min-height:48px;display:flex;align-items:center;flex-wrap:wrap;column-gap:24px;row-gap:0}
-#fv-bar .fv-brand{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;color:#16140F;text-decoration:none;padding:10px 0;min-height:44px;margin-right:auto;white-space:nowrap}
-#fv-bar .fv-brand svg{width:20px;height:20px;flex:none;color:#16140F}
-#fv-bar .fv-brand .fv-sec{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:400;font-size:14px;color:#5C574D}
-#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;display:flex;flex-wrap:wrap;column-gap:20px;font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:14px}
-#fv-bar nav a{color:#16140F;text-decoration:none;display:inline-block;padding:12px 0;min-height:44px;line-height:20px;position:relative;white-space:nowrap;background:none;border:0}
-#fv-bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#C53B00;transform:scaleX(0);transform-origin:0 50%;transition:transform 150ms ease-out}
+#fv-bar .fv-brand{display:inline-flex;align-items:center;gap:8px;font-family:"Fraunces",Georgia,"Times New Roman",serif;font-weight:600;font-size:19px;color:#16191C;text-decoration:none;padding:10px 0;min-height:44px;margin-right:auto;white-space:nowrap}
+#fv-bar .fv-brand svg{width:20px;height:20px;flex:none;color:#16191C}
+#fv-bar .fv-brand .fv-sec{font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:400;font-size:14px;color:#4C5157}
+#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;display:flex;flex-wrap:wrap;column-gap:20px;font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
+#fv-bar nav a{color:#16191C;text-decoration:none;display:inline-block;padding:12px 0;min-height:44px;line-height:20px;position:relative;white-space:nowrap;background:none;border:0}
+#fv-bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#1E4D3B;transform:scaleX(0);transform-origin:0 50%;transition:transform 150ms ease-out}
 #fv-bar nav a:hover::after,#fv-bar nav a:focus-visible::after{transform:scaleX(1)}
-#fv-bar nav a:hover{background:none;color:#16140F}
-#fv-bar a:focus-visible{outline:2px solid #C53B00;outline-offset:3px}
-#fv-bar nav .fv-dim{color:#5C574D}
+#fv-bar nav a:hover{background:none;color:#16191C}
+#fv-bar a:focus-visible{outline:2px solid #1E4D3B;outline-offset:3px}
+#fv-bar nav .fv-dim{color:#4C5157}
 @media (max-width:720px){#fv-bar .fv-in{padding:0 16px;column-gap:16px}#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;flex-basis:100%;column-gap:16px}#fv-bar nav a{padding:8px 0;min-height:40px;line-height:20px}#fv-bar nav a::after{bottom:6px}}
 @media (prefers-reduced-motion:reduce){#fv-bar nav a::after{transition:none}}
 </style>
 </head>
 <body>
-<div id="fv-bar"><div class="fv-in"><a class="fv-brand" href="/"><svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span><span class="fv-sec">· Work</span></a><nav aria-label="Work"><a href="/work">&larr; All work</a><a href="/work/fleetcleared-signpainter" title="FleetCleared · The Sign Painter"><span class="fv-dim">Previous:</span> The Sign Painter</a><a href="/work/highwaylot-board" title="HighwayLot · The Board"><span class="fv-dim">Next:</span> The Board</a></nav></div></div>
+<div id="fv-bar"><div class="fv-in"><a class="fv-brand" href="/"><span>Fenwick and Vale</span><span class="fv-sec">· Work</span></a><nav aria-label="Work"><a href="/work">&larr; All work</a><a href="/work/fleetcleared-signpainter" title="FleetCleared · The Sign Painter"><span class="fv-dim">Previous:</span> The Sign Painter</a><a href="/work/highwaylot-board" title="HighwayLot · The Board"><span class="fv-dim">Next:</span> The Board</a></nav></div></div>
 <nav id="r2nav" aria-label="Round 2 pages">
   <div class="in">
     <span class="here">The Swiss</span>
