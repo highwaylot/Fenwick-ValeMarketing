@@ -21,6 +21,7 @@
     p.textContent = DONE;
     box.appendChild(p);
     form.replaceWith(box);
+    try { window.dispatchEvent(new Event('fv-list-sent')); } catch (e) {}
   }
 
   function submit(e) {

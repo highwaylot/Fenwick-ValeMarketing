@@ -169,6 +169,25 @@ form), one stylesheet, four font files. The home page shows its own real
 weight live, so there is no number to keep updated here. The seven concept
 pages under `/work/` carry their own inline scripts and Google Fonts links.
 
+## Your list
+
+Every size, add-on and service has an "Add to your list" button. The list
+is not a cart: no checkout, no total. It lives in the visitor's own browser
+(`localStorage`, key `fv-list`), shows as a floating "Your list" button once
+it has something on it, and opens as a side panel. "Send this list" drops
+the items into the request form's note field, on the same page or on
+Websites, and a sent request clears the list. The privacy page says so.
+
+## The first-three spots
+
+The first-three offer shows dots and "3 spots left". To change it, edit the
+number in `data-spots="3"` in two places: the `.spots` paragraph on
+`websites.html` and the `.spots-inline` span on `index.html` (also change
+the visible text next to it; the script redraws it, but this keeps it right
+without JavaScript). At 0 the offer reads "All three spots are taken", the
+price is struck through and its add button disappears. Keep the number true.
+
+
 ## How it deploys
 
 Vercel, connected to this repo.
