@@ -1,0 +1,1593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FleetCleared · The Sign Painter · a concept by Fenwick and Vale</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="description" content="FleetCleared redesign, round 2, The Signpainter: the green plate as a social system first, then carried into the deeper screens of the site in English and Spanish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Overpass:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens: day (enamel cream) ---------- */
+:root{
+  --sign:#0d5c3c;        /* guide-sign green */
+  --sign-deep:#073f28;
+  --reflect:#ffffff;     /* reflective white */
+  --ground:#f3ead6;      /* enamel cream */
+  --panel:#fbf6ea;
+  --panel-2:#f1e8d3;     /* ruled row, input */
+  --ink:#1e1913;
+  --ink-soft:#5c5347;
+  --line:#d8cbaf;
+  --lamp:#e2a230;        /* one lamp-amber flourish */
+  --rust:#8f3a2b;        /* the fake-letter column only */
+  --rust-soft:#f4e1da;
+  --asphalt:#2a2d2b;
+  --shadow:0 2px 0 rgba(30,25,19,.08), 0 14px 30px -18px rgba(30,25,19,.35);
+  --slab:'Alfa Slab One','Rockwell Extra Bold','Arial Black',serif;
+  --sans:'Overpass','Helvetica Neue',Arial,sans-serif;
+  color-scheme:light;
+}
+/* ---------- night: the plate reads the same, the ground goes dark ---------- */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --sign:#0f6a45; --sign-deep:#0a4a30; --ground:#131614; --panel:#1b201d; --panel-2:#222824;
+    --ink:#efe8d8; --ink-soft:#b5ac9a; --line:#2f3631; --lamp:#f0b64a;
+    --rust:#e08f7d; --rust-soft:#3a211b; --asphalt:#0b0d0c;
+    --shadow:0 2px 0 rgba(0,0,0,.4), 0 14px 30px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --sign:#0f6a45; --sign-deep:#0a4a30; --ground:#131614; --panel:#1b201d; --panel-2:#222824;
+  --ink:#efe8d8; --ink-soft:#b5ac9a; --line:#2f3631; --lamp:#f0b64a;
+  --rust:#e08f7d; --rust-soft:#3a211b; --asphalt:#0b0d0c;
+  --shadow:0 2px 0 rgba(0,0,0,.4), 0 14px 30px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 17px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{margin:0;line-height:1.1;text-wrap:balance}
+h1{font:400 clamp(34px,6vw,64px)/1.02 var(--slab)}
+h2{font:400 clamp(26px,3.6vw,38px)/1.08 var(--slab)}
+h3{font:800 clamp(19px,2vw,22px)/1.2 var(--sans);letter-spacing:-.005em}
+h4{font:700 16px/1.3 var(--sans)}
+p{margin:0 0 1em}
+a{color:var(--sign)}
+ul,ol{margin:0 0 1em;padding-left:1.3em}
+li{margin-bottom:.35em}
+strong,b{font-weight:700}
+small,.fine{font-size:14px;color:var(--ink-soft)}
+code{font:600 .9em ui-monospace,Menlo,Consolas,monospace;color:var(--ink-soft)}
+.wrap{width:100%;max-width:1200px;margin-inline:auto;padding-inline:16px}
+@media (min-width:760px){.wrap{padding-inline:32px}}
+section.part{padding-block:56px 24px;border-top:1px solid var(--line)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+
+/* ---------- the controls cluster: EN|ES + day/night, one object ---------- */
+.cl{display:inline-flex;align-items:stretch;height:32px;border:2px solid var(--sign);border-radius:999px;background:var(--panel);overflow:hidden;font:800 13px/1 var(--sans);color:var(--sign);flex:none;vertical-align:middle}
+.cl button{all:unset;cursor:pointer;display:grid;place-items:center;padding:0 11px;color:inherit;letter-spacing:.04em}
+.cl button.on{background:var(--sign);color:#fff}
+.cl .dv{width:2px;background:var(--sign);flex:none}
+.cl button svg{width:1.15em;height:1.15em;display:block}
+.cl button[data-th]{padding:0 9px}
+.cl.big{height:36px;font-size:14px}
+.screen .cl{height:2.1em;font-size:.85em;border-width:.14em}
+.screen .cl button{padding:0 .75em}
+.screen .cl .dv{width:.14em}
+.scr .cl{height:2.6em;font-size:.82em;border-width:.16em}
+.scr .cl button{padding:0 .8em}
+.scr .cl .dv{width:.16em}
+/* language toggle for the live bilingual mock */
+.bi>.es{display:none}
+html[data-lang="es"] .bi>.es{display:inline}
+html[data-lang="es"] .bi>.en{display:none}
+.bi.blk>.es,.bi.blk>.en{display:none}
+.bi.blk>.en{display:block}
+html[data-lang="es"] .bi.blk>.es{display:block}
+html[data-lang="es"] .bi.blk>.en{display:none}
+
+/* ---------- sign plate component (the distinctive asset) ---------- */
+.plate{position:relative;display:inline-block;background:var(--sign);color:var(--reflect);border-radius:.6em;padding:.55em .9em;box-shadow:inset 0 0 0 .14em var(--sign), inset 0 0 0 .3em var(--reflect);font-family:var(--slab);line-height:1;text-transform:uppercase}
+.plate.lg{border-radius:14px;padding:22px 26px;box-shadow:inset 0 0 0 5px var(--sign), inset 0 0 0 9px var(--reflect)}
+.plate.block{display:block}
+.plate .sans{font:600 .55em/1.3 var(--sans);letter-spacing:.01em;text-transform:none}
+.plate .arrow{display:inline-block;vertical-align:-.1em;width:1em;height:1em;color:#fff}
+.enamel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+
+/* ---------- the board under the sign (rows, status, number, done) ---------- */
+.board{background:var(--panel);border:1px solid var(--line);border-radius:.8em;overflow:hidden}
+.board .bh{display:flex;justify-content:space-between;align-items:center;gap:1em;padding:.6em 1em;background:var(--sign);color:#fff;font:400 .95em/1 var(--slab);text-transform:uppercase}
+.board .bh small{color:#fff;opacity:.9;font:600 .75em/1 var(--sans);text-transform:none;letter-spacing:0}
+.board .r{display:grid;grid-template-columns:1.6em 1fr auto;gap:.7em;padding:.7em 1em;border-top:1px solid var(--line);align-items:start;font-size:.95em}
+.board .r:first-of-type{border-top:0}
+.board .r .lab{font-weight:800;display:block}
+.board .r .val{color:var(--ink-soft);display:block;font-size:.95em}
+.board .r .st{font:400 1em/1 var(--slab);color:var(--sign);white-space:nowrap}
+.board .r .st.no{color:var(--rust)}
+.bx{width:1.35em;height:1.35em;border-radius:.25em;border:.16em solid var(--sign);display:grid;place-items:center;color:#fff;flex:none}
+.bx.ok{background:var(--sign)}
+.bx.nx{border-color:var(--rust)}
+.bx svg{width:1em;height:1em}
+.bx.ok svg{display:block}.bx:not(.ok) svg{display:none}
+
+/* ---------- document furniture ---------- */
+.masthead{padding:40px 0 28px}
+.masthead .row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:24px 40px}
+.masthead .kicker{font:700 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.masthead p.lede{font-size:clamp(17px,1.8vw,21px);max-width:62ch;color:var(--ink-soft);margin-top:14px}
+.masthead .live{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px;font-size:14px;color:var(--ink-soft)}
+.partno{display:inline-flex;align-items:center;gap:12px;margin-bottom:18px}
+.partno .n{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:10px;background:var(--sign);color:var(--reflect);font:400 26px/1 var(--slab);box-shadow:inset 0 0 0 3px var(--sign), inset 0 0 0 5px var(--reflect)}
+.partno .t{font:700 13px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.tag{display:inline-block;font:700 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;padding:5px 8px;border-radius:4px;background:var(--lamp);color:#1e1913;vertical-align:middle}
+.tag.live{background:transparent;color:var(--ink-soft);border:1px solid var(--line)}
+.cols{display:grid;gap:28px;grid-template-columns:1fr}
+@media (min-width:880px){.cols{grid-template-columns:1fr 1fr}.cols.c32{grid-template-columns:3fr 2fr}.cols.c23{grid-template-columns:2fr 3fr}}
+.prose{max-width:68ch;font-size:clamp(16px,1.5vw,18px)}
+.prose p{margin-bottom:1.1em}
+.kv{list-style:none;padding:0;margin:0}
+.kv li{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.kv li:first-child{border-top:0}
+.kv b{font-weight:700}
+@media (max-width:480px){.kv li{grid-template-columns:1fr}}
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,140px),1fr));gap:12px}
+.sw{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--panel)}
+.sw .chip{height:56px}
+.sw .meta{padding:10px 12px;font-size:13px;line-height:1.4}
+.sw .meta b{display:block;font-size:14px}
+.sw code{display:block;font-size:12px}
+.assets{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.asset{padding:18px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}
+.asset .num{font:400 28px/1 var(--slab);color:var(--sign)}
+.asset h4{margin:8px 0 6px}
+.asset p{font-size:15px;margin:0;color:var(--ink-soft)}
+.logos{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));align-items:start}
+.logos .cell{padding:22px;border-radius:14px;border:1px solid var(--line);display:grid;gap:12px;justify-items:start;min-width:0}
+.logos .cell.dark{background:#131614;color:#efe8d8}
+.logos .cell.cream{background:#f3ead6;color:#1e1913}
+.logos .cap{font-size:13px;color:inherit;opacity:.75}
+.logos svg{max-width:100%;height:auto}
+.mocknote{font-size:14px;color:var(--ink-soft);margin-top:10px}
+.caphead{margin:48px 0 8px}
+
+/* ---------- browser + phone frames ---------- */
+.browser{container-type:inline-size;width:100%;background:var(--asphalt);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.browser .bar{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#1b1d1c}
+.browser .bar i{width:10px;height:10px;border-radius:50%;background:#555;display:inline-block}
+.browser .bar .url{flex:1;margin-left:8px;background:#2e3230;color:#cfd4d0;border-radius:6px;padding:5px 10px;font:400 12px/1.2 var(--sans);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.screen{font-size:1.4545cqw;line-height:1.45;background:var(--ground);color:var(--ink);aspect-ratio:1100/660;overflow:hidden;position:relative}
+.screen.tall{aspect-ratio:1100/1000}
+.screen.mid{aspect-ratio:1100/800}
+.phone{width:min(360px,100%);margin-inline:auto;background:var(--asphalt);border-radius:40px;padding:12px;box-shadow:var(--shadow);container-type:inline-size}
+.phone .scr{background:var(--ground);color:var(--ink);border-radius:30px;overflow:hidden;font-size:4.2cqw;line-height:1.45;position:relative;aspect-ratio:9/19}
+.phone .notch{height:.9em;display:grid;place-items:center}
+.phone .notch i{width:30%;height:.42em;border-radius:1em;background:var(--asphalt)}
+.phone .scr .sb{display:flex;justify-content:space-between;font-size:.72em;padding:.3em 1.4em 0;color:var(--ink-soft)}
+.mockrow{display:grid;gap:28px;grid-template-columns:1fr;align-items:start}
+@media (min-width:1000px){.mockrow{grid-template-columns:minmax(0,1fr) 360px}}
+.mockrow.phones{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));justify-items:center}
+.mockrow.phones>div{width:100%}
+
+/* ---------- the mocked site (em-based, shared) ---------- */
+.site{font-family:var(--sans)}
+.site .hdr{display:flex;align-items:center;justify-content:space-between;gap:1em;padding:.8em 2.2em;background:var(--panel);border-bottom:1px solid var(--line)}
+.site .lock{display:flex;align-items:center;gap:.55em;font:400 1.35em/1 var(--slab);color:var(--ink)}
+.site .lock .c{color:var(--sign)}
+.site .lock svg{width:1.5em;height:1.5em;display:block}
+.site nav{display:flex;gap:1.4em;font-weight:700;font-size:.95em;align-items:center}
+.site nav a{color:var(--ink);text-decoration:none}
+.site nav a.b{border:2px solid var(--sign);border-radius:.45em;padding:.45em .9em;color:var(--sign)}
+.site .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:2.4em;align-items:center;padding:2.4em 2.2em 1.6em}
+.site .hero h1{font:400 3.1em/1.02 var(--slab);margin:0 0 .45em;text-wrap:balance}
+.site .hero p{font-size:1.12em;color:var(--ink-soft);max-width:36ch;margin:0 0 1.2em}
+.site .btn{display:inline-block;background:var(--sign);color:var(--reflect);font-weight:700;padding:.85em 1.3em;border-radius:.5em;text-decoration:none;font-size:1.02em}
+.site .btn.g{background:transparent;color:var(--sign);border:2px solid var(--sign)}
+.site .acts{display:flex;gap:.8em;flex-wrap:wrap}
+.site .trust{display:flex;gap:.6em 1.4em;flex-wrap:wrap;font-size:.85em;color:var(--ink-soft);padding:0 2.2em 1.4em;align-items:center}
+.site .trust b{color:var(--ink);font-weight:700}
+.site .tonight{background:var(--panel);border:1px solid var(--line);border-radius:.9em;padding:1.3em 1.4em;box-shadow:var(--shadow)}
+.site .tonight .lab{font:700 .72em/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--sign);margin-bottom:.8em}
+.site .tonight h2{font:800 1.25em/1.2 var(--sans);margin:0 0 .6em}
+.site .tonight ol{margin:0;padding-left:1.3em;font-size:.95em}
+.site .tonight li{margin-bottom:.5em}
+.site .tonight .fine{font-size:.8em;margin:.8em 0 0;color:var(--ink-soft)}
+.site .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1em;padding:0 2.2em 2em}
+.site .gcard{background:var(--panel);border:1px solid var(--line);border-radius:.8em;padding:1.1em 1.2em}
+.site .gcard .k{font:700 .7em/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.site .gcard h3{font:800 1.05em/1.25 var(--sans);margin:.5em 0 .3em}
+.site .gcard p{font-size:.9em;color:var(--ink-soft);margin:0}
+.site .plate{font-size:1em}
+.site .status{display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap;padding:.55em 2.2em;background:var(--panel-2);border-bottom:1px solid var(--line);font:700 .8em/1.3 var(--sans);color:var(--ink-soft)}
+.site .status b{color:var(--ink)}
+.site .pg{padding:1.6em 2.2em 2em}
+.site .crumb{font-size:.8em;color:var(--ink-soft);margin-bottom:.8em}
+/* phone variant */
+.msite{padding:0 1.1em 1.2em}
+.msite .hdr{padding:.7em 0;border-bottom:1px solid var(--line);margin-bottom:1.1em;background:transparent;justify-content:space-between}
+.msite .lock{font-size:1.2em}
+.msite h1{font:400 2.05em/1.05 var(--slab);margin:.2em 0 .5em;text-wrap:balance}
+.msite p.lede{color:var(--ink-soft);font-size:1em;margin:0 0 1em}
+.msite .btn{display:block;text-align:center;margin-bottom:.6em;padding:.95em 1em}
+.msite .trust{display:block;font-size:.8em;color:var(--ink-soft);margin:.6em 0 1em;line-height:1.5;padding:0}
+.msite .tonight{padding:1.1em}
+.msite .tonight h2{font-size:1.1em}
+.msite .tonight ol{font-size:.95em}
+.msite .plateline{display:flex;align-items:center;gap:.8em;margin-bottom:1em}
+.msite .plateline .plate{font-size:.9em;padding:.5em .7em}
+.msite .plateline span{font-size:.85em;color:var(--ink-soft)}
+.msite .call{display:flex;gap:.6em}
+.msite .call .btn{flex:1;margin:0}
+.msite .steps{background:var(--panel);border:1px solid var(--line);border-radius:.9em;padding:1em 1.1em;margin-top:1em}
+.msite .steps .lab{font:700 .72em/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--sign);margin-bottom:.6em}
+.msite .steps ol{margin:0;padding-left:1.2em;font-size:.95em}
+.msite .steps li{margin-bottom:.45em}
+.msite .fine{font-size:.78em;color:var(--ink-soft)}
+.msite .listing{background:var(--panel);border:1px solid var(--line);border-radius:.9em;padding:1em 1.1em;margin:.8em 0}
+.msite .listing .nm{font-weight:800;font-size:1.05em}
+.msite .listing .mt{font-size:.85em;color:var(--ink-soft);margin:.1em 0 .7em}
+.msite .listing .chips{display:flex;flex-wrap:wrap;gap:.35em;margin-bottom:.8em}
+.msite .listing .chips span{font-size:.75em;font-weight:700;border:1px solid var(--line);border-radius:.4em;padding:.25em .5em;color:var(--ink-soft)}
+.msite .board{margin:.4em 0 1em;font-size:.95em}
+.msite .foot{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:.8em;padding:.7em 1.1em .9em;background:var(--panel);border-top:1px solid var(--line);font-size:.72em;color:var(--ink-soft)}
+.msite .mstat{display:flex;justify-content:space-between;gap:.6em;font:700 .78em/1.3 var(--sans);color:var(--ink-soft);padding:.5em .8em;background:var(--panel-2);border-radius:.5em;margin:0 0 1em}
+.msite .mstat b{color:var(--ink)}
+.dots{display:flex;gap:.3em}
+.dots i{width:1em;height:1em;border-radius:.2em;border:.14em solid var(--sign);display:block}
+.dots i.d{background:var(--sign)}
+.dots i.c{border-color:var(--lamp);box-shadow:inset 0 0 0 .14em var(--lamp)}
+.ans{display:grid;gap:.6em;margin:1em 0}
+.ans .btn{margin:0;font-size:1.1em;padding:1.05em 1em}
+.qnum{font:400 1em/1 var(--slab);color:var(--sign);text-transform:uppercase;margin:.3em 0 .5em}
+.msite h2.q{font:800 1.3em/1.25 var(--sans);margin:0 0 .6em}
+
+/* directory list view */
+.dir{display:grid;grid-template-columns:15.5em 1fr;gap:1.6em;padding:1.2em 2.2em 2em}
+.dir .fil{background:var(--panel);border:1px solid var(--line);border-radius:.8em;padding:1em 1.1em;font-size:.86em}
+.dir .fil h4{font:700 .78em/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:1.1em 0 .6em}
+.dir .fil h4:first-child{margin-top:0}
+.dir .sel{border:2px solid var(--line);border-radius:.45em;padding:.5em .7em;font-weight:700;display:flex;justify-content:space-between;background:var(--ground)}
+.dir .ck{display:flex;align-items:center;gap:.55em;padding:.25em 0}
+.dir .ck .bx{width:1.2em;height:1.2em}
+.dir .ck.on{font-weight:800}
+.dir .res .row{display:grid;grid-template-columns:1fr auto;gap:1em;padding:1em 1.1em;background:var(--panel);border:1px solid var(--line);border-radius:.8em;margin-bottom:.8em}
+.dir .res .nm{font-weight:800;font-size:1.05em}
+.dir .res .mt{font-size:.85em;color:var(--ink-soft);margin:.1em 0 .5em}
+.dir .res .chips{display:flex;flex-wrap:wrap;gap:.35em;margin-bottom:.5em}
+.dir .res .chips span{font-size:.75em;font-weight:700;border:1px solid var(--line);border-radius:.4em;padding:.25em .5em;color:var(--ink-soft)}
+.dir .res .chips span.es{border-color:var(--sign);color:var(--sign)}
+.dir .res .q{font-size:.88em;color:var(--ink-soft);font-style:italic;margin:0}
+.dir .res .q i{font-style:normal}
+.dir .res .side{display:grid;gap:.5em;align-content:start;min-width:9em}
+.dir .res .side .btn{text-align:center;padding:.65em .9em;font-size:.95em}
+.dir .res .cmp{display:flex;align-items:center;gap:.4em;font-size:.78em;color:var(--ink-soft);justify-content:center}
+.dir .res .cmp .bx{width:1.1em;height:1.1em}
+.dir .disc{font-size:.8em;color:var(--ink-soft);margin:.4em 0 0}
+
+/* guide reading page */
+.guide .ghead{display:grid;grid-template-columns:auto 1fr;gap:1.4em;align-items:start;margin-bottom:1em}
+.guide .ghead .plate{font-size:1.4em;text-align:center}
+.guide h1{font:400 2.3em/1.05 var(--slab);margin:0 0 .4em;text-wrap:balance}
+.guide .meta{display:flex;flex-wrap:wrap;gap:.4em 1.2em;font:700 .8em/1.3 var(--sans);color:var(--ink-soft)}
+.guide .short{background:var(--panel);border-left:.5em solid var(--sign);border-radius:0 .6em .6em 0;padding:1em 1.2em;margin:1em 0 1.4em;font-size:1.05em}
+.guide .short b{display:block;font:700 .72em/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--sign);margin-bottom:.5em}
+.guide .grp{font:400 .95em/1 var(--slab);color:var(--sign);text-transform:uppercase;margin:1.2em 0 .5em}
+.guide .led{display:grid;grid-template-columns:2.2em 1fr 15em;gap:.8em;padding:.6em 0;border-top:1px solid var(--line);font-size:.92em;align-items:start}
+.guide .led .n{font:400 1.3em/1 var(--slab);color:var(--sign)}
+.guide .led .cite{display:block;font-size:.82em;color:var(--ink-soft)}
+.guide .led .have{font-size:.88em;color:var(--ink-soft)}
+.guide .led .have b{display:block;font-size:.78em;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.guide .src{margin-top:1.2em;font-size:.82em;color:var(--ink-soft);border-top:2px solid var(--line);padding-top:.8em}
+
+/* consultant profile */
+.ccard{display:grid;gap:1.4em;grid-template-columns:1fr 15em;font-family:var(--sans);background:var(--panel);border:1px solid var(--line);border-radius:1em;padding:1.6em;box-shadow:var(--shadow)}
+.ccard .nm{font:800 1.6em/1.15 var(--sans);margin:0 0 .2em}
+.ccard .mt{color:var(--ink-soft);font-size:.92em;margin:0 0 .8em}
+.ccard .chips{display:flex;flex-wrap:wrap;gap:.4em;margin-bottom:.9em}
+.ccard .chips span{font-size:.8em;font-weight:700;border:1px solid var(--line);border-radius:.4em;padding:.3em .55em;color:var(--ink-soft)}
+.ccard .chips span.es{border:2px solid var(--sign);color:var(--sign);font-size:.85em}
+.ccard dl{display:grid;grid-template-columns:auto 1fr;gap:.4em .9em;margin:0;font-size:.92em}
+.ccard dt{font-weight:700;color:var(--ink-soft)}
+.ccard dd{margin:0}
+.ccard .side{display:grid;gap:.6em;align-content:start}
+.ccard .btn{display:block;text-align:center;padding:.85em 1em}
+.ccard .promise{font-size:.8em;color:var(--ink-soft);line-height:1.45;margin:0}
+.ccard .promise b{color:var(--ink)}
+.ccard .quote{border-left:.3em solid var(--sign);padding:.2em 0 .2em .9em;font-size:.95em;margin:0 0 .9em;font-style:italic;color:var(--ink-soft)}
+.ccard .quote i{font-style:normal}
+.ccard .disc{grid-column:1 / -1;border-top:1px solid var(--line);padding-top:.8em;font-size:.8em;color:var(--ink-soft);margin:0}
+
+/* ---------- social: 1:1 cards (fixed colors; these are exported images) ---------- */
+.social{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.sq{container-type:inline-size;aspect-ratio:1/1;border-radius:4px;overflow:hidden;position:relative;font-family:var(--sans);box-shadow:var(--shadow)}
+.sq .in{position:absolute;inset:0;padding:6.5cqw;display:flex;flex-direction:column;font-size:3.9cqw;line-height:1.35}
+.sq .top{display:flex;justify-content:space-between;align-items:flex-start;gap:1em}
+.sq.green{background:#0d5c3c;color:#fff}
+.sq.green .in{box-shadow:inset 0 0 0 2cqw #0d5c3c, inset 0 0 0 3.1cqw #fff}
+.sq.cream{background:#f3ead6;color:#1e1913}
+.sq.cream .in{box-shadow:inset 0 0 0 2cqw #f3ead6, inset 0 0 0 3.1cqw #0d5c3c}
+.sq .k{font:700 .7em/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.sq.cream .k{color:#0d5c3c;opacity:1}
+.sq .big{font:400 1.75em/1.05 var(--slab);margin:.3em 0 .4em;text-wrap:balance}
+.sq .mid{font:400 1.45em/1.1 var(--slab);margin:.3em 0 .4em;text-wrap:balance}
+.sq .huge{font:400 2.5em/1 var(--slab);margin:.2em 0 .3em;text-wrap:balance}
+.sq p{margin:0 0 .6em;font-size:1em}
+.sq .foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:1em;font-size:.82em;line-height:1.3}
+.sq .foot .url{font:400 1.25em/1 var(--slab)}
+.sq.cream .foot .url{color:#0d5c3c}
+.sq .foot svg{width:3.4em;height:3.4em;flex:none}
+.sq .fake{display:grid;grid-template-columns:1fr 1fr;gap:.8em;font-size:.86em;margin:.2em 0 .6em}
+.sq .fake div{padding:.6em .7em;border-radius:.4em;background:rgba(255,255,255,.55)}
+.sq .fake .f{border:2px solid #8f3a2b}
+.sq .fake .r{border:2px solid #0d5c3c}
+.sq .fake b{display:block;font-size:.8em;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3em}
+.sq .fake .f b{color:#8f3a2b}.sq .fake .r b{color:#0d5c3c}
+.sq .fake ul{margin:0;padding-left:1em;font-size:.95em}
+.sq .fake li{margin:0 0 .15em}
+.sq .sign{width:11cqw;height:11cqw;flex:none}
+.sq .tiny{font-size:.7em;opacity:.8}
+.sq .inplate{display:inline-block;background:#0d5c3c;color:#fff;border-radius:.5em;padding:.5em .8em;box-shadow:inset 0 0 0 .14em #0d5c3c, inset 0 0 0 .3em #fff;font:400 1.1em/1 var(--slab);text-transform:uppercase;margin:.2em 0 .6em;align-self:flex-start}
+.sq.green .inplate{background:#fff;color:#0d5c3c;box-shadow:inset 0 0 0 .14em #fff, inset 0 0 0 .3em #0d5c3c}
+.sq .rows{margin:.3em 0 .5em;font-size:.95em}
+.sq .rows div{display:grid;grid-template-columns:auto 1fr;gap:.7em;padding:.4em 0;border-top:1px solid rgba(255,255,255,.35)}
+.sq.cream .rows div{border-color:rgba(13,92,60,.3)}
+.sq .rows b{font:400 1.05em/1.3 var(--slab)}
+.soccap{font-size:14px;color:var(--ink-soft);margin-top:10px}
+/* story 9:16 */
+.story{container-type:inline-size;width:min(300px,100%);aspect-ratio:9/16;border-radius:16px;overflow:hidden;position:relative;background:#0d5c3c;color:#fff;font-family:var(--sans);box-shadow:var(--shadow);margin-inline:auto}
+.story .in{position:absolute;inset:0;padding:8cqw 7cqw;display:flex;flex-direction:column;font-size:4.6cqw;line-height:1.35;box-shadow:inset 0 0 0 2.2cqw #0d5c3c, inset 0 0 0 3.4cqw #fff}
+.story .top{display:flex;justify-content:space-between;align-items:center;font-size:.8em;font-weight:700}
+.story .top svg{width:2.6em;height:2.6em}
+.story .inplate{display:inline-block;background:#fff;color:#0d5c3c;border-radius:.5em;padding:.5em .8em;box-shadow:inset 0 0 0 .14em #fff, inset 0 0 0 .3em #0d5c3c;font:400 1.1em/1 var(--slab);text-transform:uppercase;margin:1.4em 0 .8em;align-self:flex-start}
+.story .big{font:400 2em/1.05 var(--slab);text-wrap:balance;margin:0 0 .6em}
+.story .rows div{display:grid;grid-template-columns:auto 1fr;gap:.7em;padding:.5em 0;border-top:1px solid rgba(255,255,255,.35);font-size:.95em}
+.story .rows b{font:400 1.1em/1.3 var(--slab);white-space:nowrap}
+.story .swipe{margin-top:auto;text-align:center;font-weight:700;font-size:.9em}
+.story .swipe .ch{display:block;font-size:1.6em;line-height:1}
+.story .tiny{font-size:.68em;opacity:.85;text-align:center;margin:.6em 0 0}
+/* facebook cover 820x312 */
+.cover{container-type:inline-size;width:100%;aspect-ratio:820/312;background:#f3ead6;color:#1e1913;position:relative;overflow:hidden;border-radius:6px;box-shadow:var(--shadow);font-family:var(--sans)}
+.cover .in{position:absolute;inset:0;display:grid;grid-template-columns:auto 1fr;gap:4cqw;align-items:center;padding:3.6cqw 4.4cqw;font-size:1.9cqw;box-shadow:inset 0 0 0 .8cqw #f3ead6, inset 0 0 0 1.3cqw #0d5c3c}
+.cover .in svg{height:16cqw;width:auto}
+.cover .big{font:400 2.4em/1.02 var(--slab);text-wrap:balance;margin:0 0 .4em}
+.cover .line{font-weight:700;font-size:1em;color:#5c5347}
+.cover .line b{color:#1e1913}
+.cover .ava{position:absolute;left:4.4cqw;bottom:-2cqw;width:16cqw;height:16cqw;border:.3cqw dashed #8f3a2b;border-radius:50%;display:grid;place-items:center;font:700 1.4cqw/1.2 var(--sans);color:#8f3a2b;text-align:center;background:rgba(243,234,214,.7)}
+.avarow{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.avabox{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:12px;border:1px solid var(--line)}
+.avabox.cream{background:#f3ead6;color:#1e1913}
+.avabox.dark{background:#131614;color:#efe8d8}
+.avabox .c40{width:40px;height:40px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:#0d5c3c}
+.avabox .c40 svg{width:46px;height:46px}
+.avabox .s40{width:40px;height:40px;border-radius:9px;overflow:hidden}
+.avabox .s40 svg{width:40px;height:40px;display:block}
+.avabox .fb{display:grid;gap:4px;font-size:13px}
+.avabox .fb b{font-size:14px}
+.avabox .fb span{opacity:.75}
+/* post grammar */
+.grammar{display:grid;gap:22px;grid-template-columns:1fr}
+@media (min-width:900px){.grammar{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}}
+.grammar .anat{container-type:inline-size;aspect-ratio:1/1;background:#f3ead6;color:#1e1913;position:relative;border-radius:4px;box-shadow:var(--shadow);font-family:var(--sans);overflow:hidden}
+.grammar .anat .in{position:absolute;inset:0;padding:6.5cqw;font-size:3.9cqw;display:flex;flex-direction:column;box-shadow:inset 0 0 0 2cqw #f3ead6, inset 0 0 0 3.1cqw #0d5c3c}
+.grammar .z{border:.4cqw dashed #8f3a2b;border-radius:.4em;padding:.4em .6em;position:relative;margin-bottom:.9em}
+.grammar .z::before{content:attr(data-n);position:absolute;top:-.9em;left:.6em;background:#8f3a2b;color:#fff;font:800 .62em/1 var(--sans);padding:.35em .5em;border-radius:.3em;letter-spacing:.08em}
+.grammar .z .inplate{margin:0}
+.grammar .z .big{font:400 1.7em/1.05 var(--slab)}
+.grammar .z p{margin:0}
+.grammar .z.foot{margin-top:auto;margin-bottom:0;display:flex;justify-content:space-between;align-items:flex-end;gap:1em;font-size:.82em}
+.grammar .z.foot .url{font:400 1.25em/1 var(--slab);color:#0d5c3c}
+.grammar ol.rules{counter-reset:g;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.grammar ol.rules li{display:block;position:relative;padding:12px 14px 12px 58px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:15px;counter-increment:g;margin:0}
+.grammar ol.rules li::before{content:counter(g);position:absolute;left:14px;top:12px;display:grid;place-items:center;width:30px;height:30px;border-radius:7px;background:#8f3a2b;color:#fff;font:800 14px/1 var(--sans)}
+.grammar ol.rules b{display:block}
+/* carousel */
+.caro{display:grid;gap:16px;grid-template-columns:1fr}
+@media (min-width:760px){.caro{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}}
+.caro .thumbs{display:grid;gap:12px;grid-template-columns:repeat(3,1fr)}
+@media (min-width:760px){.caro .thumbs{grid-template-columns:1fr;align-content:start}}
+.caro .sq .in{padding:6cqw}
+.caro .thumbs .sq .in{font-size:4.4cqw}
+.caro .thumbs .big{font-size:1.5em}
+.caro .tell{font:400 .9em/1 var(--slab);color:#8f3a2b;text-transform:uppercase;letter-spacing:.04em}
+.sq.green .tell{color:#fff;opacity:.85}
+
+/* ---------- touchpoint table ---------- */
+.tp{width:100%;border-collapse:collapse;font-size:15px}
+.tp th{text-align:left;font:700 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:0 10px 10px 0;border-bottom:2px solid var(--line)}
+.tp td{vertical-align:top;padding:12px 12px 12px 0;border-bottom:1px solid var(--line)}
+.tp td.where{font-weight:700}
+.tp td.where small{display:block;font-weight:400;color:var(--ink-soft)}
+.tp td.say{font-style:italic}
+.tier{display:inline-block;white-space:nowrap;font:700 12px/1 var(--sans);letter-spacing:.06em;padding:5px 8px;border-radius:5px;border:1px solid var(--line);color:var(--ink-soft)}
+.tier.t0{background:var(--sign);color:var(--reflect);border-color:var(--sign)}
+.tier.t1{border-color:var(--sign);color:var(--sign)}
+.tier.t3{background:var(--lamp);color:#1e1913;border-color:var(--lamp)}
+.lg{display:inline-block;font:800 11px/1 var(--sans);letter-spacing:.08em;padding:4px 6px;border-radius:4px;border:1px solid var(--line);color:var(--ink-soft);white-space:nowrap}
+.tp tr.star td{background:color-mix(in srgb, var(--sign) 8%, transparent)}
+@media (max-width:760px){
+  .tp thead{display:none}
+  .tp, .tp tbody, .tp tr, .tp td{display:block;width:100%}
+  .tp tr{border-bottom:2px solid var(--line);padding:12px 0}
+  .tp td{border:0;padding:4px 0}
+  .tp td::before{content:attr(data-l);display:block;font:700 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px}
+  .tp td.where::before{display:none}
+}
+.obj{display:grid;gap:18px;grid-template-columns:1fr;margin:24px 0 32px}
+@media (min-width:880px){.obj{grid-template-columns:1fr 1fr}}
+.obj figure{margin:0;padding:18px;border-radius:16px;background:var(--panel);border:1px solid var(--line)}
+.obj figure.wide{grid-column:1 / -1}
+.obj svg{width:100%;height:auto;display:block;border-radius:8px}
+.obj figcaption{font-size:14px;color:var(--ink-soft);margin-top:10px}
+.obj figcaption b{color:var(--ink)}
+
+/* ---------- checklist, note ---------- */
+.check{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.check li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:15px}
+.check li .ok{display:grid;place-items:center;width:30px;height:30px;border-radius:7px;background:var(--sign);color:var(--reflect);font-weight:800}
+.check li b{display:block}
+.note{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow)}
+.note ol{padding-left:1.2em}
+.note li{margin-bottom:.8em}
+footer.colophon{padding:40px 0 60px;font-size:14px;color:var(--ink-soft)}
+</style>
+<style id="fv-bar-css">
+/* Fenwick and Vale top bar. The page below it is the work and keeps its own look. */
+@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url(/assets/fonts/schibsted-grotesk-latin-var.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-400.woff2) format("woff2")}
+#fv-bar,#fv-bar *{box-sizing:border-box;margin:0;letter-spacing:0;text-transform:none;border-radius:0;box-shadow:none}
+#fv-bar{position:relative;z-index:10001;background:#F5F1E8;color:#16140F;border-bottom:1px solid #CFC8B8;font:400 15px/1.5 "Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}
+#fv-bar .fv-in{max-width:1120px;margin:0 auto;padding:0 32px;min-height:48px;display:flex;align-items:center;flex-wrap:wrap;column-gap:24px;row-gap:0}
+#fv-bar .fv-brand{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;color:#16140F;text-decoration:none;padding:10px 0;min-height:44px;margin-right:auto;white-space:nowrap}
+#fv-bar .fv-brand svg{width:20px;height:20px;flex:none;color:#16140F}
+#fv-bar .fv-brand .fv-sec{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:400;font-size:14px;color:#5C574D}
+#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;display:flex;flex-wrap:wrap;column-gap:20px;font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:14px}
+#fv-bar nav a{color:#16140F;text-decoration:none;display:inline-block;padding:12px 0;min-height:44px;line-height:20px;position:relative;white-space:nowrap;background:none;border:0}
+#fv-bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#C53B00;transform:scaleX(0);transform-origin:0 50%;transition:transform 150ms ease-out}
+#fv-bar nav a:hover::after,#fv-bar nav a:focus-visible::after{transform:scaleX(1)}
+#fv-bar nav a:hover{background:none;color:#16140F}
+#fv-bar a:focus-visible{outline:2px solid #C53B00;outline-offset:3px}
+#fv-bar nav .fv-dim{color:#5C574D}
+@media (max-width:720px){#fv-bar .fv-in{padding:0 16px;column-gap:16px}#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;flex-basis:100%;column-gap:16px}#fv-bar nav a{padding:8px 0;min-height:40px;line-height:20px}#fv-bar nav a::after{bottom:6px}}
+@media (prefers-reduced-motion:reduce){#fv-bar nav a::after{transition:none}}
+</style>
+</head>
+<body>
+<div id="fv-bar"><div class="fv-in"><a class="fv-brand" href="/"><svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span><span class="fv-sec">· Work</span></a><nav aria-label="Work"><a href="/work">&larr; All work</a><a href="/work/fleetcleared-dispatcher" title="FleetCleared · The Dispatcher"><span class="fv-dim">Previous:</span> The Dispatcher</a><a href="/work/fleetcleared-swiss" title="FleetCleared · The Swiss"><span class="fv-dim">Next:</span> The Swiss</a></nav></div></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mk" viewBox="0 0 88 88"><rect x="2" y="2" width="84" height="84" rx="12" fill="var(--sign)"/><rect x="9" y="9" width="70" height="70" rx="7" fill="none" stroke="#fff" stroke-width="4"/><g transform="translate(44 44) rotate(-45)"><rect x="-26" y="-6" width="34" height="12" rx="2" fill="#fff"/><polygon points="4,-20 30,0 4,20" fill="#fff"/></g></symbol>
+  <symbol id="mkf" viewBox="0 0 88 88"><rect x="2" y="2" width="84" height="84" rx="12" fill="#0d5c3c"/><rect x="9" y="9" width="70" height="70" rx="7" fill="none" stroke="#fff" stroke-width="4"/><g transform="translate(44 44) rotate(-45)"><rect x="-26" y="-6" width="34" height="12" rx="2" fill="#fff"/><polygon points="4,-20 30,0 4,20" fill="#fff"/></g></symbol>
+  <symbol id="wm" viewBox="0 0 320 160"><rect x="4" y="4" width="312" height="152" rx="16" fill="var(--sign)"/><rect x="14" y="14" width="292" height="132" rx="10" fill="none" stroke="#fff" stroke-width="5"/><text x="30" y="72" font-family="'Alfa Slab One','Rockwell Extra Bold',serif" font-size="46" fill="#fff">FLEET</text><text x="30" y="126" font-family="'Alfa Slab One','Rockwell Extra Bold',serif" font-size="46" fill="#fff">CLEARED</text><g transform="translate(248 66) rotate(-45)"><rect x="-30" y="-6" width="40" height="12" rx="2" fill="#fff"/><polygon points="6,-22 34,0 6,22" fill="#fff"/></g></symbol>
+  <symbol id="wmf" viewBox="0 0 320 160"><rect x="4" y="4" width="312" height="152" rx="16" fill="#0d5c3c"/><rect x="14" y="14" width="292" height="132" rx="10" fill="none" stroke="#fff" stroke-width="5"/><text x="30" y="72" font-family="'Alfa Slab One','Rockwell Extra Bold',serif" font-size="46" fill="#fff">FLEET</text><text x="30" y="126" font-family="'Alfa Slab One','Rockwell Extra Bold',serif" font-size="46" fill="#fff">CLEARED</text><g transform="translate(248 66) rotate(-45)"><rect x="-30" y="-6" width="40" height="12" rx="2" fill="#fff"/><polygon points="6,-22 34,0 6,22" fill="#fff"/></g></symbol>
+  <symbol id="arw" viewBox="0 0 60 60"><g transform="translate(30 30) rotate(-45)"><rect x="-22" y="-5" width="30" height="10" rx="2" fill="currentColor"/><polygon points="4,-17 26,0 4,17" fill="currentColor"/></g></symbol>
+  <symbol id="ck" viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></g></symbol>
+  <symbol id="moon" viewBox="0 0 24 24"><path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z" fill="currentColor"/></symbol>
+</svg>
+
+<!-- ===================== MASTHEAD ===================== -->
+<header class="wrap masthead">
+  <div class="kicker">FleetCleared redesign · round 2 · The Signpainter · Oct 2026</div>
+  <div class="row">
+    <svg width="300" height="150" viewBox="0 0 320 160" role="img" aria-label="FleetCleared sign mark: green plate, white slab letters, arrow pointing up and to the right" style="max-width:100%;height:auto"><use href="#wm"/></svg>
+    <div>
+      <h1>This way. Now the whole road.</h1>
+      <p class="lede">Round 1 was a sign. Round 2 is the sign used for two years: six posts, a story, a cover, a carousel and the grammar that keeps them identical, then the same plate carried into the deep screens of the site, in English and in Spanish, with the switch that moves between them sitting next to day and night as one small object.</p>
+      <div class="live">
+        <div class="cl big" role="group" aria-label="Language and theme for this page"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+        <span>Live. Day/night re-themes this page and every mockup on it; EN/ES flips the desktop homepage mock and the mock clusters follow. Spanish copy on this page is written for the reader, not translated.</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ===================== 0. WHAT CHANGED ===================== -->
+<section class="part" id="changed" style="border-top:0;padding-top:24px">
+  <div class="cols">
+    <div class="enamel" style="padding:22px">
+      <h3 style="margin-bottom:12px">Borrowed, and from whom</h3>
+      <ul class="kv">
+        <li><b>The Dispatcher</b><span>The row. Status, number, date, done or not done, and nothing that persuades. I did not take the charcoal or the orange band. I took the discipline: every site screen here has a status strip under the header ("6 of 10 · nothing saved or sent") and a ruled board of rows with a square at the left. In my language the board is the price board a sign painter hangs under the sign: the plate says where, the board says what's done.</span></li>
+        <li><b>The Bilingual</b><span>Three things. The language switch as a brand object at the mark, not a setting in the footer. Spanish written as its own copy, shorter than the English, never a translation stacked underneath. And the "Se habla español" chip that only a consultant's own statement earns, never a flag. I did not take the paired two-line headline; one language at a time keeps the plate a plate.</span></li>
+        <li><b>The founder</b><span>"Sign painter more in the social media design." So social comes first on this page and is the system the site follows, not the other way round.</span></li>
+      </ul>
+    </div>
+    <div class="enamel" style="padding:22px">
+      <h3 style="margin-bottom:12px">Changed from round 1</h3>
+      <ul class="kv">
+        <li><b>Order</b><span>Social system before the website. The post grammar box is new; it is the thing that keeps post 200 looking like post 1.</span></li>
+        <li><b>The cluster</b><span>EN | ES and day/night in one pill, top right of every screen, 32 px on desktop, under 40 px on the phone, repeated in the phone footer where the thumb is.</span></li>
+        <li><b>Depth</b><span>Directory list with filters for Tasha, the 16-rule guide page, the audit check at question 6 and its result, the consultant profile as a full screen with the Spanish chip, the homepage phone in both languages.</span></li>
+        <li><b>Cut</b><span>"Send us a photo of the letter" from the fake-letter card. It promised a service the live site does not offer. Replaced with advice the reader can act on alone.</span></li>
+        <li><b>The object</b><span>The plate is now drawn front, back and in situ, in two builds: the reflective tailgate magnet and the double-sided lounge board.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 1. CONCEPT AND VOICE ===================== -->
+<section class="part" id="concept">
+  <div class="partno"><span class="n">1</span><span class="t">Concept and voice</span></div>
+  <div class="cols c32">
+    <div class="prose">
+      <h2>The sign a driver already knows how to read</h2>
+      <p>A trucker knows one sign better than his own signature: the green plate with white letters and an arrow. He reads a hundred of them a shift without deciding to. FleetCleared cannot borrow the government's authority, and should not want to. It can borrow that reflex. So this is the version a sign painter at a Texas truck stop would make of a guide sign: slab letters no highway department has ever used, on the green every driver's eye already tracks, with one arrow. It hangs at the pump, on the lounge wall, on the back of the founder's pickup. The phone at 11 p.m. shows the same plate in the same proportion, and at night the ground goes dark while the sign stays green, because that is what a reflective sign does.</p>
+      <p>Round 2 adds the thing under the sign. Every painted sign in a truck stop has a board beneath it: the diner's prices, the shower list, the scale's hours. Ruled rows, a number, a check. That board is how this concept learned the Dispatcher's lesson. The plate is allowed to be warm. The board is not allowed to be anything but true: what's done, what isn't, what date, how many of ten.</p>
+      <p>The voice is short lines a tired man can read from the cab. "Got a DOT letter? Start here." "No robocalls, ever." "7 of 10 yes." In Spanish it is the same person speaking, not a translator: "¿Te llegó carta del DOT? Empieza aquí." "Sin robollamadas, nunca." Warm, never cute. No cartoon truck, no mascot, no flag. The reader drives for a living, and we remember his order without making a thing of it.</p>
+    </div>
+    <div>
+      <div class="enamel" style="padding:22px">
+        <h3 style="margin-bottom:12px">Kept from today's brand</h3>
+        <ul class="kv">
+          <li><b>Deep green</b><span>Moved three shades toward guide-sign green (#0f4c3a → #0d5c3c). Same family, now a color a driver has a memory for.</span></li>
+          <li><b>Fleet / Cleared</b><span>Two-tone wordmark: "Fleet" in ink, "Cleared" in green.</span></li>
+          <li><b>The standing lines</b><span>"No robocalls, ever." "Sources on every page." "Not affiliated with the FMCSA or the U.S. Department of Transportation." "Need to inspect our claims?" Kept word for word, plus the Spanish line already in use: "Sin robollamadas, nunca."</span></li>
+          <li><b>Light and dark</b><span>Kept as day and night, now a switch the reader can reach, beside the language.</span></li>
+        </ul>
+        <h3 style="margin:22px 0 12px">Replaced, and why</h3>
+        <ul class="kv">
+          <li><b>Gradient shield</b><span>Retired. Shields drift toward badges; gradients die in vinyl. The plate prints in two colors and cannot be mistaken for law enforcement.</span></li>
+          <li><b>Off-white #f4f6f4</b><span>Enamel cream #f3ead6: a painted board, not a dashboard.</span></li>
+          <li><b>Archivo / Source Sans</b><span>Alfa Slab One for the painted words; Overpass, a Google face derived from Highway Gothic, for everything a person reads.</span></li>
+          <li><b>"Plain answers before a bad inspection finds you."</b><span>"Got a DOT letter? Start here." The old line leads with the inspection and quietly threatens. The new one meets Marcus with the letter in his hand.</span></li>
+          <li><b>Tilted guide-card on social</b><span>The plate, on a fixed grid, with a written grammar. One asset instead of a layout trick.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2. LOGO AND BRAND SYSTEM ===================== -->
+<section class="part" id="brand">
+  <div class="partno"><span class="n">2</span><span class="t">Logo and brand system</span></div>
+  <h2 style="margin-bottom:8px">One plate, one arrow, four words, one switch</h2>
+  <p class="prose" style="margin-bottom:26px">Unchanged from round 1 except for the addition at the end: the controls cluster, which is furniture, not an asset, but it is drawn in the plate's own grammar so it never reads as a foreign widget. All marks are inline SVG.</p>
+
+  <div class="logos">
+    <div class="cell cream">
+      <svg width="320" height="160" viewBox="0 0 320 160" role="img" aria-label="Primary mark on cream"><use href="#wmf"/></svg>
+      <span class="cap">Primary mark. Day ground.</span>
+    </div>
+    <div class="cell dark">
+      <svg width="320" height="160" viewBox="0 0 320 160" role="img" aria-label="Primary mark on night ground"><rect x="4" y="4" width="312" height="152" rx="16" fill="#0f6a45"/><rect x="14" y="14" width="292" height="132" rx="10" fill="none" stroke="#fff" stroke-width="5"/><text x="30" y="72" font-family="'Alfa Slab One',serif" font-size="46" fill="#fff">FLEET</text><text x="30" y="126" font-family="'Alfa Slab One',serif" font-size="46" fill="#fff">CLEARED</text><g transform="translate(248 66) rotate(-45)"><rect x="-30" y="-6" width="40" height="12" rx="2" fill="#fff"/><polygon points="6,-22 34,0 6,22" fill="#fff"/></g></svg>
+      <span class="cap">Night ground. The plate is unchanged; only the ground went dark.</span>
+    </div>
+    <div class="cell cream">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <svg width="88" height="88" viewBox="0 0 88 88" role="img" aria-label="Small mark: plate with arrow"><use href="#mkf"/></svg>
+        <svg width="44" height="44" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg>
+        <svg width="24" height="24" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg>
+        <span style="font:400 30px/1 var(--slab);color:#1e1913;letter-spacing:-.01em">Fleet<span style="color:#0d5c3c">Cleared</span></span>
+      </div>
+      <span class="cap">Small mark at 88, 44 and 24 px, and the horizontal lockup for the site header.</span>
+    </div>
+    <div class="cell cream">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div class="cl" style="--sign:#0d5c3c;--panel:#fbf6ea" role="img" aria-label="Controls cluster, day, English"><button type="button" tabindex="-1" class="on">EN</button><button type="button" tabindex="-1">ES</button><span class="dv"></span><button type="button" tabindex="-1" class="on" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" tabindex="-1" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+        <div class="cl" style="--sign:#0d5c3c;--panel:#fbf6ea" role="img" aria-label="Controls cluster, night, Spanish"><button type="button" tabindex="-1">EN</button><button type="button" tabindex="-1" class="on">ES</button><span class="dv"></span><button type="button" tabindex="-1" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" tabindex="-1" class="on" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+      </div>
+      <span class="cap">The controls cluster: one pill, green rule like the plate's inner rule, the active state filled green with white letters. 32 px tall on desktop, 36 px max; under 40 px on phones. Language left, theme right, always this order. These two are static drawings of the two states; the ones in the masthead and the mockups are live.</span>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:36px">
+    <div>
+      <h3 style="margin-bottom:14px">Color tokens (day / night)</h3>
+      <div class="swatches">
+        <div class="sw"><div class="chip" style="background:#0d5c3c"></div><div class="meta"><b>Sign green</b><code>--sign #0d5c3c / #0f6a45</code>Plates, buttons, links, the switch's filled state.</div></div>
+        <div class="sw"><div class="chip" style="background:#fff;border-bottom:1px solid #ddd"></div><div class="meta"><b>Reflective white</b><code>--reflect #fff / #fff</code>Letters and rule on the plate. Never tinted.</div></div>
+        <div class="sw"><div class="chip" style="background:#f3ead6"></div><div class="meta"><b>Enamel cream</b><code>--ground #f3ead6 / #131614</code>Page ground. Asphalt at night.</div></div>
+        <div class="sw"><div class="chip" style="background:#fbf6ea;border-bottom:1px solid #ddd"></div><div class="meta"><b>Panel</b><code>--panel #fbf6ea / #1b201d</code>Cards, boards, listings.</div></div>
+        <div class="sw"><div class="chip" style="background:#f1e8d3"></div><div class="meta"><b>Ruled row</b><code>--panel-2 #f1e8d3 / #222824</code>Status strips and inputs. New this round.</div></div>
+        <div class="sw"><div class="chip" style="background:#1e1913"></div><div class="meta"><b>Charcoal ink</b><code>--ink #1e1913 / #efe8d8</code>Body text.</div></div>
+        <div class="sw"><div class="chip" style="background:#e2a230"></div><div class="meta"><b>Lamp amber</b><code>--lamp #e2a230 / #f0b64a</code>The "concept" tag and the current question marker. Never a background, never a warning.</div></div>
+        <div class="sw"><div class="chip" style="background:#8f3a2b"></div><div class="meta"><b>Rust</b><code>--rust #8f3a2b / #e08f7d</code>The fake-letter column and "not yet" states only. Never on our own promises.</div></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:14px">Type pairing (Google Fonts)</h3>
+      <div class="enamel" style="padding:18px 20px;margin-bottom:14px">
+        <div style="font:700 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px">Alfa Slab One · the painted words</div>
+        <div style="font:400 38px/1.05 var(--slab);text-wrap:balance">7 of 10 yes.</div>
+        <p class="fine" style="margin:10px 0 0">Wordmark, plate lettering, headlines, the number on a board. One weight, never italic, never below 22 px on the page. Numerals, never spelled out.</p>
+      </div>
+      <div class="enamel" style="padding:18px 20px">
+        <div style="font:700 12px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px">Overpass · everything a person reads</div>
+        <div style="font:800 22px/1.25 var(--sans)">Send FMCSA a corrective action plan within 15 days of the notice.</div>
+        <p style="font:400 17px/1.5 var(--sans);margin:8px 0 0">Red Hat's open adaptation of the FHWA Highway Gothic alphabet. Reads at arm's length in a dim cab. Body 17 px, minimum 15 px on phones. Handles ñ, ¿ and ¡ at every weight, which matters more than it sounds.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:36px 0 14px">The distinctive-asset set (used identically everywhere)</h3>
+  <div class="assets">
+    <div class="asset"><div class="num">1</div><h4>The green plate</h4><p>Rounded rectangle, sign green, white inner rule set in from the edge. 2:1 or square. Web, print, vinyl, tailgate.</p></div>
+    <div class="asset"><div class="num">2</div><h4>The arrow</h4><p>White, up-and-to-the-right, blunt shaft, 45 degrees. "This way." It never points anywhere else.</p></div>
+    <div class="asset"><div class="num">3</div><h4>Slab capitals in white</h4><p>FLEET / CLEARED stacked in Alfa Slab One. A face no highway department uses, which keeps the plate a business sign and not infrastructure.</p></div>
+    <div class="asset"><div class="num">4</div><h4>"No robocalls, ever."</h4><p>Four words, same punctuation, on every carrier surface. In Spanish: "Sin robollamadas, nunca." Same position, same size.</p></div>
+    <div class="asset"><div class="num">+</div><h4>Cream ground, ruled board</h4><p>Supporting: the warm board the plate hangs on, and the ruled rows under it where status lives. The board is the part that is never allowed to sell.</p></div>
+  </div>
+</section>
+
+<!-- ===================== 3. THE SOCIAL SYSTEM ===================== -->
+<section class="part" id="social">
+  <div class="partno"><span class="n">3</span><span class="t">The social system · the centerpiece</span></div>
+  <h2 style="margin-bottom:8px">Six posts, one plate, one grammar</h2>
+  <p class="prose" style="margin-bottom:22px">Square, for Facebook trucking groups (English and Spanish), Instagram, and WhatsApp forwards. Content that travels is useful and mildly alarming, not a brand announcement. Every card is built on the same grid, which the grammar box below spells out. Colors on these cards are fixed, because they are exported images and must look the same in anyone's feed, day or night.</p>
+
+  <div class="social">
+    <!-- 1. guide fact -->
+    <div class="sq green" role="img" aria-label="Social card: 16 things fail a new-entrant audit on their own">
+      <div class="in">
+        <div class="top"><div class="k">From the guides</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+        <div class="big">16 things fail a new-entrant audit on their own.</div>
+        <p>The most common by far: no random drug and alcohol testing program.</p>
+        <p class="tiny">Most carriers who fail are disorganized, not unsafe. The fix is paperwork.</p>
+        <div class="foot">
+          <div><div class="url">fleetcleared.com</div><div>All 16 in plain words. Need to inspect our claims? Sources on every page.</div></div>
+          <div style="text-align:right;font-weight:700">No robocalls, ever.<br><span class="tiny">Not affiliated with FMCSA or U.S. DOT</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. spot the fake letter -->
+    <div class="sq cream" role="img" aria-label="Social card: how to spot a fake FMCSA letter">
+      <div class="in">
+        <div class="k">Spot the fake letter</div>
+        <div class="mid">New USDOT number? Watch your mailbox.</div>
+        <div class="fake">
+          <div class="f"><b>The junk</b><ul><li>"Past due," "final," a dollar figure per day</li><li>Eagle or seal, red and black</li><li>Wants a card number by phone</li></ul></div>
+          <div class="r"><b>The real thing</b><ul><li>The MCS-150 update is free at fmcsa.dot.gov</li><li>FMCSA doesn't bill you to keep a USDOT number</li><li>No one official takes a card over the phone</li></ul></div>
+        </div>
+        <div class="foot">
+          <div><div class="url">fleetcleared.com</div><div>Not sure? Check the sender at fmcsa.dot.gov before you pay anyone. <b>No robocalls, ever.</b></div></div>
+          <svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. consultant recruiting -->
+    <div class="sq green" role="img" aria-label="Social card: consultant recruiting">
+      <div class="in">
+        <div class="top"><div class="k">For DOT compliance consultants · Texas</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+        <div class="big">The carrier picks one name. That name gets the call.</div>
+        <p>List free. Pay only when a carrier picks you, by fleet size. Nothing shared, nothing resold.</p>
+        <p class="tiny">Texas first: Laredo, Houston, DFW, San Antonio, the Permian. Solos and bilingual shops welcome.</p>
+        <div class="foot">
+          <div><div class="url">fleetcleared.com</div><div>/for-consultants. Need to inspect our claims? The terms are one page.</div></div>
+          <div style="text-align:right;font-weight:700">No robocalls, ever.<br><span class="tiny">Not affiliated with FMCSA or U.S. DOT</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. the Spanish card -->
+    <div class="sq green" role="img" aria-label="Tarjeta en español: 16 cosas reprueban solas la auditoría" lang="es">
+      <div class="in">
+        <div class="top"><div class="k">De las guías</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+        <div class="big">16 cosas reprueban solas la auditoría de nuevo transportista.</div>
+        <p>La más común, por mucho: no tener programa de pruebas aleatorias de drogas y alcohol.</p>
+        <p class="tiny">La mayoría de los que reprueban están desorganizados, no son peligrosos. Se arregla con papeles.</p>
+        <div class="foot">
+          <div><div class="url">fleetcleared.com</div><div>Las 16 en palabras claras. ¿Quieres revisar lo que decimos? Fuentes en cada página.</div></div>
+          <div style="text-align:right;font-weight:700">Sin robollamadas, nunca.<br><span class="tiny">No afiliados a la FMCSA ni al USDOT</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. brand card -->
+    <div class="sq cream" role="img" aria-label="Brand card: No robocalls, ever">
+      <div class="in">
+        <div class="top"><div class="k">Who we are</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+        <div class="inplate">No robocalls,<br>ever.</div>
+        <p>The day you got a USDOT number, your phone number went public and the sellers started calling.</p>
+        <p>We don't call you. We don't sell your number. Free guides, two free checks, nothing to sign up for.</p>
+        <div class="foot">
+          <div><div class="url">fleetcleared.com</div><div>A directory, not an agency. Sources on every page.</div></div>
+          <div style="text-align:right;font-weight:700;color:#5c5347"><span class="tiny">Not affiliated with the FMCSA or the U.S. Department of Transportation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Roadcheck week -->
+    <div class="sq green" role="img" aria-label="Social card: Roadcheck week in May">
+      <div class="in">
+        <div class="top"><div class="k">Roadcheck week · May</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+        <div class="big">72 hours of inspections. The list is the same every year.</div>
+        <div class="rows">
+          <div><b>Truck</b><span>Brakes, tires, lights, load securement</span></div>
+          <div><b>Driver</b><span>CDL, medical card, hours of service, seat belt</span></div>
+          <div><b>Paper</b><span>Registration, insurance, inspection report</span></div>
+        </div>
+        <div class="foot">
+          <div><div class="url">fleetcleared.com</div><div>What they check, in plain words, with CVSA's own page linked.</div></div>
+          <div style="text-align:right;font-weight:700">No robocalls, ever.<br><span class="tiny">Not affiliated with FMCSA or U.S. DOT</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="soccap">Card 2 quotes scam vocabulary only inside quotation marks, in the "junk" column, so the reader learns the tell without our design ever wearing it. Card 3 is consultant-facing; business-model words are allowed there and nowhere a carrier reads. Card 4 is not a translation of card 1: shorter sentences, the same facts, the same grid; until Spanish guide pages exist it links to the English guide, and the caption says so. Card 6 names Roadcheck's three-day length and the categories inspectors check every year, and leaves that year's dates and focus area to the caption, which is where things that change belong.</p>
+
+  <!-- post grammar -->
+  <h2 class="caphead">Post grammar</h2>
+  <p class="prose" style="margin-bottom:22px">The rules that keep post 200 identical to post 1. The card at left is the grid with its five zones marked; the list at right is what goes in each. Anyone with the fonts can make a correct card from this box without asking me.</p>
+  <div class="grammar">
+    <div class="anat" role="img" aria-label="Anatomy of a card: five zones marked on the cream grid">
+      <div class="in">
+        <div class="z" data-n="1 · corner" style="display:flex;justify-content:space-between;align-items:center"><span class="k" style="color:#0d5c3c">The series line</span><svg width="11cqw" height="11cqw" viewBox="0 0 88 88" style="width:9cqw;height:9cqw" aria-hidden="true"><use href="#mkf"/></svg></div>
+        <div class="z" data-n="2 · plate (optional)"><span class="inplate">Four words max</span></div>
+        <div class="z" data-n="3 · the line"><div class="big">The number first, then the fact.</div></div>
+        <div class="z" data-n="4 · relief"><p>One plain sentence. Then one line that lowers the pulse.</p></div>
+        <div class="z foot" data-n="5 · standing lines"><div><div class="url">fleetcleared.com</div><div>Where to inspect the claim.</div></div><div style="text-align:right;font-weight:700">No robocalls, ever.<br><span class="tiny">Not affiliated with FMCSA or U.S. DOT</span></div></div>
+      </div>
+    </div>
+    <ol class="rules">
+      <li><b>Corner: the series line and the small mark.</b> Top left, 70% size, letterspaced capitals: "From the guides," "Spot the fake letter," "Roadcheck week · May," "De las guías." Top right, the small mark at 11% of the card width. These two never move.</li>
+      <li><b>The plate holds four words or fewer.</b> A question or a promise, slab capitals, on the brand card and the carousel cover only. On a green card the plate inverts: white plate, green letters. Never a number alone in the plate, never a date, never a dollar sign.</li>
+      <li><b>The line: number first, then the fact.</b> Alfa Slab One at 1.75× body, twelve words or fewer, sentence case, one period. Numerals, never spelled out: "16 things," "72 hours," "Day 15." Days are stated as "Day 15," never "15 days left." Nothing counts down.</li>
+      <li><b>Relief: one plain sentence, then one that lowers the pulse.</b> Overpass, body size. The second sentence is the brand's manners: "disorganized, not unsafe," "the fix is paperwork," "you have time." A card without a relief line is not finished.</li>
+      <li><b>Standing lines, fixed positions.</b> Bottom left: the URL in slab, then where to inspect the claim ("Sources on every page," "the terms are one page"). Bottom right, bold: "No robocalls, ever." and under it, small, the non-affiliation line. On the brand card, where the plate already says the promise, the right side carries the non-affiliation line alone, in full.</li>
+      <li><b>Green or cream.</b> Green card for facts and for consultants. Cream card for comparisons (the fake letter) and for the brand card, so the plate can appear inside it. Rust appears only in the "junk" column, and scam words appear only inside quotation marks there.</li>
+      <li><b>A Spanish card differs in nothing but the words.</b> Same grid, same plate, same fonts, same colors. "Sin robollamadas, nunca." sits where "No robocalls, ever." sits; "No afiliados a la FMCSA ni al USDOT" under it. No flag, no accent color, no ornament. The sentences are written in Spanish, not translated from the English, so they come out shorter.</li>
+      <li><b>The caption carries what changes.</b> Dates, that year's focus area, the source link, any hashtag. The card carries only what will still be true in two years. Sign-off in the caption: "Need to inspect our claims? Sources on every page."</li>
+    </ol>
+  </div>
+
+  <!-- story + cover + avatar -->
+  <h2 class="caphead">The story frame, the cover, the avatar</h2>
+  <div class="cols c23" style="align-items:start">
+    <div>
+      <div class="story" role="img" aria-label="9:16 story frame: Failed the audit? You have time. Here is how much.">
+        <div class="in">
+          <div class="top"><span>fleetcleared.com</span><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="inplate">Failed the audit?</div>
+          <div class="big">You have time. Here is how much.</div>
+          <div class="rows">
+            <div><b>Day 15</b><span>Corrective action plan due. Count from the date printed on the notice.</span></div>
+            <div><b>Day 60</b><span>Property carriers: accepted corrective action shown by here. Passenger and placarded hazmat: Day 45.</span></div>
+            <div><b>Any day</b><span>You can ask FMCSA for an administrative review and still send the plan.</span></div>
+          </div>
+          <div class="swipe"><span class="ch">↑</span>The guide, with FMCSA's page linked</div>
+          <p class="tiny">No robocalls, ever. · Not affiliated with the FMCSA or the U.S. DOT</p>
+        </div>
+      </div>
+      <p class="soccap" style="text-align:center">9:16, Instagram and Facebook stories, Reels cover. Rows, not paragraphs: the Dispatcher's lesson in the plate's colors.</p>
+    </div>
+    <div>
+      <div class="cover" role="img" aria-label="Facebook cover at 820 by 312: the mark, Got a DOT letter? Start here, and the trust line">
+        <div class="in">
+          <svg viewBox="0 0 320 160" aria-hidden="true"><use href="#wmf"/></svg>
+          <div>
+            <div class="big">Got a DOT letter? Start here.</div>
+            <div class="line"><b>No robocalls, ever.</b> · Free guides, two free checks · Sources on every page<br>Not affiliated with the FMCSA or the U.S. Department of Transportation</div>
+          </div>
+        </div>
+        <div class="ava">avatar<br>sits here</div>
+      </div>
+      <p class="soccap">Facebook page cover at 820 × 312. The lower-left circle is where Facebook lays the page avatar over the cover, so nothing is painted there. The mark is set right of that zone; on phones the cover is cropped to the center, which keeps the headline.</p>
+      <div class="avarow" style="margin-top:18px">
+        <div class="avabox cream">
+          <div class="c40"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="s40"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="fb"><b>FleetCleared</b><span>Avatar at 40 px, circle crop and square. The arrow is the whole mark at this size.</span></div>
+        </div>
+        <div class="avabox dark">
+          <div class="c40"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="s40"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="fb"><b>FleetCleared</b><span>Same file on a dark feed. No separate night avatar; the plate is its own ground.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- carousel -->
+  <h2 class="caphead">Carousel: How to spot a fake FMCSA letter</h2>
+  <p class="prose" style="margin-bottom:22px">Four slides. The cover is a cream card with the plate; slides 2 to 4 are green, one tell each, with the third slide also carrying what to do. Saves and shares are the number to watch; this is the post a driver forwards to the cousin who just got his number.</p>
+  <div class="caro">
+    <div class="sq cream" role="img" aria-label="Carousel slide 1: How to spot a fake FMCSA letter. Three tells and what to do. Swipe.">
+      <div class="in">
+        <div class="top"><div class="k">Spot the fake letter · 1 of 4</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+        <div class="inplate">Fake letter?</div>
+        <div class="big">How to spot a fake FMCSA letter.</div>
+        <p>Three tells, one each. Then what to do with the letter in your hand.</p>
+        <p class="tiny" style="color:#5c5347">The sellers get your number the day FMCSA posts it. Binning everything official-looking is a reasonable habit; this is how to bin the right ones.</p>
+        <div class="foot">
+          <div><div class="url">fleetcleared.com</div><div>Swipe → · Sources on every page</div></div>
+          <div style="text-align:right;font-weight:700">No robocalls, ever.<br><span class="tiny">Not affiliated with FMCSA or U.S. DOT</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="thumbs">
+      <div class="sq green" role="img" aria-label="Slide 2: It bills you.">
+        <div class="in">
+          <div class="top"><div class="k">2 of 4</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="tell">Tell one</div>
+          <div class="big">It bills you.</div>
+          <p>FMCSA doesn't charge a fee to keep a USDOT number. The MCS-150 update is free at fmcsa.dot.gov.</p>
+          <div class="foot"><div class="url">fleetcleared.com</div><div style="font-weight:700;text-align:right">No robocalls, ever.</div></div>
+        </div>
+      </div>
+      <div class="sq green" role="img" aria-label="Slide 3: It shouts.">
+        <div class="in">
+          <div class="top"><div class="k">3 of 4</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="tell">Tell two</div>
+          <div class="big">It shouts.</div>
+          <p>"Past due." "Final notice." A dollar figure per day. Red ink, an eagle. A seller needs you scared today; a rule does not.</p>
+          <div class="foot"><div class="url">fleetcleared.com</div><div style="font-weight:700;text-align:right">No robocalls, ever.</div></div>
+        </div>
+      </div>
+      <div class="sq green" role="img" aria-label="Slide 4: It wants a card over the phone. What to do.">
+        <div class="in">
+          <div class="top"><div class="k">4 of 4</div><svg class="sign" viewBox="0 0 88 88" aria-hidden="true"><use href="#mkf"/></svg></div>
+          <div class="tell">Tell three, and what to do</div>
+          <div class="big">It wants a card over the phone.</div>
+          <p>Check the sender's name against fmcsa.dot.gov. File your own updates there, free. Keep the letter; don't pay it.</p>
+          <div class="foot"><div class="url">fleetcleared.com</div><div style="font-weight:700;text-align:right;font-size:.9em">No robocalls, ever.<br><span class="tiny">Not affiliated with FMCSA or U.S. DOT</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="soccap">Slides 2 and 3 carry the short standing line only; slide 4, the last one seen, carries the full pair. The cover and the last slide are the two that get screenshotted, so both carry the non-affiliation line in full.</p>
+</section>
+
+<!-- ===================== 4. WEBSITE ===================== -->
+<section class="part" id="web">
+  <div class="partno"><span class="n">4</span><span class="t">The sign as a site</span></div>
+  <h2 style="margin-bottom:8px">Homepage, first screen, desktop</h2>
+  <p class="prose" style="margin-bottom:22px">Written for Marcus: one truck, sixty days in, audit notice on the dash, reading at 11 p.m. Short answer first, "tonight" above the explanation. This mock is live: the cluster in its header flips it between English and Spanish and between day and night. Items marked <span class="tag">concept</span> depend on the consultant directory, which today's site says opens in 2027. Spanish site copy is also concept; the live guides are English-only today.</p>
+
+  <div class="browser">
+    <div class="bar"><i></i><i></i><i></i><span class="url">fleetcleared.com</span></div>
+    <div class="screen site">
+      <div class="hdr">
+        <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+        <nav>
+          <a class="bi"><span class="en">Guides</span><span class="es" lang="es">Guías</span></a>
+          <a class="bi"><span class="en">Free checks</span><span class="es" lang="es">Revisiones gratis</span></a>
+          <a class="bi"><span class="en">Find a consultant</span><span class="es" lang="es">Buscar consultor</span></a>
+          <a class="b bi"><span class="en">For consultants</span><span class="es" lang="es">Para consultores</span></a>
+          <div class="cl" role="group" aria-label="Language and theme"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+        </nav>
+      </div>
+      <div class="status">
+        <span class="bi"><span class="en"><b>Free for carriers.</b> Guides · 2 free checks · Nothing you type is saved or sent</span><span class="es" lang="es"><b>Gratis para transportistas.</b> Guías · 2 revisiones gratis · Nada de lo que escribes se guarda ni se envía</span></span>
+        <span class="bi"><span class="en">Consultant directory: Texas, opens 2027</span><span class="es" lang="es">Directorio de consultores: Texas, abre en 2027</span></span>
+      </div>
+      <div class="hero">
+        <div>
+          <h1 class="bi"><span class="en">Got a DOT letter? Start here.</span><span class="es" lang="es">¿Te llegó carta del DOT? Empieza aquí.</span></h1>
+          <p class="bi"><span class="en">Plain-language guides, two free checks, and a list of independent compliance consultants who only get your number when you hand it to them. Free for carriers, always.</span><span class="es" lang="es">Guías en palabras claras, dos revisiones gratis y una lista de consultores independientes que reciben tu número solo cuando tú se lo das. Gratis para transportistas, siempre.</span></p>
+          <div class="acts">
+            <a class="btn bi"><span class="en">Take the 2-minute audit check</span><span class="es" lang="es">Revisión de auditoría, 2 minutos</span></a>
+            <a class="btn g bi"><span class="en">Read the guides</span><span class="es" lang="es">Leer las guías</span></a>
+          </div>
+        </div>
+        <div class="tonight">
+          <div class="lab bi"><span class="en">Audit notice came today?</span><span class="es" lang="es">¿Hoy llegó el aviso de auditoría?</span></div>
+          <h2 class="bi"><span class="en">Three things you can finish tonight</span><span class="es" lang="es">Tres cosas que puedes terminar esta noche</span></h2>
+          <ol>
+            <li class="bi"><span class="en">Find the response date on your notice and write it on the first page. Count from that date, not today.</span><span class="es" lang="es">Busca la fecha de respuesta en tu aviso y escríbela en la primera hoja. Cuenta desde esa fecha, no desde hoy.</span></li>
+            <li class="bi"><span class="en">Take the audit readiness check: ten yes-or-no questions, nothing saved or sent.</span><span class="es" lang="es">Haz la revisión de preparación: diez preguntas de sí o no. Nada se guarda ni se envía.</span></li>
+            <li class="bi"><span class="en">Read the 16 things that fail a new-entrant audit on their own. Most carriers who fail are disorganized, not unsafe.</span><span class="es" lang="es">Lee las 16 cosas que reprueban solas una auditoría de nuevo transportista. La mayoría de los que reprueban están desorganizados, no son peligrosos.</span></li>
+          </ol>
+          <p class="fine bi"><span class="en">General information with the official source linked. Not legal or compliance advice.</span><span class="es" lang="es">Información general con la fuente oficial enlazada. No es asesoría legal ni de cumplimiento.</span></p>
+        </div>
+      </div>
+      <div class="trust">
+        <b class="bi"><span class="en">No robocalls, ever.</span><span class="es" lang="es">Sin robollamadas, nunca.</span></b>
+        <span class="bi"><span class="en">Sources on every page</span><span class="es" lang="es">Fuentes en cada página</span></span>
+        <span class="bi"><span class="en">Not affiliated with the FMCSA or the U.S. Department of Transportation</span><span class="es" lang="es">No afiliados a la FMCSA ni al Departamento de Transporte de EE. UU.</span></span>
+      </div>
+      <div class="strip">
+        <div class="gcard"><div class="k bi"><span class="en">Guide · new carriers</span><span class="es" lang="es">Guía · nuevos transportistas</span></div><h3 class="bi"><span class="en">How to pass the new entrant safety audit</span><span class="es" lang="es">Cómo pasar la auditoría de nuevo transportista</span></h3><p class="bi"><span class="en">What the auditor checks, the records to have ready.</span><span class="es" lang="es">Qué revisa el auditor y qué papeles tener listos.</span></p></div>
+        <div class="gcard"><div class="k bi"><span class="en">Guide · new carriers</span><span class="es" lang="es">Guía · nuevos transportistas</span></div><h3 class="bi"><span class="en">The 16 violations that fail you automatically</span><span class="es" lang="es">Las 16 violaciones que te reprueban automáticamente</span></h3><p class="bi"><span class="en">Each one in plain words, most common first.</span><span class="es" lang="es">Cada una en palabras claras, la más común primero.</span></p></div>
+        <div class="gcard"><div class="k bi"><span class="en">Free tool</span><span class="es" lang="es">Herramienta gratis</span></div><h3 class="bi"><span class="en">MCS-150 due date</span><span class="es" lang="es">Fecha de tu MCS-150</span></h3><p class="bi"><span class="en">Enter your USDOT number, get your month. Runs on your phone.</span><span class="es" lang="es">Escribe tu número USDOT y ve el mes. Funciona en tu teléfono.</span></p></div>
+      </div>
+    </div>
+  </div>
+  <p class="mocknote">Desktop, 1200 px, scaled to fit. The status strip under the header is new: the board's first row, facts only. "Find a consultant" in the nav is <span class="tag">concept</span> until the directory opens; "opens 2027" is what the live site says, so it is stated as a fact.</p>
+
+  <h2 class="caphead">Homepage, phone, in English and in Spanish</h2>
+  <p class="prose" style="margin-bottom:22px">360 px. The cluster sits top right in the header and repeats in the footer bar where the thumb is. The Spanish screen is not the English one translated: Beto's version is shorter, and "Sin robollamadas, nunca." sits exactly where the English line sits. Both phones are fixed drawings; the day/night buttons in them still work.</p>
+  <div class="mockrow phones">
+    <div>
+      <div class="phone">
+        <div class="scr site msite">
+          <div class="notch"><i></i></div>
+          <div class="sb"><span>11:04</span><span>LTE ▂▄▆</span></div>
+          <div class="hdr">
+            <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+            <div class="cl fx" role="group" aria-label="Language and theme (fixed: English)"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+          </div>
+          <h1>Got a DOT letter? Start here.</h1>
+          <p class="lede">Free guides and two free checks for small trucking companies. Nothing you type is saved or sent.</p>
+          <a class="btn">Take the 2-minute audit check</a>
+          <a class="btn g">Read the guides</a>
+          <p class="trust"><b>No robocalls, ever.</b> · Sources on every page</p>
+          <div class="tonight">
+            <div class="lab">Audit notice came today?</div>
+            <h2>Three things to finish tonight</h2>
+            <ol>
+              <li>Write the response date from your notice on page one.</li>
+              <li>Take the readiness check. Ten questions.</li>
+              <li>Read the 16 automatic-fail rules.</li>
+            </ol>
+          </div>
+          <div class="foot"><span>Not affiliated with the FMCSA or the U.S. DOT</span><div class="cl fx" role="group" aria-label="Language and theme, footer copy"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div></div>
+        </div>
+      </div>
+      <p class="mocknote" style="text-align:center">English. First screen ends at the "tonight" box; the footer bar stays put.</p>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="scr site msite" lang="es">
+          <div class="notch"><i></i></div>
+          <div class="sb"><span>11:04</span><span>LTE ▂▄▆</span></div>
+          <div class="hdr">
+            <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+            <div class="cl fx" role="group" aria-label="Idioma y tema (fijo: español)"><button type="button" data-lg="en">EN</button><button type="button" data-lg="es" class="on">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Día"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Noche"><svg><use href="#moon"/></svg></button></div>
+          </div>
+          <h1>¿Te llegó carta del DOT? Empieza aquí.</h1>
+          <p class="lede">Guías gratis y dos revisiones gratis para empresas de transporte pequeñas. Nada de lo que escribes se guarda ni se envía.</p>
+          <a class="btn">Revisión de auditoría, 2 minutos</a>
+          <a class="btn g">Leer las guías</a>
+          <p class="trust"><b>Sin robollamadas, nunca.</b> · Fuentes en cada página</p>
+          <div class="tonight">
+            <div class="lab">¿Hoy llegó el aviso de auditoría?</div>
+            <h2>Tres cosas para terminar esta noche</h2>
+            <ol>
+              <li>Escribe en la primera hoja la fecha de respuesta que trae el aviso.</li>
+              <li>Haz la revisión: diez preguntas.</li>
+              <li>Lee las 16 reglas que reprueban solas.</li>
+            </ol>
+          </div>
+          <div class="foot"><span>No afiliados a la FMCSA ni al DOT de EE. UU.</span><div class="cl fx" role="group" aria-label="Idioma y tema, copia del pie"><button type="button" data-lg="en">EN</button><button type="button" data-lg="es" class="on">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Día"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Noche"><svg><use href="#moon"/></svg></button></div></div>
+        </div>
+      </div>
+      <p class="mocknote" style="text-align:center">Español. <span class="tag">concept</span> Spanish site pages; the Spanish line and the facts are real.</p>
+    </div>
+  </div>
+
+  <h2 class="caphead">Crisis landing: "Failed the audit?"</h2>
+  <p class="prose" style="margin-bottom:22px">Written for Brenda: six trucks, Odessa, day three of a fifteen-day clock, needs a person today. Her deadline is her own, so the page states it once, in a board row, with the source. No penalty figures, no countdown. The consultant listing is <span class="tag">concept</span>; the dates are from today's failed-audit guide.</p>
+  <div class="mockrow phones">
+    <div>
+      <div class="phone">
+        <div class="scr site msite">
+          <div class="notch"><i></i></div>
+          <div class="sb"><span>2:12</span><span>5G ▂▄▆</span></div>
+          <div class="hdr">
+            <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+            <div class="cl fx" role="group" aria-label="Language and theme (fixed: English)"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+          </div>
+          <div class="plateline"><span class="plate">Failed the audit?</span><span>This way.</span></div>
+          <h1 style="font-size:1.7em">You have time. Here is how much.</h1>
+          <div class="board">
+            <div class="bh"><span>Your dates</span><small>counted from the notice</small></div>
+            <div class="r"><span class="bx"><svg><use href="#ck"/></svg></span><span><span class="lab">Day 15</span><span class="val">Corrective action plan due to FMCSA.</span></span><span class="st">Plan</span></div>
+            <div class="r"><span class="bx"><svg><use href="#ck"/></svg></span><span><span class="lab">Day 60</span><span class="val">Property carriers: accepted corrective action shown by here. Passenger and placarded hazmat: Day 45.</span></span><span class="st">Shown</span></div>
+          </div>
+          <p class="fine" style="margin-bottom:1em">From our guide, with FMCSA's page linked. Count from the date printed on the notice, not the day you opened it.</p>
+          <div class="steps">
+            <div class="lab">Talk to someone today <span class="tag" style="font-size:.6em">concept</span></div>
+            <div class="listing">
+              <div class="nm">Dale Pruitt · Permian Basin Safety</div>
+              <div class="mt">Odessa, TX · answers same day, 7 a.m. to 7 p.m. · fleets of 1 to 20</div>
+              <div class="chips"><span>Corrective action plans</span><span>Mock audits</span><span>Drug &amp; alcohol program setup</span></div>
+              <div class="call"><a class="btn">Call</a><a class="btn g">Text</a></div>
+            </div>
+            <p class="fine">He sees your name and number only when you tap Call or Text. Nobody else does. <b>No robocalls, ever.</b></p>
+          </div>
+        </div>
+      </div>
+      <p class="mocknote" style="text-align:center">First screen. Two rows, then a person. Sample listing, fictional name.</p>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="scr site msite">
+          <div class="notch"><i></i></div>
+          <div class="sb"><span>2:13</span><span>5G ▂▄▆</span></div>
+          <div class="hdr">
+            <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+            <div class="cl fx" role="group" aria-label="Language and theme (fixed: English)"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+          </div>
+          <div class="board">
+            <div class="bh"><span>Do today</span><small>before you call anyone</small></div>
+            <div class="r"><span class="bx"><svg><use href="#ck"/></svg></span><span><span class="lab">The date</span><span class="val">Write the date from your notice on page one. Every deadline counts from it.</span></span></div>
+            <div class="r"><span class="bx"><svg><use href="#ck"/></svg></span><span><span class="lab">The list</span><span class="val">List each violation the notice names. The plan has to answer every one.</span></span></div>
+            <div class="r"><span class="bx"><svg><use href="#ck"/></svg></span><span><span class="lab">The proof</span><span class="val">Consortium enrollment, driver files, annual inspection reports, ELD setup.</span></span></div>
+          </div>
+          <div class="steps">
+            <div class="lab">What a plan needs, per violation</div>
+            <ol>
+              <li>What went wrong, in a sentence or two.</li>
+              <li>What you changed, with the date.</li>
+              <li>Proof.</li>
+              <li>Who checks it from now on, and how often.</li>
+            </ol>
+            <p class="fine" style="margin:.6em 0 0">Promises without proof get plans rejected. So does fixing some violations and skipping others.</p>
+          </div>
+          <div class="steps">
+            <div class="lab">Think the audit got it wrong?</div>
+            <p style="font-size:.95em;margin:0">You can ask FMCSA for an administrative review and still send a plan. Don't let one wait on the other.</p>
+          </div>
+          <p class="fine" style="margin-top:1em">General information, not legal or compliance advice. FleetCleared is a directory and is not affiliated with the FMCSA or the U.S. Department of Transportation.</p>
+        </div>
+      </div>
+      <p class="mocknote" style="text-align:center">Second screen. The board Brenda works while she waits for the callback; the squares are hers to tick, nothing is saved.</p>
+    </div>
+  </div>
+
+  <h2 class="caphead">Consultant profile, with the Spanish chip</h2>
+  <p class="prose" style="margin-bottom:22px">What Beto, or the cousin reading for him, sees for one consultant in Laredo. Facts the consultant stated, in their words, labeled as theirs. The "Se habla español" chip is worn only because the consultant said so; no flag, no stars, no "verified." <span class="tag">concept</span> Sample listing; the person is fictional.</p>
+  <div class="browser">
+    <div class="bar"><i></i><i></i><i></i><span class="url">fleetcleared.com/consultants/trevino-dot-compliance</span></div>
+    <div class="screen mid site">
+      <div class="hdr">
+        <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+        <nav><a>Guides</a><a>Free checks</a><a>Find a consultant</a><a class="b">For consultants</a><div class="cl" role="group" aria-label="Language and theme"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div></nav>
+      </div>
+      <div class="status"><span><b>Consultant listing</b> · Laredo, TX · Stated by the consultant · Listed since 2026</span><span>Your number goes to this consultant only, when you tap Call or Text</span></div>
+      <div class="pg">
+        <div class="crumb">Find a consultant › Laredo › Treviño DOT Compliance</div>
+        <article class="ccard" aria-label="Sample consultant listing">
+          <div>
+            <div class="nm">Marisol Treviño · Treviño DOT Compliance</div>
+            <p class="mt">Laredo, TX · Webb County in person; all of Texas by phone and WhatsApp · listed since 2026</p>
+            <div class="chips"><span class="es" lang="es">Se habla español</span><span>Fleets of 1 to 20</span><span>New entrant audit prep</span><span>Drug &amp; alcohol consortium enrollment</span><span>Driver qualification files</span><span>MCS-150 and UCR filings</span><span>ITIN and non-domiciled CDL carriers</span></div>
+            <p class="quote" lang="es">"Trabajo con dueños de un camión que acaban de sacar su número. Te explico la auditoría en español y juntamos los papeles antes de la visita." <i lang="en" style="color:var(--ink-soft)">"I work with one-truck owners who just got their number. I explain the audit in Spanish and we put the papers together before the visit." Stated by the consultant.</i></p>
+            <dl>
+              <dt>Answers</dt><dd>WhatsApp, text or phone. Monday to Saturday, 8 a.m. to 7 p.m. <span lang="es">Lunes a sábado.</span></dd>
+              <dt>Languages</dt><dd><span lang="es">Español</span>, English</dd>
+              <dt>Office</dt><dd>Mines Road area, Laredo. You can go in person. <span lang="es">Se puede ir en persona.</span></dd>
+              <dt>Fees</dt><dd>Quoted up front after a free call. FleetCleared doesn't set or see them.</dd>
+              <dt>Entity</dt><dd>Treviño DOT Compliance LLC, Texas</dd>
+            </dl>
+          </div>
+          <div class="side">
+            <a class="btn">Call Marisol · <span lang="es">Llamar</span></a>
+            <a class="btn g">Text or WhatsApp · <span lang="es">Mensaje</span></a>
+            <p class="promise">Tapping Call or Text sends your name and number to <b>Marisol only</b>. Nobody else gets it, and we never sell it. <b>No robocalls, ever.</b> <span lang="es">Solo ella recibe tu número. Sin robollamadas, nunca.</span></p>
+            <div class="plate block" style="font-size:.95em;text-align:center">This way <svg class="arrow" aria-hidden="true"><use href="#arw"/></svg></div>
+          </div>
+          <p class="disc">FleetCleared is a directory. It doesn't certify, rank or recommend anyone listed. Ask about experience and fees before you hire. Not affiliated with the FMCSA or the U.S. Department of Transportation. <span lang="es">No certificamos ni recomendamos a nadie. No afiliados a la FMCSA ni al Departamento de Transporte de EE. UU.</span></p>
+        </article>
+      </div>
+    </div>
+  </div>
+  <p class="mocknote">The WhatsApp option is <span class="tag">concept</span>; today's model is Call or Text. The chip's Spanish is the consultant's; the page's Spanish lines sit beside the English for the reader who hands the phone to someone else. Borrowed from the Bilingual concept: the chip earned by statement, and the two-language disclaimer line.</p>
+
+  <h2 class="caphead">Directory list view, for Tasha</h2>
+  <p class="prose" style="margin-bottom:22px">Office manager, 15 trucks, north Houston, CSA warning letter, fourteen tabs open, comparing three. Filters at left: city, fleet size served, Spanish, services, how they answer. Results are facts each consultant stated, in a fixed order (nearest to her ZIP first), with a compare square so she can hold three. No stars, no ratings, no "top rated," no sponsored row. <span class="tag">concept</span> The directory and every listing are samples; names are fictional.</p>
+  <div class="browser">
+    <div class="bar"><i></i><i></i><i></i><span class="url">fleetcleared.com/consultants?city=houston&amp;fleet=11-20&amp;service=csa-warning-letter</span></div>
+    <div class="screen tall site">
+      <div class="hdr">
+        <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+        <nav><a>Guides</a><a>Free checks</a><a style="text-decoration:underline">Find a consultant</a><a class="b">For consultants</a><div class="cl" role="group" aria-label="Language and theme"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div></nav>
+      </div>
+      <div class="status"><span><b>4 listed</b> · Houston area · serve fleets of 11 to 20 · CSA warning letters · nearest to 77073 first</span><span>Compare: 2 of 3 chosen</span></div>
+      <div class="dir">
+        <aside class="fil" aria-label="Filters">
+          <h4>City</h4>
+          <div class="sel"><span>Houston</span><span>▾</span></div>
+          <h4>Fleet size they serve</h4>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>1 to 2 trucks</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>3 to 10 trucks</div>
+          <div class="ck on"><span class="bx ok"><svg><use href="#ck"/></svg></span>11 to 20 trucks</div>
+          <h4>Language</h4>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span><span lang="es">Se habla español</span></div>
+          <h4>Services</h4>
+          <div class="ck on"><span class="bx ok"><svg><use href="#ck"/></svg></span>CSA warning letters</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Mock audits</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Corrective action plans</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Driver qualification files</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Drug &amp; alcohol program</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Hours of service / ELD</div>
+          <h4>Answers by</h4>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Phone</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Text</div>
+          <div class="ck"><span class="bx"><svg><use href="#ck"/></svg></span>Email</div>
+        </aside>
+        <div class="res">
+          <div class="row">
+            <div>
+              <div class="nm">Northline Safety Group</div>
+              <div class="mt">Houston (Greenspoint), TX · 4 mi · serves 5 to 50 trucks · listed since 2026</div>
+              <div class="chips"><span>CSA warning letters</span><span>DataQs challenges</span><span>Driver files</span><span>ELD / hours of service review</span></div>
+              <p class="q">"Three of us, all former fleet safety managers. We read the warning letter with you and work the BASICs it names. We'll say so if your scores don't need us." <i>Stated by the consultant. Answers within the hour, 7 a.m. to 7 p.m.</i></p>
+            </div>
+            <div class="side"><a class="btn">Call</a><a class="btn g">Text</a><span class="cmp"><span class="bx ok"><svg><use href="#ck"/></svg></span>Comparing</span></div>
+          </div>
+          <div class="row">
+            <div>
+              <div class="nm">Lorna Whitfield · Bayou City DOT Services</div>
+              <div class="mt">Humble, TX · 9 mi · serves 1 to 20 trucks · listed since 2026</div>
+              <div class="chips"><span>CSA warning letters</span><span>Mock audits</span><span>Corrective action plans</span></div>
+              <p class="q">"Eleven years as safety director for a 40-truck flatbed fleet. I come to your office; we go through the letter and your driver files the same afternoon." <i>Stated by the consultant. Answers same day by phone, Monday to Friday.</i></p>
+            </div>
+            <div class="side"><a class="btn">Call</a><a class="btn g">Text</a><span class="cmp"><span class="bx ok"><svg><use href="#ck"/></svg></span>Comparing</span></div>
+          </div>
+          <div class="row">
+            <div>
+              <div class="nm">R. Castillo Compliance</div>
+              <div class="mt">Pasadena, TX · 22 mi · serves 1 to 20 trucks · listed since 2026</div>
+              <div class="chips"><span class="es" lang="es">Se habla español</span><span>CSA warning letters</span><span>Mock audits</span><span>Drug &amp; alcohol program</span></div>
+              <p class="q">"Text me first; I answer seven days. Most warning letters I see come down to hours-of-service and maintenance records, and both are fixable." <i>Stated by the consultant.</i></p>
+            </div>
+            <div class="side"><a class="btn">Call</a><a class="btn g">Text</a><span class="cmp"><span class="bx"><svg><use href="#ck"/></svg></span>Compare</span></div>
+          </div>
+          <div class="row">
+            <div>
+              <div class="nm">Gulf Coast Carrier Compliance</div>
+              <div class="mt">Baytown, TX · 28 mi · serves 11 to 50 trucks · listed since 2026</div>
+              <div class="chips"><span>CSA warning letters</span><span>Corrective action plans</span><span>Hours of service / ELD</span></div>
+              <p class="q">"We work with fleets that have an office manager and no safety director. Monthly check-ins after the letter is handled, if you want them." <i>Stated by the consultant. Answers next business day.</i></p>
+            </div>
+            <div class="side"><a class="btn">Call</a><a class="btn g">Text</a><span class="cmp"><span class="bx"><svg><use href="#ck"/></svg></span>Compare</span></div>
+          </div>
+          <p class="disc">Facts on this page were stated by each consultant. FleetCleared doesn't certify, rank or recommend anyone listed; the order is distance from your ZIP. Ask about experience and fees before you hire. Not affiliated with the FMCSA or the U.S. Department of Transportation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="mocknote">Tasha's three needs: filters that match how she thinks (city, my fleet size, this problem), proof she can read (the consultant's own words, labeled), and a way to hold three at once. The status strip tells her how many, where, and in what order. No business-model words anywhere on this screen.</p>
+
+  <h2 class="caphead">Guide reading page: the 16 automatic-fail violations</h2>
+  <p class="prose" style="margin-bottom:22px">The real guide, drawn as the sign and the board. Plate for the number, slab for the title, a status strip with the source and the review date, the short answer in a rule box, then a ledger of sixteen rows: plain words, the rule, and what the auditor will ask to see. Grouped by topic here; the live guide's own order governs.</p>
+  <div class="browser">
+    <div class="bar"><i></i><i></i><i></i><span class="url">fleetcleared.com/guides/16-automatic-fail-violations</span></div>
+    <div class="screen tall site guide" style="aspect-ratio:1100/1500;font-size:1.3cqw">
+      <div class="hdr">
+        <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+        <nav><a style="text-decoration:underline">Guides</a><a>Free checks</a><a>Find a consultant</a><a class="b">For consultants</a><div class="cl" role="group" aria-label="Language and theme"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div></nav>
+      </div>
+      <div class="status"><span><b>Guide</b> · New carriers · Source: 49 CFR 385, Appendix A, linked below · Reviewed October 2026</span><span>7-minute read · General information, not legal advice</span></div>
+      <div class="pg">
+        <div class="crumb">Guides › New carriers › The 16 automatic-fail violations</div>
+        <div class="ghead">
+          <div class="plate">16<br><span class="sans">rules</span></div>
+          <div>
+            <h1>The 16 violations that fail a new-entrant audit on their own</h1>
+            <div class="meta"><span>Any one of them is a fail</span><span>Most are paperwork</span><span>Most common first in each group</span></div>
+          </div>
+        </div>
+        <div class="short"><b>Short answer</b>If any one of these sixteen things is true on audit day, the audit is a fail no matter how the rest of it went. Thirteen of them are records and programs you can fix before the auditor arrives. Carriers who fail are disorganized, not unsafe.</div>
+        <div class="grp">Drug and alcohol testing</div>
+        <div class="led"><span class="n">1</span><span>No random drug and alcohol testing program. The most common automatic fail.<span class="cite">§382.305</span></span><span class="have"><b>Have ready</b>Consortium enrollment letter, random selection records</span></div>
+        <div class="led"><span class="n">2</span><span>No drug and alcohol testing program at all.<span class="cite">§382.115</span></span><span class="have"><b>Have ready</b>Written policy, pre-employment test results</span></div>
+        <div class="led"><span class="n">3</span><span>Using a driver who tested positive for a controlled substance.<span class="cite">§382.215</span></span><span class="have"><b>Have ready</b>Clearinghouse query records</span></div>
+        <div class="led"><span class="n">4</span><span>Using a driver who refused a required test.<span class="cite">§382.211</span></span><span class="have"><b>Have ready</b>Test records; return-to-duty paperwork if any</span></div>
+        <div class="led"><span class="n">5</span><span>Using a driver known to have alcohol at 0.04 or higher.<span class="cite">§382.201</span></span><span class="have"><b>Have ready</b>Test records</span></div>
+        <div class="grp">Drivers</div>
+        <div class="led"><span class="n">6</span><span>Using a driver who isn't physically qualified: no valid medical certificate.<span class="cite">§391.11(b)(4)</span></span><span class="have"><b>Have ready</b>Medical certificate for each driver, expiration noted</span></div>
+        <div class="led"><span class="n">7</span><span>Using a driver without a valid CDL.<span class="cite">§383.23(a)</span></span><span class="have"><b>Have ready</b>CDL copy and motor vehicle record for each driver</span></div>
+        <div class="led"><span class="n">8</span><span>Letting a driver with a suspended, revoked or canceled CDL drive.<span class="cite">§383.37(a)</span></span><span class="have"><b>Have ready</b>Annual MVR check in each driver file</span></div>
+        <div class="led"><span class="n">9</span><span>Knowingly letting a disqualified driver operate a commercial vehicle.<span class="cite">§383.51(a)</span></span><span class="have"><b>Have ready</b>Same file; two rules, one fail</span></div>
+        <div class="led"><span class="n">10</span><span>Knowingly using a disqualified driver.<span class="cite">§391.15(a)</span></span><span class="have"><b>Have ready</b>Same file</span></div>
+        <div class="grp">Insurance</div>
+        <div class="led"><span class="n">11</span><span>Operating without the required minimum insurance.<span class="cite">§387.7(a)</span></span><span class="have"><b>Have ready</b>MCS-90 endorsement, current certificate</span></div>
+        <div class="led"><span class="n">12</span><span>Passenger carriers: operating without the required minimum insurance.<span class="cite">§387.31(a)</span></span><span class="have"><b>Have ready</b>Same, at the passenger limit</span></div>
+        <div class="grp">Hours</div>
+        <div class="led"><span class="n">13</span><span>Not requiring drivers to keep a record of duty status.<span class="cite">§395.8(a)</span></span><span class="have"><b>Have ready</b>ELD records or logs for the last six months</span></div>
+        <div class="grp">Vehicles</div>
+        <div class="led"><span class="n">14</span><span>Running a vehicle that hasn't had its annual inspection.<span class="cite">§396.17(a)</span></span><span class="have"><b>Have ready</b>Annual inspection report for each unit</span></div>
+        <div class="led"><span class="n">15</span><span>Running a vehicle that was placed out of service before it was repaired.<span class="cite">§396.9(c)(2)</span></span><span class="have"><b>Have ready</b>Repair records tied to the roadside report</span></div>
+        <div class="led"><span class="n">16</span><span>Not fixing out-of-service defects a driver wrote on the inspection report before the truck ran again.<span class="cite">§396.11(c)</span></span><span class="have"><b>Have ready</b>Driver vehicle inspection reports with repairs signed off</span></div>
+        <p class="src">Source: 49 CFR Part 385, Appendix A, "Explanation of Safety Audit Evaluation Criteria," on ecfr.gov. FleetCleared is a directory and not affiliated with the FMCSA or the U.S. Department of Transportation. Need to inspect our claims? Every rule above links to its section. <b>No robocalls, ever.</b></p>
+      </div>
+    </div>
+  </div>
+  <p class="mocknote">Reading page, desktop, shown scrolled to include all sixteen. On the phone the third column drops under the second. "Have ready" is the column Marcus actually uses tonight.</p>
+
+  <h2 class="caphead">The audit check: question 6 of 10, and the result</h2>
+  <p class="prose" style="margin-bottom:22px">The live tool: ten yes-or-no questions, nothing saved or sent. Ten squares in the status strip show where you are; the current one is marked in lamp amber, the only place amber appears on the site. The questions shown here are written for this mock; the live check's own wording governs. The result is a board, not a grade: a number in slab, then rows for what isn't done yet with the one thing to do about each.</p>
+  <div class="mockrow phones">
+    <div>
+      <div class="phone">
+        <div class="scr site msite">
+          <div class="notch"><i></i></div>
+          <div class="sb"><span>11:21</span><span>LTE ▂▄▆</span></div>
+          <div class="hdr">
+            <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+            <div class="cl fx" role="group" aria-label="Language and theme (fixed: English)"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+          </div>
+          <div class="mstat"><span><b>Audit readiness check</b> · 6 of 10</span><span class="dots" aria-label="Question 6 of 10"><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="d"></i><i class="c"></i><i></i><i></i><i></i><i></i></span></div>
+          <div class="qnum">Question 6</div>
+          <h2 class="q">Does every driver have a current medical certificate on file, with the expiration date written somewhere you'll see it?</h2>
+          <p class="fine">Why it matters: rule 6 of the 16. A driver without a valid medical certificate is physically unqualified, and that alone fails the audit.</p>
+          <div class="ans">
+            <a class="btn">Yes</a>
+            <a class="btn g">No</a>
+            <a class="btn g">Not sure</a>
+          </div>
+          <p class="fine">← Back · Nothing you answer leaves this phone.</p>
+          <div class="foot"><span>Not affiliated with the FMCSA or the U.S. DOT</span><span style="font-weight:700;color:var(--ink)">No robocalls, ever.</span></div>
+        </div>
+      </div>
+      <p class="mocknote" style="text-align:center">Question 6 of 10. One question, three answers, the reason under it. Status in the strip, not in a progress bar.</p>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="scr site msite">
+          <div class="notch"><i></i></div>
+          <div class="sb"><span>11:24</span><span>LTE ▂▄▆</span></div>
+          <div class="hdr">
+            <div class="lock"><svg viewBox="0 0 88 88" aria-hidden="true"><use href="#mk"/></svg><span>Fleet<span class="c">Cleared</span></span></div>
+            <div class="cl fx" role="group" aria-label="Language and theme (fixed: English)"><button type="button" data-lg="en" class="on">EN</button><button type="button" data-lg="es">ES</button><span class="dv"></span><button type="button" data-th="light" aria-label="Day"><svg><use href="#sun"/></svg></button><button type="button" data-th="dark" aria-label="Night"><svg><use href="#moon"/></svg></button></div>
+          </div>
+          <div class="mstat"><span><b>Result</b> · 10 of 10 answered</span><span>Nothing saved</span></div>
+          <div class="plate block" style="font-size:1.7em;text-align:center;margin:.2em 0 .6em">7 of 10 yes.</div>
+          <p class="lede" style="margin-bottom:.8em">Closer than the letter made it feel. Three to work on, most common fail first.</p>
+          <div class="board">
+            <div class="bh"><span>Not yet</span><small>3 rows</small></div>
+            <div class="r"><span class="bx nx"><svg><use href="#ck"/></svg></span><span><span class="lab">Random testing program</span><span class="val">Join a consortium this week. Keep the enrollment letter in the truck and the office.</span></span><span class="st no">No</span></div>
+            <div class="r"><span class="bx nx"><svg><use href="#ck"/></svg></span><span><span class="lab">Medical certificates</span><span class="val">Pull each driver's card tonight. Write the expiration on the calendar you actually look at.</span></span><span class="st no">Not sure</span></div>
+            <div class="r"><span class="bx nx"><svg><use href="#ck"/></svg></span><span><span class="lab">Annual inspection, every truck</span><span class="val">Find last year's report for each unit, or book the inspection this week.</span></span><span class="st no">No</span></div>
+          </div>
+          <a class="btn g">Read the 16 rules</a>
+          <p class="fine">Screenshot this. Nothing was saved. Want a person to look it over? Pick one consultant; only that one gets your number. <span class="tag" style="font-size:.6em">concept</span></p>
+          <div class="foot"><span>Not affiliated with the FMCSA or the U.S. DOT</span><span style="font-weight:700;color:var(--ink)">No robocalls, ever.</span></div>
+        </div>
+      </div>
+      <p class="mocknote" style="text-align:center">The result. A number in slab, a sentence that lowers the pulse, three rows of work. Rust marks "not yet"; it never marks the reader.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 5. WHERE THE EYES GO ===================== -->
+<section class="part" id="touchpoints">
+  <div class="partno"><span class="n">5</span><span class="t">Where the eyes go</span></div>
+  <h2 style="margin-bottom:8px">The object: one plate, two builds</h2>
+  <p class="prose" style="margin-bottom:10px">The Domino's car is a 24 by 12 inch plate. Build one is reflective vinyl on a magnet sheet for the founder's own tailgate, the pickup that already goes to Laredo, Odessa and north Houston. Build two is the same face printed both sides on 1/2-inch plywood with a chain, for a driver-lounge wall where the store will let it hang. Same artwork, same line, same arrow. Costs are my estimates for Texas sign shops in 2026.</p>
+
+  <div class="obj">
+    <figure>
+      <svg viewBox="0 0 520 300" role="img" aria-label="Front of the plate: FLEET CLEARED in white slab capitals on green with the arrow, the web address and the standing line, with dimension marks showing 24 by 12 inches">
+        <rect width="520" height="300" fill="#f3ead6"/>
+        <rect x="40" y="36" width="440" height="220" rx="18" fill="#0d5c3c"/>
+        <rect x="52" y="48" width="416" height="196" rx="12" fill="none" stroke="#fff" stroke-width="6"/>
+        <text x="74" y="120" font-family="'Alfa Slab One',serif" font-size="58" fill="#fff">FLEET</text>
+        <text x="74" y="184" font-family="'Alfa Slab One',serif" font-size="58" fill="#fff">CLEARED</text>
+        <g transform="translate(400 118) rotate(-45)"><rect x="-38" y="-8" width="50" height="16" rx="3" fill="#fff"/><polygon points="8,-28 42,0 8,28" fill="#fff"/></g>
+        <text x="74" y="216" font-family="Overpass,Arial,sans-serif" font-weight="700" font-size="16" fill="#fff">fleetcleared.com · No robocalls, ever.</text>
+        <text x="74" y="234" font-family="Overpass,Arial,sans-serif" font-size="10.5" fill="#fff" opacity=".85">Not affiliated with the FMCSA or the U.S. Department of Transportation</text>
+        <g stroke="#5c5347" stroke-width="1.5" fill="none"><path d="M40 274v10M480 274v10M40 279h440"/><path d="M18 36h10M18 256h10M23 36v220"/></g>
+        <text x="260" y="296" text-anchor="middle" font-family="Overpass,Arial,sans-serif" font-weight="700" font-size="12" fill="#5c5347">24 in</text>
+        <text x="12" y="150" text-anchor="middle" font-family="Overpass,Arial,sans-serif" font-weight="700" font-size="12" fill="#5c5347" transform="rotate(-90 12 150)">12 in</text>
+        <text x="40" y="24" font-family="Overpass,Arial,sans-serif" font-weight="800" font-size="14" fill="#1e1913">Front</text>
+      </svg>
+      <figcaption><b>Front.</b> Reflective white on engineer-grade reflective green, 3M-type sheeting, so it returns headlights the way a guide sign does. Inner rule 1/2 inch in from the edge. Letters are slab, which no highway department uses; this is what keeps it a business sign.</figcaption>
+    </figure>
+    <figure>
+      <svg viewBox="0 0 520 300" role="img" aria-label="Back of the lounge board: DOT LETTER? THIS WAY with the arrow, the web address and standing lines; inset shows the magnet build's grey back with a care label">
+        <rect width="520" height="300" fill="#f3ead6"/>
+        <rect x="40" y="36" width="440" height="220" rx="18" fill="#0d5c3c"/>
+        <rect x="52" y="48" width="416" height="196" rx="12" fill="none" stroke="#fff" stroke-width="6"/>
+        <text x="74" y="118" font-family="'Alfa Slab One',serif" font-size="50" fill="#fff">DOT LETTER?</text>
+        <text x="74" y="180" font-family="'Alfa Slab One',serif" font-size="50" fill="#fff">THIS WAY</text>
+        <g transform="translate(390 164) rotate(-45)"><rect x="-34" y="-7" width="44" height="14" rx="3" fill="#fff"/><polygon points="7,-25 38,0 7,25" fill="#fff"/></g>
+        <text x="74" y="216" font-family="Overpass,Arial,sans-serif" font-weight="700" font-size="16" fill="#fff">fleetcleared.com · No robocalls, ever.</text>
+        <text x="74" y="234" font-family="Overpass,Arial,sans-serif" font-size="10.5" fill="#fff" opacity=".85">A directory, not an agency. Not affiliated with the FMCSA or the U.S. DOT</text>
+        <g><rect x="300" y="258" width="208" height="40" rx="5" fill="#8d8a84"/><rect x="306" y="263" width="196" height="30" rx="3" fill="#f3ead6"/><text x="312" y="272" font-family="Overpass,Arial,sans-serif" font-weight="800" font-size="7.5" fill="#1e1913">MAGNET BUILD · BACK (plain grey, care label)</text><text x="312" y="281" font-family="Overpass,Arial,sans-serif" font-size="7" fill="#5c5347">Flat steel only. Pull off before the wash.</text><text x="312" y="290" font-family="Overpass,Arial,sans-serif" font-size="7" fill="#5c5347">Replacements free: fleetcleared.com</text></g>
+        <text x="40" y="24" font-family="Overpass,Arial,sans-serif" font-weight="800" font-size="14" fill="#1e1913">Back (lounge board, side two) · inset: magnet back</text>
+      </svg>
+      <figcaption><b>Back.</b> The lounge board is two-sided so it reads from the shower line and from the counter. Side two is the question and the arrow, the one line, and the non-affiliation line in full. The magnet build's back is plain grey with a printed care label; the plate never goes on a cab door or anywhere a carrier's own DOT number lives.</figcaption>
+    </figure>
+    <figure class="wide">
+      <svg viewBox="0 0 1040 360" role="img" aria-label="In situ: left, the founder's pickup at night in a truck-stop lot under a sodium lamp, the tailgate plate lit by headlights, a semi beside it; right, the lounge board hanging on chain beside a TV above a counter stack of wallet cards">
+        <rect width="1040" height="360" fill="#f3ead6"/>
+        <!-- night lot -->
+        <g>
+          <rect x="0" y="0" width="560" height="360" fill="#0e1210"/>
+          <rect x="0" y="264" width="560" height="96" fill="#1c1f1d"/>
+          <circle cx="470" cy="60" r="150" fill="#e2a230" opacity=".10"/>
+          <circle cx="470" cy="60" r="70" fill="#e2a230" opacity=".12"/>
+          <rect x="466" y="50" width="6" height="214" fill="#3a3d3a"/>
+          <rect x="440" y="44" width="58" height="12" rx="3" fill="#8d8a84"/>
+          <ellipse cx="469" cy="58" rx="16" ry="5" fill="#f0b64a" opacity=".9"/>
+          <!-- semi behind -->
+          <rect x="300" y="110" width="250" height="150" rx="8" fill="#23282a"/>
+          <rect x="300" y="128" width="250" height="4" fill="#3b4245"/>
+          <rect x="300" y="236" width="250" height="4" fill="#3b4245"/>
+          <circle cx="360" cy="268" r="20" fill="#0b0d0c"/><circle cx="410" cy="268" r="20" fill="#0b0d0c"/>
+          <!-- pickup -->
+          <rect x="60" y="116" width="240" height="148" rx="10" fill="#2a2d2b"/>
+          <rect x="76" y="90" width="208" height="52" rx="12" fill="#1a1c1b"/>
+          <rect x="88" y="98" width="184" height="34" rx="6" fill="#36404a"/>
+          <rect x="60" y="230" width="240" height="34" fill="#1f2120"/>
+          <rect x="48" y="236" width="264" height="18" rx="4" fill="#7e7e77"/>
+          <circle cx="100" cy="274" r="26" fill="#060707"/><circle cx="100" cy="274" r="11" fill="#6c6c66"/>
+          <circle cx="262" cy="274" r="26" fill="#060707"/><circle cx="262" cy="274" r="11" fill="#6c6c66"/>
+          <rect x="64" y="206" width="22" height="18" rx="3" fill="#8f2a21"/>
+          <rect x="274" y="206" width="22" height="18" rx="3" fill="#8f2a21"/>
+          <!-- lit plate -->
+          <rect x="100" y="150" width="160" height="80" rx="9" fill="#fff" opacity=".18"/>
+          <rect x="104" y="154" width="152" height="72" rx="8" fill="#19875a"/>
+          <rect x="110" y="160" width="140" height="60" rx="5" fill="none" stroke="#fff" stroke-width="3"/>
+          <text x="118" y="184" font-family="'Alfa Slab One',serif" font-size="19" fill="#fff">FLEET</text>
+          <text x="118" y="207" font-family="'Alfa Slab One',serif" font-size="19" fill="#fff">CLEARED</text>
+          <g transform="translate(230 184) rotate(-45)"><rect x="-13" y="-3" width="18" height="6" rx="1" fill="#fff"/><polygon points="3,-10 15,0 3,10" fill="#fff"/></g>
+          <text x="108" y="150" font-family="Overpass,Arial,sans-serif" font-weight="700" font-size="8" fill="#cfd4d0">fleetcleared.com · No robocalls, ever.</text>
+          <!-- headlight beam suggestion -->
+          <polygon points="0,320 100,150 260,150 0,360" fill="#fff" opacity=".05"/>
+          <text x="16" y="26" font-family="Overpass,Arial,sans-serif" font-weight="800" font-size="14" fill="#efe8d8">In situ, 1: a Love's lot at 9 p.m.</text>
+          <text x="16" y="44" font-family="Overpass,Arial,sans-serif" font-size="11" fill="#b5ac9a">The plate returns the next truck's headlights. The eye reads it before the brain decides to.</text>
+        </g>
+        <!-- lounge -->
+        <g>
+          <rect x="560" y="0" width="480" height="360" fill="#e9e2d1"/>
+          <rect x="560" y="250" width="480" height="110" fill="#b9b2a2"/>
+          <rect x="560" y="246" width="480" height="6" fill="#8d8375"/>
+          <!-- tv -->
+          <rect x="820" y="60" width="190" height="110" rx="6" fill="#111"/>
+          <rect x="828" y="68" width="174" height="94" fill="#2b3a44"/>
+          <text x="915" y="120" text-anchor="middle" font-family="Overpass,Arial,sans-serif" font-weight="700" font-size="11" fill="#9fb3bf">weather · 10:48</text>
+          <!-- chain and board -->
+          <path d="M640 0v52M760 0v52" stroke="#6b665c" stroke-width="3" stroke-dasharray="4 3"/>
+          <rect x="600" y="52" width="200" height="100" rx="9" fill="#0d5c3c"/>
+          <rect x="607" y="59" width="186" height="86" rx="6" fill="none" stroke="#fff" stroke-width="3.5"/>
+          <text x="618" y="92" font-family="'Alfa Slab One',serif" font-size="22" fill="#fff">DOT LETTER?</text>
+          <text x="618" y="120" font-family="'Alfa Slab One',serif" font-size="22" fill="#fff">THIS WAY</text>
+          <g transform="translate(758 112) rotate(-45)"><rect x="-15" y="-3.5" width="20" height="7" rx="1" fill="#fff"/><polygon points="3,-11 17,0 3,11" fill="#fff"/></g>
+          <text x="618" y="137" font-family="Overpass,Arial,sans-serif" font-weight="700" font-size="7.5" fill="#fff">fleetcleared.com · No robocalls, ever. · Not affiliated with FMCSA or U.S. DOT</text>
+          <!-- counter stack of wallet cards -->
+          <rect x="620" y="214" width="120" height="36" rx="3" fill="#f3ead6" stroke="#d8cbaf"/>
+          <rect x="624" y="208" width="120" height="36" rx="3" fill="#f3ead6" stroke="#d8cbaf"/>
+          <rect x="628" y="202" width="120" height="36" rx="3" fill="#f3ead6" stroke="#d8cbaf"/>
+          <rect x="636" y="208" width="22" height="22" rx="4" fill="#0d5c3c"/>
+          <rect x="639" y="211" width="16" height="16" rx="2" fill="none" stroke="#fff" stroke-width="1.5"/>
+          <text x="664" y="216" font-family="Overpass,Arial,sans-serif" font-weight="800" font-size="7" fill="#1e1913">The 16 things that fail</text>
+          <text x="664" y="225" font-family="Overpass,Arial,sans-serif" font-weight="800" font-size="7" fill="#1e1913">a new-entrant audit</text>
+          <text x="664" y="233" font-family="Overpass,Arial,sans-serif" font-size="6" fill="#5c5347">Take one. Nothing to sign up for.</text>
+          <!-- chairs -->
+          <rect x="880" y="200" width="46" height="50" rx="6" fill="#4b5a66"/><rect x="940" y="200" width="46" height="50" rx="6" fill="#4b5a66"/>
+          <text x="576" y="300" font-family="Overpass,Arial,sans-serif" font-weight="800" font-size="14" fill="#1e1913">In situ, 2: the driver lounge</text>
+          <text x="576" y="318" font-family="Overpass,Arial,sans-serif" font-size="11" fill="#3d382f">Board on chain by the TV; wallet cards at the counter. Nothing near the scale house, ever.</text>
+        </g>
+      </svg>
+      <figcaption><b>In situ.</b> Left, build one on the tailgate in a lot at night, lit by the next truck's headlights. Right, build two hanging in a lounge beside the TV, with the counter stack of wallet cards under it. Estimates: one 24×12 reflective magnet, $80 to $150; one two-sided plywood board, $120 to $220; 500 wallet cards, $40 to $90. Replacement magnets are free to any store that hangs the board; that line is printed on the back.</figcaption>
+    </figure>
+  </div>
+
+  <h2 style="margin:8px 0 8px">The touchpoint table, refined</h2>
+  <p class="prose" style="margin-bottom:10px">Each placement, what the brand looks like there, the one line it says, which language, and a cost tier. "Free" means the founder's time only. Rows that depend on the directory are tagged concept.</p>
+  <table class="tp">
+    <thead><tr><th>Placement</th><th>What the brand looks like there</th><th>The one line it says</th><th>Lang.</th><th>Cost tier</th></tr></thead>
+    <tbody>
+      <tr class="star">
+        <td class="where" data-l="Placement">The founder's pickup tailgate<small>The Domino's car. Laredo, Odessa, Houston lots, every trip he already makes.</small></td>
+        <td data-l="Looks like">24×12 reflective green magnet plate, slab name, arrow, URL line, non-affiliation line small.</td>
+        <td class="say" data-l="Says">fleetcleared.com · No robocalls, ever.</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t1">under $1,000</span> <small>est. $80 to $150 per plate; buy two</small></td>
+      </tr>
+      <tr class="star">
+        <td class="where" data-l="Placement">Driver lounge and shower line<small>Independents first; chains negotiate by region.</small></td>
+        <td data-l="Looks like">The two-sided plywood board on chain, and the counter stack of cream wallet cards with the plate in the corner.</td>
+        <td class="say" data-l="Says">DOT letter? This way. · Take one. Nothing to sign up for.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t1">under $1,000</span> <small>board $120 to $220; 500 cards $40 to $90</small></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Truck stop fuel island<small>Pump toppers.</small></td>
+        <td data-l="Looks like">Small plate, "DOT LETTER?" and the arrow. Nothing else on it but the URL.</td>
+        <td class="say" data-l="Says">DOT letter? This way. fleetcleared.com</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t1">under $1,000</span> <small>print $15 to $40 each; placement varies, sometimes free</small></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Facebook trucking groups<small>English and Spanish groups; the six cards and the carousel.</small></td>
+        <td data-l="Looks like">The square cards on the fixed grid. Spanish cards differ in nothing but the words.</td>
+        <td class="say" data-l="Says">16 things fail a new-entrant audit on their own. / Sin robollamadas, nunca.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t0">free</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">WhatsApp forwards<small>How Beto's group actually shares. The card is the message.</small></td>
+        <td data-l="Looks like">The Spanish card as an image, caption with the link. No link previews to trust.</td>
+        <td class="say" data-l="Says">Las 16 en palabras claras. Sin robollamadas, nunca.</td>
+        <td data-l="Lang."><span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t0">free</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Instagram and Facebook stories<small>The 9:16 frame.</small></td>
+        <td data-l="Looks like">Green frame, plate, rows. Link sticker to the guide.</td>
+        <td class="say" data-l="Says">You have time. Here is how much.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t0">free</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Phone at night in the sleeper<small>The website itself.</small></td>
+        <td data-l="Looks like">Night ground, same plate, cluster in the footer bar, full-width buttons, 17 px body.</td>
+        <td class="say" data-l="Says">Got a DOT letter? Start here.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t0">free</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Google after a notice<small>Marcus searches in full sentences.</small></td>
+        <td data-l="Looks like">Page titles written as the question he types. Plate in the favicon slot.</td>
+        <td class="say" data-l="Says">Failed your safety audit? Your deadlines and what to do next.</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t0">free</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">YouTube new-authority channels<small>Sponsored mention, not a produced ad.</small></td>
+        <td data-l="Looks like">The host holds the real plate and reads one line. End card is the plate on cream.</td>
+        <td class="say" data-l="Says">They don't call you and they don't sell your number.</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t1">under $1,000</span> <small>small channels; mail them a plate</small></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">TruckersReport and Reddit<small>Answers, not posts about us.</small></td>
+        <td data-l="Looks like">Plain text with the FMCSA source linked. Signature is the URL and four words.</td>
+        <td class="say" data-l="Says">Source linked. fleetcleared.com · No robocalls, ever.</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t0">free</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">The insurance agent's desk<small>New-venture policies are where Marcus first hears "audit."</small></td>
+        <td data-l="Looks like">Cream tent card, plate on the fold, the 16 rules on the back.</td>
+        <td class="say" data-l="Says">Your audit comes in the first 12 months. Here is what it checks.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t1">under $100</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">The factoring rep<small>Same card, plus a PDF of the wallet card they can text.</small></td>
+        <td data-l="Looks like">Tent card and a one-page PDF.</td>
+        <td class="say" data-l="Says">Free guides, free checks, nobody calls you.</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t1">under $100</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">The ELD vendor's app<small>Partnership; the long game.</small></td>
+        <td data-l="Looks like">A linked card in their help center, plate and one line. <span class="tag">concept</span></td>
+        <td class="say" data-l="Says">Audit questions? Plain answers, free, from a directory that never calls.</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t3">more</span> <small>time and a referral agreement, not cash</small></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Weigh stations and DPS inspection sites</td>
+        <td data-l="Looks like">Nothing. Deliberately absent. A green plate near an inspection lane would read as official.</td>
+        <td class="say" data-l="Says">(silence)</td>
+        <td data-l="Lang.">—</td>
+        <td data-l="Cost"><span class="tier t0">free</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">CDL schools<small>Bulletin board and the instructor's desk.</small></td>
+        <td data-l="Looks like">11×17 cream poster, plate at top, the first year's deadlines month by month.</td>
+        <td class="say" data-l="Says">Your first year's deadlines, on one page.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t1">under $100</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Drug-testing clinics and consortiums<small>Where the most common automatic fail gets fixed.</small></td>
+        <td data-l="Looks like">Counter card: "Enrolled? Here is what else the auditor checks." Plate in the corner.</td>
+        <td class="say" data-l="Says">Random testing is one of 16. Here are the other 15.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t1">under $100</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Laredo Motor Carriers Association Saturday classes<small>The founder goes in person; the tailgate plate is parked outside.</small></td>
+        <td data-l="Looks like">Spanish handout, cream, plate on top. The 16 rules in Spanish on the back.</td>
+        <td class="say" data-l="Says">Guías gratis en palabras claras. Sin robollamadas, nunca.</td>
+        <td data-l="Lang."><span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t1">under $100</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">The mailbox<small>Where the scam letters live. Ours must look like the opposite.</small></td>
+        <td data-l="Looks like">Cream postcard, plate small in the corner, first-class stamp. No envelope, no window, no "notice," no agency-shaped return address.</td>
+        <td class="say" data-l="Says">Not a bill. Not the government. A free guide to the letter you probably just got.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t1">under $1,000</span> <small>500 cards and postage est. $450 to $700</small></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">The side of the carrier's truck<small>Vehicle presence beyond the founder's pickup.</small></td>
+        <td data-l="Looks like">4×4 inch reflective sticker, small mark only, free on request. Never says "cleared" alone; it is a web address with an arrow.</td>
+        <td class="say" data-l="Says">fleetcleared.com →</td>
+        <td data-l="Lang.">—</td>
+        <td data-l="Cost"><span class="tier t1">under $1,000</span> <small>500 stickers est. $250 to $400</small></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Roadcheck week (May) and Brake Safety Week (August)<small>The two weeks drivers already talk about inspections.</small></td>
+        <td data-l="Looks like">The Roadcheck card online the week before; a one-page cream card at truck stops the same week.</td>
+        <td class="say" data-l="Says">72 hours of inspections. The list is the same every year.</td>
+        <td data-l="Lang."><span class="lg">EN</span> <span class="lg">ES</span></td>
+        <td data-l="Cost"><span class="tier t1">under $100</span></td>
+      </tr>
+      <tr>
+        <td class="where" data-l="Placement">Truck stop TV wall<small>Driver-lounge ad networks.</small></td>
+        <td data-l="Looks like">A ten-second still: the plate on cream, one fact, URL. No motion, no voice.</td>
+        <td class="say" data-l="Says">16 things fail a new-entrant audit on their own. All 16 at fleetcleared.com.</td>
+        <td data-l="Lang."><span class="lg">EN</span></td>
+        <td data-l="Cost"><span class="tier t3">more</span> <small>monthly; not before the fuel-island read</small></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===================== 6. WHY IT WILL BE REMEMBERED ===================== -->
+<section class="part" id="memory">
+  <div class="partno"><span class="n">6</span><span class="t">Why it will be remembered</span></div>
+  <div class="cols c23">
+    <div>
+      <div class="plate lg block" style="font-size:clamp(28px,4vw,44px)">DOT letter?<br><span style="display:flex;align-items:center;gap:.3em;margin-top:.2em">This way <svg class="arrow" aria-hidden="true"><use href="#arw"/></svg></span><span class="sans" style="display:block;margin-top:.8em">fleetcleared.com · No robocalls, ever.</span></div>
+    </div>
+    <div class="prose">
+      <h2>Borrowed reflex, owned detail, repeated grammar</h2>
+      <p>We are not asking a trucker to learn a new shape. A green plate with white letters and an arrow is the most-rehearsed visual pattern in his working life; he has processed it tens of thousands of times without attention, which is the only way anything gets stored by a man who is tired. What we add to that pathway is small and odd enough to stick: slab letters where there should be Highway Gothic, a cream board where there should be a steel post, an arrow that points at a web address instead of an exit. Three months after he saw the plate on a pickup tailgate in a Love's lot, the cue that fires is not our name. It is his own moment, a letter in his hand at 11 p.m. and the question "where do I go." The arrow already answered that once, at the fuel island, in the only grammar a driver reads without trying.</p>
+      <p>Round 2 adds the part that makes a brand instead of a logo: repetition without drift. The post grammar means the fortieth card in a Facebook group looks exactly like the first, and the Spanish one looks exactly like the English one, so each exposure lands on the same memory instead of a new one. The phone then shows him the same plate at the same proportion, the green unchanged in the dark, the same four words under it, and under those a board of plain rows that has never tried to sell him anything. Recognition does the work that recall would have failed at, and the board earns the second visit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 7. COMPLIANCE SELF-CHECK ===================== -->
+<section class="part" id="compliance">
+  <div class="partno"><span class="n">7</span><span class="t">Compliance self-check</span></div>
+  <h2 style="margin-bottom:18px">Every hard rule, and where it holds</h2>
+  <ul class="check">
+    <li><span class="ok">✓</span><span><b>Nothing governmental</b> The plate uses a slab serif no highway agency uses, a cream ground and a web address; no route number, exit tab, Interstate shield, seal, eagle, star or stripe anywhere. Green-and-white is roadway furniture, not an agency palette; FMCSA and USDOT are blue and white. No "NOTICE," no "OFFICIAL," no letterhead block. The plan places nothing at weigh stations or inspection sites and nothing on a roadside post; the sticker never says "cleared" alone.</span></li>
+    <li><span class="ok">✓</span><span><b>The shield stays a brand mark</b> Retired, so there is nothing to drift toward a badge. The plate is a rectangle with a web address on it.</span></li>
+    <li><span class="ok">✓</span><span><b>No "verified / vetted / trusted / certified / approved / endorsed"</b> Every consultant surface says "stated by the consultant," lists an entity name as a fact, and ends with "FleetCleared is a directory. It doesn't certify, rank or recommend anyone listed." The directory list is ordered by distance and says so. No stars, no ratings, no "top," no sponsored row, no response-time badge.</span></li>
+    <li><span class="ok">✓</span><span><b>No deadline threats, penalty figures, "action required," "past due," or borrowed urgency</b> Brenda's dates appear once, as rows, as "Day 15" and "Day 60," never as a countdown. The grammar forbids dollar signs and "days left" on any card. Scam vocabulary appears only inside quotation marks, in rust, in the "junk" column and on carousel slide 3, as the thing to recognize.</span></li>
+    <li><span class="ok">✓</span><span><b>"Not affiliated with the FMCSA or the U.S. Department of Transportation"</b> On the homepage trust line in both languages, the phone footer bars, both crisis screens, the profile, the directory, the guide page, the audit result, all six cards, the story, the cover, the carousel cover and last slide, the plate itself front and back, the wallet card and the postcard.</span></li>
+    <li><span class="ok">✓</span><span><b>No business-model words on carrier surfaces</b> "Lead," "per lead" and pricing appear only on the consultant-recruiting card. Carrier surfaces say "free for carriers, always" and "gratis para transportistas, siempre."</span></li>
+    <li><span class="ok">✓</span><span><b>No stock photos, no mascots, no flags</b> All artwork is inline SVG: the plate, the arrow, a pickup, a semi, a lamp, a lounge, drawn flat. Spanish is marked by the words and the ES state of the switch, never a flag. "Se habla español" is a text chip the consultant's own statement earns.</span></li>
+    <li><span class="ok">✓</span><span><b>Never imply danger</b> The homepage, the guide fact card, the Spanish card and the guide's short answer all say it: carriers who fail are disorganized, not unsafe; the fix is paperwork. The audit result opens with "closer than the letter made it feel."</span></li>
+    <li><span class="ok">✓</span><span><b>Controls cluster</b> One pill, EN | ES segmented with the active side filled, day/night beside it. 32 px on desktop (limit 36), about 31 px inside the phone mock (limit 40), repeated in the phone footer for the thumb. Present on every screen drawn here.</span></li>
+    <li><span class="ok">✓</span><span><b>Claims true today or marked concept</b> Guide titles, the two tools, the 15/45/60-day facts, "nothing saved or sent," "opens 2027," the sixteen rules with their citations, Roadcheck's 72 hours and the standing lines are true of the live site or of the public record. The directory, every listing, "Find a consultant," WhatsApp contact, Spanish site pages and the ELD partnership are tagged concept. The audit-check questions are labeled as written for this mock.</span></li>
+  </ul>
+</section>
+
+<!-- ===================== 8. NOTE TO THE FOUNDER ===================== -->
+<section class="part" id="founder">
+  <div class="partno"><span class="n">8</span><span class="t">A note to the founder</span></div>
+  <div class="note prose" style="max-width:none">
+    <h2 style="margin-bottom:14px">Post before you print, print before you build</h2>
+    <p>You liked the social work most, so test that first. It costs nothing and it tells you whether the plate carries a fact, which is the whole bet.</p>
+    <ol>
+      <li><b>The Facebook pair, this week.</b> Post card 1 (the 16 things) in one Texas trucking group and the same words on today's tilted guide-card in a comparable group, same hour, a day apart. Count saves and shares first, comments second, clicks third. Saves predict a man finding it again at 11 p.m. Run it twice more with cards 2 and 6 before you believe the number.</li>
+      <li><b>The carousel, in a Spanish group, with a condition.</b> Post the fake-letter carousel in English in one group and card 4 in a Laredo group the same week. The Spanish card stands alone fine because it is a fact, not an offer. Do not post anything that says "se habla español" about a consultant until one is actually listed; that promise unkept is the first thing Beto's group will screenshot.</li>
+      <li><b>The cluster, for free.</b> Before any redesign, put a plain EN | ES switch at the top right of the live site that only swaps the homepage headline and the three "tonight" lines. Watch in Vercel analytics how many taps it gets from Laredo and Houston IPs over a month. If people tap it, Spanish pages are worth writing; if nobody does, you have learned that for nothing.</li>
+      <li><b>Five truckers at a fuel island, $60.</b> Only after the posts. Two 12×18 boards from a sign shop: this plate, and today's shield beside the name. Stand them by your tailgate at a Love's or a TA around 6 p.m. Ask five drivers: "What is this for?" "Who put it there?" "Would you expect them to call you?" You want "something for trucking companies" or "a website," not "DOT" or "the state." Two of five saying "DOT" means more cream and less green, and I have told you so here first.</li>
+      <li><b>Then the plate.</b> One magnet for the tailgate, $80 to $150. Drive it for a month. Then the lounge board for the one independent truck stop that will hang it. Then, and not before, the cards, the toppers, the postcards. Don't buy the TV network this year.</li>
+    </ol>
+    <p class="fine" style="margin:0">One more thing. The post grammar box is the most valuable thing on this page and the least exciting. Give it to whoever makes your cards, including future you at midnight, and insist on it. A brand is a sign painted the same way for years.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap colophon">
+  Round 2 of the FleetCleared redesign review, The Signpainter. Fonts: Alfa Slab One and Overpass via Google Fonts. All artwork inline SVG; no external scripts. Names in sample listings are fictional. Spanish copy written for this page, not machine-translated. FleetCleared is a directory and is not affiliated with the FMCSA or the U.S. Department of Transportation.
+</footer>
+
+<script>
+(function(){
+  var R=document.documentElement, mq=window.matchMedia('(prefers-color-scheme: dark)');
+  function cur(){ return R.dataset.theme || (mq.matches ? 'dark' : 'light'); }
+  function paint(){
+    var t=cur(), l=R.dataset.lang||'en';
+    document.querySelectorAll('.cl [data-th]').forEach(function(b){ b.classList.toggle('on', b.dataset.th===t); });
+    document.querySelectorAll('.cl:not(.fx) [data-lg]').forEach(function(b){ b.classList.toggle('on', b.dataset.lg===l); });
+  }
+  document.addEventListener('click', function(e){
+    var b=e.target.closest('.cl button'); if(!b) return;
+    if(b.dataset.th){ R.dataset.theme=b.dataset.th; }
+    else if(b.dataset.lg){ if(b.closest('.fx')) return; R.dataset.lang=b.dataset.lg; }
+    else return;
+    paint();
+  });
+  if(mq.addEventListener) mq.addEventListener('change', paint);
+  paint();
+})();
+</script>
+</body>
+</html>

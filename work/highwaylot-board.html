@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HighwayLot · The Board · a concept by Fenwick and Vale</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="description" content="HIGHWAYLOT redesign concept 01: the whole site set like the price board at the front of a used-car lot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --ink:#1B2431; --yellow:#F5B700; --yellow-dk:#8A6600; --paper:#FAFAF6; --steel:#5B6472;
+  --line:#DEDBD1; --green:#2F6B4F; --green-bg:#E7F0EA; --card:#FFFFFF;
+  --ink-2:rgba(255,255,255,.72); --ink-3:rgba(255,255,255,.14);
+  --shadow:0 6px 18px rgba(27,36,49,.16);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+
+/* ---------- presentation page ---------- */
+.page{max-width:1120px;margin:0 auto;padding:40px 16px 96px}
+.hd{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.hd .kicker{font-family:Oswald,sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--steel);margin:0 0 6px}
+.hd h1{font-family:Oswald,sans-serif;font-weight:600;font-size:40px;line-height:1.05;margin:0 0 10px;letter-spacing:.005em}
+.hd p{margin:0;max-width:600px;color:var(--steel);font-size:16px}
+.swatches{display:flex;gap:6px;align-items:flex-end;flex:0 0 auto}
+.sw{display:flex;flex-direction:column;gap:6px;font-size:11px;color:var(--steel);font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.sw i{display:block;border-radius:4px;border:1px solid rgba(27,36,49,.12)}
+.sw b{font-weight:500}
+section.sec{padding:48px 0 8px}
+.sec h2{font-family:Oswald,sans-serif;font-weight:600;font-size:24px;margin:0 0 4px;letter-spacing:.01em}
+.sec .note{margin:0 0 20px;color:var(--steel);font-size:15px}
+.sec .cap{font-family:Oswald,sans-serif;font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--steel);margin:28px 0 10px}
+.row2{display:grid;grid-template-columns:1fr 390px;gap:24px;align-items:start}
+@media (max-width:860px){.row2{grid-template-columns:1fr}}
+ul.why{margin:0;padding:0 0 0 18px;max-width:720px}
+ul.why li{margin:0 0 10px}
+.kc{margin:0 0 12px;max-width:820px}
+.kc b{font-family:Oswald,sans-serif;font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:13px;color:var(--steel);display:block;margin-bottom:2px}
+
+/* ---------- frames ---------- */
+.frame{position:relative;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:10px;background:#fff;box-shadow:0 1px 2px rgba(27,36,49,.06)}
+.frame.phone{width:min(390px,100%);justify-self:start}
+.mock{position:absolute;top:0;left:0;transform-origin:0 0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.45}
+.mock *{box-sizing:border-box}
+
+/* ---------- shared site pieces ---------- */
+.num{font-family:Oswald,sans-serif;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.os{font-family:Oswald,sans-serif}
+.nav{height:64px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:36px;padding:0 64px;border-bottom:4px solid var(--yellow)}
+.nav .brand{display:flex;align-items:center;gap:10px;font-family:Oswald,sans-serif;font-weight:700;font-size:21px;letter-spacing:.06em;color:#fff;text-decoration:none}
+.nav .brand svg{width:26px;height:28px;display:block}
+.nav .links{display:flex;gap:26px;font-family:Oswald,sans-serif;font-weight:500;font-size:15px;letter-spacing:.06em;text-transform:uppercase}
+.nav .links span{color:var(--ink-2);padding:4px 0}
+.nav .links span.on{color:#fff;box-shadow:inset 0 -2px 0 var(--yellow)}
+.band{background:var(--yellow);color:var(--ink);padding:52px 64px 48px;position:relative;overflow:hidden}
+.band .in{max-width:960px;margin:0 auto;position:relative}
+.band .kick{font-family:Oswald,sans-serif;font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.16em;color:var(--yellow-dk);margin:0 0 10px}
+.band h1{font-family:Oswald,sans-serif;font-weight:500;font-size:44px;line-height:1.05;margin:0;letter-spacing:.005em;display:flex;flex-wrap:wrap;align-items:baseline;gap:0 18px}
+.band h1 .num{font-weight:700;font-size:72px;line-height:1}
+.foot{background:var(--ink);color:var(--ink-2);display:flex;justify-content:space-between;align-items:center;padding:0 64px;height:72px;font-size:14px;border-top:4px solid var(--yellow)}
+.foot .fl{display:flex;gap:20px;font-family:Oswald,sans-serif;font-weight:500;font-size:14px;letter-spacing:.06em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:Oswald,sans-serif;font-weight:600;font-size:17px;letter-spacing:.06em;text-transform:uppercase;height:52px;padding:0 26px;border-radius:6px;border:0}
+.btn.y{background:var(--yellow);color:var(--ink)}
+.btn.k{background:var(--ink);color:#fff}
+.btn.o{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+
+/* ---------- landing ---------- */
+.land{background:var(--yellow);display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 64px}
+.land .mark{margin-top:140px;margin-bottom:12px}
+.land .mark svg{width:44px;height:47px}
+.land .wm{font-family:Anton,sans-serif;font-size:188px;line-height:.92;letter-spacing:.015em;margin:0;color:var(--ink)}
+.land .sub{margin:26px 0 44px;font-size:18px;color:var(--ink)}
+.board{width:820px;background:var(--ink);color:#fff;border-radius:8px;box-shadow:var(--shadow);text-align:left;overflow:hidden}
+.board .r{display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px;padding:26px 36px;transition:transform .15s}
+.board .r+ .r{border-top:1px solid var(--ink-3)}
+.board .r:hover{transform:translateY(-2px)}
+.board .t{font-family:Oswald,sans-serif;font-weight:600;font-size:30px;letter-spacing:.03em;line-height:1.05}
+.board .d{color:var(--ink-2);font-size:15px;margin-top:4px}
+.board .p{text-align:right}
+.board .p .num{color:var(--yellow);font-weight:700;font-size:48px;line-height:1}
+.board .p small{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+.land .legal{margin-top:auto;padding:0 0 32px;font-size:13px;color:var(--ink);display:flex;gap:18px;align-items:center}
+.land .legal u{text-decoration:underline;text-underline-offset:3px}
+.land .legal .line{color:rgba(27,36,49,.78)}
+
+/* phone landing */
+.landp{background:var(--yellow);min-height:844px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 20px}
+.landp .mark{margin-top:84px;margin-bottom:8px}
+.landp .mark svg{width:34px;height:36px}
+.landp .wm{font-family:Anton,sans-serif;font-size:60px;line-height:.95;letter-spacing:.02em;margin:0}
+.landp .sub{margin:18px 0 28px;font-size:15px;line-height:1.45}
+.landp .board{width:100%}
+.landp .board .r{grid-template-columns:1fr;gap:10px;padding:20px 20px}
+.landp .board .p{text-align:left;display:flex;align-items:baseline;gap:10px}
+.landp .board .p .num{font-size:40px}
+.landp .board .t{font-size:24px}
+.landp .legal{margin-top:auto;padding:24px 0 28px;font-size:12px;display:flex;flex-direction:column;gap:6px}
+
+/* ---------- value my car ---------- */
+.formwrap{max-width:720px;margin:0 auto;padding:40px 0 72px}
+.vin{border:1px solid var(--line);background:#F3F1E9;border-radius:8px;padding:16px 18px;display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}
+.vin .lab{grid-column:1/-1;font-size:14px;color:var(--steel)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;margin-top:22px}
+.f label{display:block;font-family:Oswald,sans-serif;font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-bottom:6px}
+.f label em{font-style:normal;color:var(--yellow-dk)}
+.inp,.sel{height:46px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:0 14px;display:flex;align-items:center;font-size:16px;color:var(--ink)}
+.inp.ph,.sel.ph{color:var(--steel)}
+.sel{justify-content:space-between}
+.sel:after{content:"";width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--ink);margin-left:12px}
+.preview{margin-top:22px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.preview .l{font-family:Oswald,sans-serif;font-weight:500;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+.preview .v{font-family:Oswald,sans-serif;font-weight:700;font-size:28px;color:var(--steel);letter-spacing:.04em}
+.preview .v span{font-size:14px;font-weight:400;letter-spacing:0;font-family:Inter,sans-serif;color:var(--steel)}
+.issues{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.issues h3{font-family:Oswald,sans-serif;font-weight:600;font-size:18px;margin:0 0 4px;letter-spacing:.02em}
+.issues p{margin:0 0 12px;color:var(--steel);font-size:14px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.seg div{height:46px;border:1px solid var(--line);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;background:#fff}
+.seg .on{background:var(--green-bg);border-color:var(--green-bg);color:var(--green)}
+.formwrap .btn{width:100%;margin-top:26px}
+
+/* result */
+.result{max-width:720px;margin:0 auto;padding:40px 0 72px}
+.rboard{background:var(--ink);color:#fff;border-radius:8px;box-shadow:var(--shadow);padding:36px 40px 34px}
+.rboard .kick{font-family:Oswald,sans-serif;font-weight:500;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2);margin:0 0 8px}
+.rboard .car{font-family:Oswald,sans-serif;font-weight:600;font-size:34px;letter-spacing:.03em;line-height:1.05}
+.rboard .car small{font-weight:400;font-size:20px;color:var(--ink-2);margin-left:12px;letter-spacing:.02em}
+.rboard .big{font-family:Oswald,sans-serif;font-weight:700;font-size:128px;line-height:1;color:var(--yellow);margin:22px 0 14px;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.rboard .how{color:var(--ink-2);font-size:15px;margin:0;max-width:520px}
+.ractions{display:flex;gap:12px;margin-top:22px}
+
+/* ---------- wikilot ---------- */
+.lanes{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.band h1 .num.m{font-size:64px}
+.wrap{max-width:1152px;margin:0 auto;padding:0 64px}
+.sechd{display:flex;align-items:baseline;justify-content:space-between;margin:40px 0 14px}
+.sechd h2{font-family:Oswald,sans-serif;font-weight:600;font-size:24px;margin:0;letter-spacing:.02em}
+.sechd span{color:var(--steel);font-size:14px}
+.bodies{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.bodies > div{background:#fff;padding:16px 14px 14px;min-width:0}
+.bodies .l{font-family:Oswald,sans-serif;font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.bodies .n{font-family:Oswald,sans-serif;font-weight:700;font-size:27px;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.bodies .s{font-size:12px;color:var(--steel);margin-top:2px}
+.makes{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:64px}
+.mk{background:#fff;padding:18px 18px 16px;display:flex;flex-direction:column;min-width:0}
+.mk .name{font-family:Oswald,sans-serif;font-weight:500;font-size:17px;letter-spacing:.04em;text-transform:uppercase}
+.mk .from{font-size:12px;color:var(--steel);margin-top:8px}
+.mk .px{font-family:Oswald,sans-serif;font-weight:700;font-size:40px;line-height:1;letter-spacing:.01em;font-variant-numeric:tabular-nums;margin:2px 0 14px}
+.mk ul{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--line);font-size:13px}
+.mk li{display:flex;align-items:baseline;gap:6px;line-height:1.9}
+.mk li i{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-4px)}
+.mk li b{font-family:Oswald,sans-serif;font-weight:500;font-size:14px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.mk li span{color:var(--steel)}
+</style>
+<style id="fv-bar-css">
+/* Fenwick and Vale top bar. The page below it is the work and keeps its own look. */
+@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url(/assets/fonts/schibsted-grotesk-latin-var.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-400.woff2) format("woff2")}
+#fv-bar,#fv-bar *{box-sizing:border-box;margin:0;letter-spacing:0;text-transform:none;border-radius:0;box-shadow:none}
+#fv-bar{position:relative;z-index:10001;background:#F5F1E8;color:#16140F;border-bottom:1px solid #CFC8B8;font:400 15px/1.5 "Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}
+#fv-bar .fv-in{max-width:1120px;margin:0 auto;padding:0 32px;min-height:48px;display:flex;align-items:center;flex-wrap:wrap;column-gap:24px;row-gap:0}
+#fv-bar .fv-brand{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;color:#16140F;text-decoration:none;padding:10px 0;min-height:44px;margin-right:auto;white-space:nowrap}
+#fv-bar .fv-brand svg{width:20px;height:20px;flex:none;color:#16140F}
+#fv-bar .fv-brand .fv-sec{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:400;font-size:14px;color:#5C574D}
+#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;display:flex;flex-wrap:wrap;column-gap:20px;font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:14px}
+#fv-bar nav a{color:#16140F;text-decoration:none;display:inline-block;padding:12px 0;min-height:44px;line-height:20px;position:relative;white-space:nowrap;background:none;border:0}
+#fv-bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#C53B00;transform:scaleX(0);transform-origin:0 50%;transition:transform 150ms ease-out}
+#fv-bar nav a:hover::after,#fv-bar nav a:focus-visible::after{transform:scaleX(1)}
+#fv-bar nav a:hover{background:none;color:#16140F}
+#fv-bar a:focus-visible{outline:2px solid #C53B00;outline-offset:3px}
+#fv-bar nav .fv-dim{color:#5C574D}
+@media (max-width:720px){#fv-bar .fv-in{padding:0 16px;column-gap:16px}#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;flex-basis:100%;column-gap:16px}#fv-bar nav a{padding:8px 0;min-height:40px;line-height:20px}#fv-bar nav a::after{bottom:6px}}
+@media (prefers-reduced-motion:reduce){#fv-bar nav a::after{transition:none}}
+</style>
+</head>
+<body>
+<div id="fv-bar"><div class="fv-in"><a class="fv-brand" href="/"><svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span><span class="fv-sec">· Work</span></a><nav aria-label="Work"><a href="/work">&larr; All work</a><a href="/work/fleetcleared-swiss" title="FleetCleared · The Swiss"><span class="fv-dim">Previous:</span> The Swiss</a><a href="/work/highwaylot-ledger" title="HighwayLot · The Ledger"><span class="fv-dim">Next:</span> The Ledger</a></nav></div></div>
+<div class="page">
+
+  <!-- 1 · header -->
+  <header class="hd">
+    <div>
+      <p class="kicker">HIGHWAYLOT · concept 01</p>
+      <h1>The Lot Board</h1>
+      <p>Every page is set like the price board at the front of a used-car lot: yellow field, ink type, big tabular numerals, and the price is always the loudest thing in view.</p>
+    </div>
+    <div class="swatches" aria-label="Palette weighting">
+      <div class="sw"><i style="background:#F5B700;width:84px;height:56px"></i><b>Yellow · leads</b></div>
+      <div class="sw"><i style="background:#1B2431;width:72px;height:56px"></i><b>Ink</b></div>
+      <div class="sw"><i style="background:#FAFAF6;width:44px;height:56px"></i><b>Paper</b></div>
+      <div class="sw"><i style="background:#5B6472;width:28px;height:56px"></i><b>Steel</b></div>
+      <div class="sw"><i style="background:#DEDBD1;width:28px;height:56px"></i><b>Line</b></div>
+      <div class="sw"><i style="background:#2F6B4F;width:14px;height:56px"></i><b>Green</b></div>
+    </div>
+  </header>
+
+  <!-- 2 · landing -->
+  <section class="sec">
+    <h2>Landing</h2>
+    <p class="note">Still all yellow. The wordmark is the only Anton on the site. The two cards become one ink board with two rows, and each row carries a real figure.</p>
+    <div class="row2">
+      <div class="frame"><div class="mock" data-w="1280">
+        <div class="land" style="min-height:900px">
+          <div class="mark"><svg viewBox="0 0 32 34" aria-hidden="true"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg></div>
+          <h1 class="wm">HIGHWAYLOT</h1>
+          <p class="sub">A car marketplace, built one honest tool at a time — buying and selling are next.</p>
+          <div class="board">
+            <div class="r">
+              <div><div class="t">Value my car</div><div class="d">Free instant estimate</div></div>
+              <div class="p"><div class="num">$38,800</div><small>average estimate</small></div>
+            </div>
+            <div class="r">
+              <div><div class="t">wikiLOT</div><div class="d">The car price guide</div></div>
+              <div class="p"><div class="num">$9,650</div><small>Kia Soul at 5 years old</small></div>
+            </div>
+          </div>
+          <div class="legal"><span class="line">HIGHWAYLOT — free car valuation and price guide.</span><u>Terms</u><u>Privacy</u></div>
+        </div>
+      </div></div>
+
+      <div class="frame phone"><div class="mock" data-w="390">
+        <div class="landp">
+          <div class="mark"><svg viewBox="0 0 32 34" aria-hidden="true"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg></div>
+          <h1 class="wm">HIGHWAYLOT</h1>
+          <p class="sub">A car marketplace, built one honest tool at a time — buying and selling are next.</p>
+          <div class="board">
+            <div class="r">
+              <div><div class="t">Value my car</div><div class="d">Free instant estimate</div></div>
+              <div class="p"><div class="num">$38,800</div><small>average estimate</small></div>
+            </div>
+            <div class="r">
+              <div><div class="t">wikiLOT</div><div class="d">The car price guide</div></div>
+              <div class="p"><div class="num">$9,650</div><small>Kia Soul at 5 years old</small></div>
+            </div>
+          </div>
+          <div class="legal"><span class="line">HIGHWAYLOT — free car valuation and price guide.</span><span><u>Terms</u> &nbsp;&nbsp; <u>Privacy</u></span></div>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- 3 · value my car -->
+  <section class="sec">
+    <h2>Value My Car</h2>
+    <p class="note">Ink nav, then a yellow band with the one headline and its number set large. The form is unchanged in content; labels move to Oswald, the preview strip waits honestly until there is something to show.</p>
+    <p class="cap">Form</p>
+    <div class="frame"><div class="mock" data-w="1280">
+      <div class="nav">
+        <a class="brand"><svg viewBox="0 0 32 34" aria-hidden="true"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>HIGHWAYLOT</a>
+        <div class="links"><span class="on">Value my car</span><span>wikiLOT</span></div>
+      </div>
+      <div class="band"><div class="in">
+        <p class="kick">Free instant estimate</p>
+        <h1>What's your car worth? <span class="num">$38,800 avg.</span></h1>
+      </div></div>
+      <div class="formwrap">
+        <div class="vin">
+          <div class="lab">Have your VIN handy? Auto-fill year, make, and model below.</div>
+          <div class="inp ph">17-character VIN (optional)</div>
+          <div class="btn y" style="height:46px;font-size:14px;padding:0 18px">Auto-fill</div>
+        </div>
+        <div class="grid2">
+          <div class="f"><label>Year <em>*</em></label><div class="sel ph">Select year</div></div>
+          <div class="f"><label>Make <em>*</em></label><div class="sel ph">Select make</div></div>
+          <div class="f"><label>Model <em>*</em></label><div class="sel ph">Pick a make first</div></div>
+          <div class="f"><label>Current mileage <em>*</em></label><div class="inp">52000</div></div>
+          <div class="f"><label>Original price paid (optional)</label><div class="inp">28000</div></div>
+          <div class="f"><label>Overall condition</label><div class="sel">Good</div></div>
+          <div class="f"><label>Body style</label><div class="sel">Sedan</div></div>
+          <div class="f"><label>State</label><div class="sel ph">Select state</div></div>
+          <div class="f"><label>Ownership status</label><div class="sel">Paid off</div></div>
+        </div>
+        <div class="preview">
+          <div class="l">Live preview</div>
+          <div class="v">— <span>pick a year, make and model to see a range</span></div>
+        </div>
+        <div class="issues">
+          <h3>Any known issues?</h3>
+          <p>Optional. Honest detail here gets you a more accurate estimate.</p>
+          <div class="seg"><div class="on">No, it's in good shape</div><div>Yes, let me note a few things</div></div>
+        </div>
+        <div class="btn y">Get my estimate</div>
+      </div>
+      <div class="foot"><span>HIGHWAYLOT — free car valuation and price guide.</span><div class="fl"><span>Value my car</span><span>wikiLOT</span><span>Terms</span><span>Privacy</span></div></div>
+    </div></div>
+
+    <p class="cap">Result state</p>
+    <div class="frame"><div class="mock" data-w="1280">
+      <div class="nav">
+        <a class="brand"><svg viewBox="0 0 32 34" aria-hidden="true"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>HIGHWAYLOT</a>
+        <div class="links"><span class="on">Value my car</span><span>wikiLOT</span></div>
+      </div>
+      <div class="band" style="padding:40px 64px 36px"><div class="in">
+        <p class="kick">Your estimate</p>
+        <h1 style="font-size:36px">Here's what it's worth today.</h1>
+      </div></div>
+      <div class="result">
+        <div class="rboard">
+          <p class="kick">Estimate</p>
+          <div class="car">Kia Soul <small>5 years old</small></div>
+          <div class="big">$9,650</div>
+          <p class="how">This estimate comes from depreciation curves blended with comparable listings. It is a guide, not an offer.</p>
+        </div>
+        <div class="ractions"><div class="btn y">Value another car</div><div class="btn o">Kia in wikiLOT</div></div>
+      </div>
+      <div class="foot"><span>HIGHWAYLOT — free car valuation and price guide.</span><div class="fl"><span>Value my car</span><span>wikiLOT</span><span>Terms</span><span>Privacy</span></div></div>
+    </div></div>
+  </section>
+
+  <!-- 4 · wikiLOT -->
+  <section class="sec">
+    <h2>wikiLOT</h2>
+    <p class="note">The diagonal split and stat widget become one yellow band whose headline carries the two real five-year figures. The lane line appears here only, as a faint diagonal texture. Below it, two boards: body styles, then every make, five across, starting price loudest.</p>
+    <div class="frame"><div class="mock" data-w="1280">
+      <div class="nav">
+        <a class="brand"><svg viewBox="0 0 32 34" aria-hidden="true"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>HIGHWAYLOT</a>
+        <div class="links"><span>Value my car</span><span class="on">wikiLOT</span></div>
+      </div>
+      <div class="band">
+        <svg class="lanes" aria-hidden="true" preserveAspectRatio="none">
+          <defs><pattern id="lane" width="56" height="56" patternUnits="userSpaceOnUse" patternTransform="rotate(-24)"><line x1="0" y1="28" x2="56" y2="28" stroke="#1B2431" stroke-width="2" stroke-dasharray="18 14" opacity="0.07"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#lane)"/>
+        </svg>
+        <div class="in">
+          <p class="kick">wikiLOT · the car price guide</p>
+          <h1>At 5 years old, a Kia Soul is <span class="num m">$9,650</span> and an Escalade is <span class="num m">$47,500.</span></h1>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="sechd"><h2>Body style</h2><span>Typical new price</span></div>
+        <div class="bodies">
+          <div><div class="l">Sedan</div><div class="n">~$28,000</div><div class="s">new</div></div>
+          <div><div class="l">Coupe</div><div class="n">~$32,000</div><div class="s">new</div></div>
+          <div><div class="l">Hatchback</div><div class="n">~$24,000</div><div class="s">new</div></div>
+          <div><div class="l">SUV</div><div class="n">~$38,000</div><div class="s">new</div></div>
+          <div><div class="l">Truck</div><div class="n">~$45,000</div><div class="s">new</div></div>
+          <div><div class="l">Van/Minivan</div><div class="n">~$36,000</div><div class="s">new</div></div>
+          <div><div class="l">Convertible</div><div class="n">~$40,000</div><div class="s">new</div></div>
+        </div>
+
+        <div class="sechd"><h2>By make</h2><span>New, starting around · model figures as shown on the live page</span></div>
+        <div class="makes">
+          <div class="mk"><div class="name">Acura</div><div class="from">New, starting around</div><div class="px">$38,000</div><ul><li><span>MDX</span><i></i><b>$34,100</b></li><li><span>RDX</span><i></i><b>$28,850</b></li></ul></div>
+          <div class="mk"><div class="name">Audi</div><div class="from">New, starting around</div><div class="px">$52,000</div><ul><li><span>A4</span><i></i><b>$17,550</b></li><li><span>Q5</span><i></i><b>$25,750</b></li></ul></div>
+          <div class="mk"><div class="name">BMW</div><div class="from">New, starting around</div><div class="px">$55,000</div><ul><li><span>3 Series</span><i></i><b>$19,400</b></li><li><span>X5</span><i></i><b>$35,100</b></li></ul></div>
+          <div class="mk"><div class="name">Buick</div><div class="from">New, starting around</div><div class="px">$32,000</div><ul><li><span>Encore</span><i></i><b>$16,000</b></li><li><span>Enclave</span><i></i><b>$26,050</b></li></ul></div>
+          <div class="mk"><div class="name">Cadillac</div><div class="from">New, starting around</div><div class="px">$56,000</div><ul><li><span>Escalade</span><i></i><b>$47,500</b></li><li><span>XT5</span><i></i><b>$27,800</b></li></ul></div>
+
+          <div class="mk"><div class="name">Chevrolet</div><div class="from">New, starting around</div><div class="px">$40,000</div><ul><li><span>Silverado</span><i></i><b>$31,600</b></li><li><span>Equinox</span><i></i><b>$19,300</b></li><li><span>Malibu</span><i></i><b>$12,950</b></li><li><span>Tahoe</span><i></i><b>$36,050</b></li><li><span>Traverse</span><i></i><b>$23,800</b></li><li><span>Colorado</span><i></i><b>$26,100</b></li><li><span>Camaro</span><i></i><b>$15,600</b></li><li><span>Blazer</span><i></i><b>$23,150</b></li></ul></div>
+          <div class="mk"><div class="name">Chrysler</div><div class="from">New, starting around</div><div class="px">$33,000</div><ul><li><span>Pacifica</span><i></i><b>$15,500</b></li></ul></div>
+          <div class="mk"><div class="name">Dodge</div><div class="from">New, starting around</div><div class="px">$36,000</div><ul><li><span>Charger</span><i></i><b>$14,350</b></li><li><span>Durango</span><i></i><b>$22,650</b></li></ul></div>
+          <div class="mk"><div class="name">Ford</div><div class="from">New, starting around</div><div class="px">$42,000</div><ul><li><span>F-150</span><i></i><b>$30,000</b></li><li><span>Explorer</span><i></i><b>$24,950</b></li><li><span>Escape</span><i></i><b>$18,700</b></li><li><span>Mustang</span><i></i><b>$14,250</b></li><li><span>Bronco Sport</span><i></i><b>$18,700</b></li><li><span>Expedition</span><i></i><b>$36,200</b></li><li><span>Edge</span><i></i><b>$23,700</b></li></ul></div>
+          <div class="mk"><div class="name">GMC</div><div class="from">New, starting around</div><div class="px">$46,000</div><ul><li><span>Sierra</span><i></i><b>$35,400</b></li><li><span>Yukon</span><i></i><b>$41,100</b></li><li><span>Terrain</span><i></i><b>$21,200</b></li></ul></div>
+
+          <div class="mk"><div class="name">Honda</div><div class="from">New, starting around</div><div class="px">$29,000</div><ul><li><span>Civic</span><i></i><b>$12,950</b></li><li><span>Accord</span><i></i><b>$14,500</b></li><li><span>CR-V</span><i></i><b>$21,550</b></li><li><span>Pilot</span><i></i><b>$27,800</b></li><li><span>Odyssey</span><i></i><b>$19,700</b></li><li><span>Ridgeline</span><i></i><b>$31,150</b></li></ul></div>
+          <div class="mk"><div class="name">Hyundai</div><div class="from">New, starting around</div><div class="px">$27,000</div><ul><li><span>Elantra</span><i></i><b>$10,350</b></li><li><span>Tucson</span><i></i><b>$18,300</b></li><li><span>Santa Fe</span><i></i><b>$20,800</b></li><li><span>Sonata</span><i></i><b>$13,150</b></li><li><span>Palisade</span><i></i><b>$25,200</b></li><li><span>Kona</span><i></i><b>$15,150</b></li></ul></div>
+          <div class="mk"><div class="name">Jeep</div><div class="from">New, starting around</div><div class="px">$38,000</div><ul><li><span>Grand Cherokee</span><i></i><b>$25,950</b></li><li><span>Wrangler</span><i></i><b>$23,450</b></li><li><span>Cherokee</span><i></i><b>$18,550</b></li><li><span>Compass</span><i></i><b>$17,300</b></li><li><span>Gladiator</span><i></i><b>$26,400</b></li></ul></div>
+          <div class="mk"><div class="name">Kia</div><div class="from">New, starting around</div><div class="px">$27,000</div><ul><li><span>Forte</span><i></i><b>$10,250</b></li><li><span>Sportage</span><i></i><b>$18,100</b></li><li><span>Telluride</span><i></i><b>$24,950</b></li><li><span>K5</span><i></i><b>$12,550</b></li><li><span>Optima</span><i></i><b>$12,550</b></li><li><span>Soul</span><i></i><b>$9,650</b></li><li><span>Seltos</span><i></i><b>$15,000</b></li></ul></div>
+          <div class="mk"><div class="name">Lexus</div><div class="from">New, starting around</div><div class="px">$48,000</div><ul><li><span>RX</span><i></i><b>$34,100</b></li><li><span>ES</span><i></i><b>$22,400</b></li></ul></div>
+
+          <div class="mk"><div class="name">Mazda</div><div class="from">New, starting around</div><div class="px">$28,000</div><ul><li><span>CX-5</span><i></i><b>$19,700</b></li><li><span>CX-9</span><i></i><b>$24,950</b></li><li><span>Mazda3</span><i></i><b>$12,700</b></li></ul></div>
+          <div class="mk"><div class="name">Mercedes-Benz</div><div class="from">New, starting around</div><div class="px">$58,000</div><ul><li><span>C-Class</span><i></i><b>$19,000</b></li><li><span>GLC</span><i></i><b>$26,550</b></li></ul></div>
+          <div class="mk"><div class="name">Mitsubishi</div><div class="from">New, starting around</div><div class="px">$26,000</div><ul><li><span>Outlander</span><i></i><b>$17,750</b></li></ul></div>
+          <div class="mk"><div class="name">Nissan</div><div class="from">New, starting around</div><div class="px">$30,000</div><ul><li><span>Altima</span><i></i><b>$12,300</b></li><li><span>Rogue</span><i></i><b>$18,350</b></li><li><span>Sentra</span><i></i><b>$10,050</b></li><li><span>Pathfinder</span><i></i><b>$23,200</b></li><li><span>Frontier</span><i></i><b>$22,200</b></li><li><span>Murano</span><i></i><b>$22,000</b></li></ul></div>
+          <div class="mk"><div class="name">Ram</div><div class="from">New, starting around</div><div class="px">$48,000</div><ul><li><span>1500</span><i></i><b>$33,650</b></li><li><span>2500</span><i></i><b>$40,650</b></li></ul></div>
+
+          <div class="mk"><div class="name">Subaru</div><div class="from">New, starting around</div><div class="px">$30,000</div><ul><li><span>Outback</span><i></i><b>$20,950</b></li><li><span>Forester</span><i></i><b>$19,600</b></li><li><span>Crosstrek</span><i></i><b>$17,550</b></li><li><span>Impreza</span><i></i><b>$12,100</b></li><li><span>Ascent</span><i></i><b>$24,300</b></li></ul></div>
+          <div class="mk"><div class="name">Tesla</div><div class="from">New, starting around</div><div class="px">$45,000</div><ul><li><span>Model 3</span><i></i><b>$19,750</b></li><li><span>Model Y</span><i></i><b>$29,650</b></li><li><span>Model S</span><i></i><b>$36,650</b></li></ul></div>
+          <div class="mk"><div class="name">Toyota</div><div class="from">New, starting around</div><div class="px">$32,000</div><ul><li><span>Camry</span><i></i><b>$14,800</b></li><li><span>Corolla</span><i></i><b>$12,150</b></li><li><span>RAV4</span><i></i><b>$21,250</b></li><li><span>Highlander</span><i></i><b>$28,300</b></li><li><span>Tacoma</span><i></i><b>$25,700</b></li><li><span>Tundra</span><i></i><b>$33,250</b></li><li><span>Sienna</span><i></i><b>$22,150</b></li><li><span>4Runner</span><i></i><b>$29,700</b></li></ul></div>
+          <div class="mk"><div class="name">Volkswagen</div><div class="from">New, starting around</div><div class="px">$30,000</div><ul><li><span>Jetta</span><i></i><b>$10,350</b></li><li><span>Tiguan</span><i></i><b>$17,350</b></li></ul></div>
+          <div class="mk"><div class="name">Volvo</div><div class="from">New, starting around</div><div class="px">$44,000</div><ul><li><span>XC60</span><i></i><b>$27,800</b></li></ul></div>
+        </div>
+      </div>
+      <div class="foot"><span>HIGHWAYLOT — free car valuation and price guide.</span><div class="fl"><span>Value my car</span><span>wikiLOT</span><span>Terms</span><span>Privacy</span></div></div>
+    </div></div>
+  </section>
+
+  <!-- 5 · why -->
+  <section class="sec">
+    <h2>Why it's different</h2>
+    <ul class="why">
+      <li>Yellow leads on every page, not just the landing. The tool pages open on a yellow band, so all three screens read as one site.</li>
+      <li>The price is the biggest thing in every cell. Make name second, model list third. A buyer reads numbers before words.</li>
+      <li>One wordmark moment: Anton, once, on the landing. Everywhere else the shield and Oswald keep the nav small.</li>
+      <li>No icons, no colored initials, no illustrations. The make board is type, rules and dotted leaders.</li>
+      <li>The lane line shows up once, faint, behind the wikiLOT hero, and nowhere else.</li>
+    </ul>
+  </section>
+
+  <!-- 6 · kept / changed -->
+  <section class="sec">
+    <p class="kc"><b>What was kept from the handoff</b>Ink nav with the yellow rule, the "$38,800 avg." hero line, 8px ink cards with the soft shadow and 2px hover lift, yellow-fill/ink-text primary buttons, Terms and Privacy inside the yellow field with no dark footer bar, every form field and every figure exactly as live.</p>
+    <p class="kc"><b>What I changed</b>The landing's two cards merged into one ink board with a real figure on each row; the Value My Car hero flipped from ink to yellow with the number set large; wikiLOT's diagonal ink/yellow split and stat widget replaced by a yellow band whose headline carries the Kia Soul and Escalade figures; the make cards replaced by a five-across price board with dotted leaders and no initials circles; a single result board for the estimate.</p>
+  </section>
+</div>
+
+<script>
+(function(){
+  function fit(){
+    document.querySelectorAll('.frame').forEach(function(f){
+      var m=f.querySelector('.mock'); if(!m) return;
+      var w=parseFloat(m.getAttribute('data-w'))||1280;
+      m.style.width=w+'px';
+      var s=Math.min(1,(f.clientWidth-2)/w);
+      m.style.transform='scale('+s+')';
+      f.style.height=Math.ceil(m.offsetHeight*s+2)+'px';
+    });
+  }
+  fit();
+  window.addEventListener('load',fit);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+  setTimeout(fit,600);
+})();
+</script>
+</body>
+</html>

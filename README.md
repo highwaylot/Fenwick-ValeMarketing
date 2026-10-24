@@ -20,6 +20,8 @@ request form. No framework, no build step, no npm, no `requirements.txt`.
 |---|---|
 | `index.html` | Home |
 | `websites.html` | Websites: the three sizes, the add-on list, the request form |
+| `work.html` | Work: the three live sites, then seven design concepts as full-width screenshots that open the concept pages |
+| `work/*.html`, `work/shots/*.jpg` | The seven concept pages (self-contained demos, `noindex`) and their 1280x800 tile screenshots. See "The Work gallery" |
 | `google.html` | Google Business Profile, reviews and ads |
 | `guides.html` | Guides index |
 | `guides/*.html` | The four finished guides |
@@ -36,7 +38,7 @@ request form. No framework, no build step, no npm, no `requirements.txt`.
 | `assets/fonts/*.woff2` | The two typefaces, latin subsets, self-hosted |
 | `assets/og.png` | The 1200x630 share image, rendered from the v.2 look |
 | `v1/` | The first version of the site: five pages, its own stylesheet, `noindex`, a banner back to the current site |
-| `favicon.svg`, `site.webmanifest`, `robots.txt`, `sitemap.xml` | The usual. The sitemap leaves `/v1/` out |
+| `favicon.svg`, `site.webmanifest`, `robots.txt`, `sitemap.xml` | The usual. The sitemap lists `/work` but leaves `/v1/` and the `/work/*.html` concept pages out |
 | `vercel.json` | Clean URLs, three security headers, a one-year cache on the fonts. No `functions` block: Vercel detects `api/*.py` on its own |
 
 ## Type
@@ -130,6 +132,44 @@ exports a `handler` class built on `BaseHTTPRequestHandler`. There is no
 `requirements.txt` on purpose. To check the code without a server:
 `python3 -m py_compile api/request.py api/requests.py`.
 
+## The Work gallery
+
+`/work` is the portfolio: section 01 is the same three live sites as the
+home page; section 02 is seven website designs (four directions for
+HighwayLot, three for FleetCleared), one full-width screenshot per row with a
+mono label above ("01 · HighwayLot · The Board") and one plain sentence under
+it. The screenshot is the link. The concept pages live at
+`/work/<slug>` and are the original self-contained design documents with
+three changes: a small Fenwick and Vale bar across the top (mark, "Fenwick
+and Vale · Work", "← All work", previous and next), a `noindex,follow` meta
+and a new `<title>`, and their old gallery navigation removed (the Swiss
+page keeps its 44 px bar because it holds the live EN|ES and day/night
+control; only its page links were dropped). Everything below the bar keeps
+its own look; that is the work.
+
+The concept pages are the one place on this site that loads type from
+Google Fonts: each carries the `fonts.googleapis.com` link it was designed
+with, because they are demos and self-hosting six more families for seven
+`noindex` pages is not worth it. The privacy page says so. The main site
+still never calls Google.
+
+To add a tile:
+
+1. Put the finished concept page at `work/<slug>.html` (slug:
+   `<business>-<name>`). Give it the bar, the robots meta and the title; the
+   easiest way is to copy the `<style id="fv-bar-css">` block and the
+   `<div id="fv-bar">` from any existing one and fix the previous/next
+   links on its two neighbours. Any `href` to the old folder it came from
+   must go. The bar's fonts come from `/assets/fonts/`, so absolute paths.
+2. Render the first 1280x800 of it at device scale 1 as a JPG, quality 82,
+   with `#fv-bar` hidden, to `work/shots/<slug>.jpg`. Any headless browser
+   will do; the current shots came from Playwright.
+3. Add one `<li>` to the `tiles` list in `work.html`: the label, the
+   `<img>` with `width="1280" height="800" loading="lazy"` and a real alt,
+   and the one-line sentence, written from the concept page's own header.
+4. Do not add it to `sitemap.xml`; `/work` is already there and the
+   concept pages are `noindex`.
+
 ## Motion
 
 Seven moves, all plain CSS or a few lines of JavaScript, all short:
@@ -143,10 +183,11 @@ scroll library, no GSAP, no Lottie, no video.
 
 ## Weight
 
-The home page is about 25 KB with its stylesheet and its one script, fonts
+The home page is about 27 KB with its stylesheet and its one script, fonts
 aside; the fonts are 76 KB more. One script file on the home page (the
-clock), two on the Websites, Google, About and For agencies pages (the
-clock and the form). The real numbers are printed in the footer colophon; update them when
+clock and nothing else on the Work page too), two on the Websites, Google, About and For agencies pages (the
+clock and the form). The seven concept pages under `/work/` carry their own
+inline scripts (palette and language switchers) and are not counted here. The real numbers are printed in the footer colophon; update them when
 the files change (sizes of `index.html` + `assets/site.css` +
 `assets/clock.js`). The colophon also carries the line "I use AI tools for
 drafting and code. Every page is read, checked and signed off by me."
@@ -200,5 +241,7 @@ the Vercel CLI.
 - The v.1 archive still loads its two typefaces from Google Fonts, as it did
   when it was live; the privacy page says so. Strip the link from `v1/*.html`
   if you'd rather it didn't.
+- The seven concept pages under `/work/` load their typefaces from Google
+  Fonts as well (see "The Work gallery"); the privacy page covers both.
 - If someone draws a better mark, credit them by name in the About page's
   "This site" section.

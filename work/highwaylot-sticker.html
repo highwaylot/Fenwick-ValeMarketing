@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HighwayLot · The Window Sticker · a concept by Fenwick and Vale</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1B2431; --yellow:#F5B700; --yd:#8A6600; --paper:#FAFAF6; --steel:#5B6472;
+  --line:#DEDBD1; --green:#2F6B4F; --greenbg:#E7F0EA; --card:#FFFFFF; --strip-sub:#B9C0CA;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* ---------- presentation page ---------- */
+.page{max-width:1120px;margin:0 auto;padding:40px 16px 80px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--steel);margin:0 0 6px}
+h1{font-size:30px;font-weight:600;letter-spacing:-.01em;margin:0 0 8px}
+h2{font-size:18px;font-weight:600;margin:48px 0 6px}
+.lead{font-size:16px;color:var(--ink);margin:0 0 20px;max-width:720px}
+.sub{font-size:13px;color:var(--steel);margin:0 0 14px}
+.pal{display:flex;height:52px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.pal div{height:100%}
+.pal-keys{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:10px 0 0;padding:0;list-style:none;font-size:12px;color:var(--steel)}
+.pal-keys b{display:block;color:var(--ink);font-weight:600}
+.pal-keys code{font-size:11px}
+.frame{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--paper);min-height:120px}
+.mock{position:absolute;top:0;left:0;width:1280px;transform-origin:0 0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:15px;line-height:1.4}
+.mock.ph{width:390px}
+.pair{display:grid;grid-template-columns:1fr;gap:28px}
+.pair-l{display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start}
+.cap{font-size:12px;color:var(--steel);margin:8px 0 0}
+ul.why{margin:0;padding:0 0 0 18px}
+ul.why li{margin:0 0 8px;max-width:760px}
+.kc{margin:12px 0 0;max-width:800px}
+.kc b{font-weight:600}
+@media (max-width:860px){.pair,.pair-l{grid-template-columns:1fr}.pair-l .frame.phone{max-width:390px}.pal-keys{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- shared mock parts ---------- */
+.m-nav{height:56px;background:var(--ink);color:#fff;display:flex;align-items:center;padding:0 100px;gap:32px}
+.m-nav .wm{display:flex;align-items:center;gap:10px;font-family:Anton,Impact,sans-serif;font-size:21px;letter-spacing:.03em;color:#fff;text-decoration:none}
+.m-nav .wm svg{width:22px;height:23px}
+.m-nav .lk{font-family:Oswald,sans-serif;font-weight:500;font-size:15px;letter-spacing:.03em;color:#D5DAE1;padding:4px 0;border-bottom:2px solid transparent}
+.m-nav .lk.on{color:#fff;border-bottom-color:#fff}
+.m-foot{background:var(--ink);color:#C9CFD8;font-size:13px;padding:22px 100px;display:flex;justify-content:space-between;align-items:center;margin-top:56px}
+.m-foot .fl{display:flex;gap:18px}
+.m-foot .fl span{text-decoration:underline}
+
+.stk{background:var(--card);border:1.5px solid var(--ink);border-radius:8px;overflow:hidden;box-shadow:0 8px 22px rgba(27,36,49,.10)}
+.stk-h{background:var(--ink);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;font-family:Oswald,sans-serif}
+.stk-h .t{font-weight:500;font-size:28px;line-height:1.15;letter-spacing:.01em}
+.stk-h .t .y{color:var(--yellow)}
+.stk-h .k{font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--strip-sub);margin-bottom:4px}
+.stk-h .r{font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--strip-sub);white-space:nowrap}
+.blk{padding:14px 22px 16px;border-bottom:1px solid var(--line)}
+.blk-t{font-family:Oswald,sans-serif;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);margin:0 0 6px}
+.spec{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
+.spec.c3{grid-template-columns:1fr 1fr 1fr}
+.spec.c1{grid-template-columns:1fr}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.lab{font-family:Oswald,sans-serif;font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel)}
+.lab small{font-family:Inter,sans-serif;text-transform:none;letter-spacing:0;font-size:12px;color:var(--steel);font-weight:400}
+.val{font-size:15px;color:var(--ink);font-weight:500}
+.val.num{font-family:Oswald,sans-serif;font-weight:500;font-size:16px;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.f{flex-direction:column;align-items:stretch;gap:6px;padding:10px 0;border-bottom:0}
+.in{height:40px;border:1px solid var(--line);border-radius:4px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:15px;background:#fff;color:var(--ink)}
+.in.ph{color:var(--steel)}
+.in svg{width:12px;height:12px;flex:none}
+.in.ro{background:var(--paper)}
+.vinrow{display:flex;gap:10px;align-items:center}
+.vinrow .in{flex:1}
+.btn{font-family:Oswald,sans-serif;font-weight:600;font-size:16px;letter-spacing:.05em;text-transform:uppercase;height:48px;display:flex;align-items:center;justify-content:center;border-radius:6px;padding:0 20px;white-space:nowrap}
+.btn.y{background:var(--yellow);color:var(--ink)}
+.btn.i{background:var(--ink);color:#fff}
+.btn.o{border:1.5px solid var(--ink);color:var(--ink);background:#fff}
+.btn.sm{height:40px;font-size:14px;padding:0 16px}
+.tot{border-top:3px double var(--ink);display:flex;justify-content:space-between;align-items:baseline;padding:14px 22px 10px}
+.tot .lab{font-size:13px;color:var(--ink)}
+.tot .lab small{display:block;margin-top:3px}
+.tot .n{font-family:Oswald,sans-serif;font-weight:700;font-size:46px;line-height:1;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.tot .n.dim{color:var(--steel);font-weight:400}
+.tot.y{background:var(--yellow)}
+.tot.y .lab,.tot.y .lab small{color:var(--ink)}
+.fine{font-size:12px;color:var(--steel);padding:0 22px 14px;line-height:1.45}
+.tot.y + .fine{padding-top:12px}
+.acts{display:flex;gap:10px;padding:4px 22px 22px}
+.acts .btn{flex:1}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.choice div{height:44px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500}
+.choice .on{background:var(--greenbg);color:var(--green);border-color:var(--greenbg)}
+
+/* ---------- landing ---------- */
+.land{height:900px;background:var(--yellow);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.land .wm{font-family:Anton,Impact,sans-serif;font-size:150px;line-height:1;letter-spacing:.01em;color:var(--ink);margin:0}
+.land .tag{font-size:17px;color:var(--ink);margin:14px 0 36px}
+.land .stk{width:620px;box-shadow:0 10px 26px rgba(27,36,49,.16)}
+.land .stk-h{padding:12px 22px;align-items:center}
+.land .stk-h .k{margin:0;font-size:12px;display:flex;align-items:center;gap:10px;color:#fff}
+.land .stk-h .k svg{width:18px;height:19px}
+.lrow{display:grid;grid-template-columns:190px 1fr auto;align-items:center;gap:16px;padding:20px 22px;border-bottom:1px solid var(--line)}
+.lrow:last-child{border-bottom:0}
+.lrow .l{font-family:Oswald,sans-serif;font-weight:600;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.lrow .d{font-size:15px;color:var(--steel)}
+.lrow .a{font-family:Oswald,sans-serif;font-weight:500;font-size:15px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.lrow .a svg{width:16px;height:16px}
+.lrow.off{color:var(--steel);background:var(--paper)}
+.lrow.off .l,.lrow.off .d,.lrow.off .a{color:#9AA1AB}
+.land .legal{position:absolute;bottom:34px;left:0;right:0;display:flex;justify-content:center;gap:18px;font-size:13px;color:var(--ink)}
+.land .legal span{text-decoration:underline}
+/* phone landing */
+.landp{height:844px;background:var(--yellow);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:0 16px}
+.landp .wm{font-family:Anton,Impact,sans-serif;font-size:60px;line-height:1;letter-spacing:.01em;color:var(--ink);margin:0}
+.landp .tag{font-size:14px;color:var(--ink);margin:12px 0 26px;text-align:center;max-width:320px}
+.landp .stk{width:100%;box-shadow:0 10px 26px rgba(27,36,49,.16)}
+.landp .stk-h{padding:12px 16px;align-items:center}
+.landp .stk-h .k{margin:0;font-size:11px;display:flex;align-items:center;gap:8px;color:#fff}
+.landp .stk-h .k svg{width:16px;height:17px}
+.landp .lrow{grid-template-columns:1fr auto;grid-template-rows:auto auto;padding:16px;gap:2px 12px}
+.landp .lrow .l{font-size:17px;grid-column:1}
+.landp .lrow .d{font-size:13px;grid-column:1}
+.landp .lrow .a{grid-column:2;grid-row:1/3;font-size:0}
+.landp .legal{position:absolute;bottom:26px;left:0;right:0;display:flex;justify-content:center;gap:18px;font-size:13px;color:var(--ink)}
+.landp .legal span{text-decoration:underline}
+
+/* ---------- value my car ---------- */
+.vbody{padding:40px 100px 0;display:flex;justify-content:center}
+.vbody .stk{width:760px}
+.vbody .blk{padding:16px 22px 10px}
+.vbody .stk-h{padding:18px 22px 16px}
+
+/* ---------- wikilot ---------- */
+.hero{background:var(--ink);color:#fff;padding:40px 100px 44px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(-55deg,transparent 0 34px,rgba(255,255,255,.07) 34px 36px,transparent 36px 52px);pointer-events:none}
+.hero>*{position:relative}
+.hero .k{font-family:Oswald,sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--strip-sub);margin:0 0 8px}
+.hero .t{font-family:Oswald,sans-serif;font-weight:500;font-size:36px;line-height:1.2;margin:0;letter-spacing:.01em;max-width:1000px}
+.hero .t .y{color:var(--yellow)}
+.wbody{padding:36px 100px 0}
+.sec{font-family:Oswald,sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);margin:0 0 10px}
+.bstrip .stk-h{padding:10px 22px;align-items:center}
+.bstrip .stk-h .k{margin:0;color:#fff}
+.bcells{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.bcells div{padding:14px 14px;border-right:1px solid var(--line);min-width:0}
+.bcells div:last-child{border-right:0}
+.bcells .lab{display:block;font-size:12px;margin-bottom:6px;color:var(--ink);font-weight:600}
+.bcells .n{font-family:Oswald,sans-serif;font-weight:500;font-size:22px;white-space:nowrap;line-height:1;font-variant-numeric:tabular-nums}
+.bcells .s{font-size:11px;color:var(--steel);margin-top:4px}
+.makes{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:36px}
+.mk .stk-h{padding:12px 16px;align-items:center}
+.mk .stk-h .t{font-size:20px;font-weight:600;line-height:1.1}
+.mk .stk-h .rr{text-align:right}
+.mk .stk-h .rr{display:flex;flex-direction:column-reverse}
+.mk .stk-h .rr .k{margin:1px 0 0;font-size:9px;letter-spacing:.1em;white-space:nowrap}
+.mk .stk-h .rr .n{font-family:Oswald,sans-serif;font-weight:500;font-size:18px;line-height:1.1;font-variant-numeric:tabular-nums}
+.mk .list{padding:4px 16px 6px}
+.mk .row{padding:8px 0}
+.mk .row .val{font-size:14px;font-weight:400}
+.mk .row .num{font-size:15px}
+</style>
+<style id="fv-bar-css">
+/* Fenwick and Vale top bar. The page below it is the work and keeps its own look. */
+@font-face{font-family:"Schibsted Grotesk";font-style:normal;font-weight:400 900;font-display:swap;src:url(/assets/fonts/schibsted-grotesk-latin-var.woff2) format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-mono-latin-400.woff2) format("woff2")}
+#fv-bar,#fv-bar *{box-sizing:border-box;margin:0;letter-spacing:0;text-transform:none;border-radius:0;box-shadow:none}
+#fv-bar{position:relative;z-index:10001;background:#F5F1E8;color:#16140F;border-bottom:1px solid #CFC8B8;font:400 15px/1.5 "Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}
+#fv-bar .fv-in{max-width:1120px;margin:0 auto;padding:0 32px;min-height:48px;display:flex;align-items:center;flex-wrap:wrap;column-gap:24px;row-gap:0}
+#fv-bar .fv-brand{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;color:#16140F;text-decoration:none;padding:10px 0;min-height:44px;margin-right:auto;white-space:nowrap}
+#fv-bar .fv-brand svg{width:20px;height:20px;flex:none;color:#16140F}
+#fv-bar .fv-brand .fv-sec{font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-weight:400;font-size:14px;color:#5C574D}
+#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;display:flex;flex-wrap:wrap;column-gap:20px;font-family:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:14px}
+#fv-bar nav a{color:#16140F;text-decoration:none;display:inline-block;padding:12px 0;min-height:44px;line-height:20px;position:relative;white-space:nowrap;background:none;border:0}
+#fv-bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#C53B00;transform:scaleX(0);transform-origin:0 50%;transition:transform 150ms ease-out}
+#fv-bar nav a:hover::after,#fv-bar nav a:focus-visible::after{transform:scaleX(1)}
+#fv-bar nav a:hover{background:none;color:#16140F}
+#fv-bar a:focus-visible{outline:2px solid #C53B00;outline-offset:3px}
+#fv-bar nav .fv-dim{color:#5C574D}
+@media (max-width:720px){#fv-bar .fv-in{padding:0 16px;column-gap:16px}#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;flex-basis:100%;column-gap:16px}#fv-bar nav a{padding:8px 0;min-height:40px;line-height:20px}#fv-bar nav a::after{bottom:6px}}
+@media (prefers-reduced-motion:reduce){#fv-bar nav a::after{transition:none}}
+</style>
+</head>
+<body>
+<div id="fv-bar"><div class="fv-in"><a class="fv-brand" href="/"><svg viewBox="0 0 64 64" width="20" height="20" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12.5c-.6 12.5-.4 25.6.8 39" stroke-width="5"/><path d="M13.6 13.4c7.4-1.2 13.6-.9 19.6-.4" stroke-width="4"/><path d="M14.4 30c4.6-.7 9-.6 13.4-.2" stroke-width="3.4"/><path d="M33.6 14.2c2.6 11.4 6.2 23.2 10.4 36.4" stroke-width="4.6"/><path d="M44.4 50.2c2.2-12.8 4.8-24.6 8.8-37" stroke-width="3.4"/></g></svg><span>Fenwick and Vale</span><span class="fv-sec">· Work</span></a><nav aria-label="Work"><a href="/work">&larr; All work</a><a href="/work/highwaylot-highway" title="HighwayLot · The Highway"><span class="fv-dim">Previous:</span> The Highway</a><a href="/work/fleetcleared-dispatcher" title="FleetCleared · The Dispatcher"><span class="fv-dim">Next:</span> The Dispatcher</a></nav></div></div>
+<div class="page">
+
+  <!-- 1 · header -->
+  <p class="eyebrow">HIGHWAYLOT redesign · concept 04</p>
+  <h1>The Window Sticker</h1>
+  <p class="lead">Every screen is a white card with an ink header strip, ruled spec blocks and a total line at the bottom, the way a new-car window sticker is laid out, without ever drawing one.</p>
+  <p class="sub">Palette weight in this concept. White and paper carry the pages, ink carries the header strips, yellow is spent once per screen.</p>
+  <div class="pal" aria-label="palette strip">
+    <div style="width:34%;background:#FFFFFF"></div>
+    <div style="width:24%;background:#FAFAF6;border-left:1px solid #DEDBD1"></div>
+    <div style="width:22%;background:#1B2431"></div>
+    <div style="width:10%;background:#DEDBD1"></div>
+    <div style="width:6%;background:#5B6472"></div>
+    <div style="width:4%;background:#F5B700"></div>
+  </div>
+  <ul class="pal-keys">
+    <li><b>Card</b><code>#FFFFFF</code> leads, every sticker</li>
+    <li><b>Paper</b><code>#FAFAF6</code> page behind the stickers</li>
+    <li><b>Ink</b><code>#1B2431</code> nav, header strips, totals</li>
+    <li><b>Line</b><code>#DEDBD1</code> the rules</li>
+    <li><b>Steel</b><code>#5B6472</code> labels, fine print</li>
+    <li><b>Yellow</b><code>#F5B700</code> one action or one number per screen; the landing field</li>
+  </ul>
+  <p class="sub" style="margin-top:10px">Green #2F6B4F appears once, on the "No, it's in good shape" answer. Yellow dark #8A6600 is not needed: yellow never sits under small text here.</p>
+
+  <!-- 2 · landing -->
+  <h2>Landing</h2>
+  <p class="sub">The yellow field and the Anton wordmark stay. The two ink cards become one sticker with three ruled rows; the third is greyed and honest.</p>
+  <div class="pair-l">
+    <div>
+      <div class="frame" data-w="1280">
+        <div class="mock">
+          <div class="land">
+            <p class="wm">HIGHWAYLOT</p>
+            <p class="tag">A car marketplace, built one honest tool at a time — buying and selling are next.</p>
+            <div class="stk">
+              <div class="stk-h">
+                <div class="k"><svg viewBox="0 0 32 34"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>Free car valuation and price guide</div>
+                <div class="r">No fees · No login</div>
+              </div>
+              <div class="lrow"><div class="l">Value my car</div><div class="d">Free instant estimate</div><div class="a">Open <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h11M8 3l5 5-5 5"/></svg></div></div>
+              <div class="lrow"><div class="l">wikiLOT</div><div class="d">The car price guide</div><div class="a">Open <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h11M8 3l5 5-5 5"/></svg></div></div>
+              <div class="lrow off"><div class="l">Buy and sell</div><div class="d">Next</div><div class="a">Not yet</div></div>
+            </div>
+            <div class="legal"><span>Terms</span><span>Privacy</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="cap">Desktop, 1280 wide.</p>
+    </div>
+    <div>
+      <div class="frame phone" data-w="390">
+        <div class="mock ph">
+          <div class="landp">
+            <p class="wm">HIGHWAYLOT</p>
+            <p class="tag">A car marketplace, built one honest tool at a time — buying and selling are next.</p>
+            <div class="stk">
+              <div class="stk-h">
+                <div class="k"><svg viewBox="0 0 32 34"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>Free valuation and price guide</div>
+              </div>
+              <div class="lrow"><div class="l">Value my car</div><div class="d">Free instant estimate</div><div class="a"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h11M8 3l5 5-5 5"/></svg></div></div>
+              <div class="lrow"><div class="l">wikiLOT</div><div class="d">The car price guide</div><div class="a"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 8h11M8 3l5 5-5 5"/></svg></div></div>
+              <div class="lrow off"><div class="l">Buy and sell</div><div class="d">Next</div><div class="a"></div></div>
+            </div>
+            <div class="legal"><span>Terms</span><span>Privacy</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="cap">Phone, 390 wide.</p>
+    </div>
+  </div>
+
+  <!-- 3 · value my car -->
+  <h2>Value My Car</h2>
+  <p class="sub">The form is the sticker. Four blocks, then the estimate where a total goes. Left: filling in. Right: the result.</p>
+  <div class="pair">
+    <div>
+      <div class="frame" data-w="1280">
+        <div class="mock">
+          <div class="m-nav">
+            <span class="wm"><svg viewBox="0 0 32 34"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>HIGHWAYLOT</span>
+            <span class="lk on">Value my car</span><span class="lk">wikiLOT</span>
+          </div>
+          <div class="vbody">
+            <div class="stk">
+              <div class="stk-h">
+                <div><div class="k">Value my car</div><div class="t">What's your car worth? <span class="y">$38,800 avg.</span></div></div>
+                <div class="r">Free instant estimate</div>
+              </div>
+
+              <div class="blk">
+                <p class="blk-t">Vehicle</p>
+                <div class="spec c1">
+                  <div class="row f"><span class="lab">VIN <small>· optional, auto-fills year, make and model</small></span>
+                    <div class="vinrow"><div class="in ph">17-character VIN (optional)</div><div class="btn i sm">Auto-fill</div></div></div>
+                </div>
+                <div class="spec c3">
+                  <div class="row f"><span class="lab">Year *</span><div class="in ph">Select year <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></div></div>
+                  <div class="row f"><span class="lab">Make *</span><div class="in ph">Select make <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></div></div>
+                  <div class="row f"><span class="lab">Model *</span><div class="in ph">Pick a make first <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></div></div>
+                </div>
+              </div>
+
+              <div class="blk">
+                <p class="blk-t">Mileage &amp; condition</p>
+                <div class="spec">
+                  <div class="row f"><span class="lab">Current mileage *</span><div class="in">52000</div></div>
+                  <div class="row f"><span class="lab">Original price paid <small>· optional</small></span><div class="in">28000</div></div>
+                  <div class="row f"><span class="lab">Overall condition</span><div class="in">Good <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></div></div>
+                  <div class="row f"><span class="lab">Body style</span><div class="in">Sedan <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></div></div>
+                </div>
+              </div>
+
+              <div class="blk">
+                <p class="blk-t">Ownership</p>
+                <div class="spec">
+                  <div class="row f"><span class="lab">State</span><div class="in ph">Select state <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></div></div>
+                  <div class="row f"><span class="lab">Ownership status</span><div class="in">Paid off <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 4l4 4 4-4"/></svg></div></div>
+                </div>
+              </div>
+
+              <div class="blk">
+                <p class="blk-t">Known issues</p>
+                <div class="spec c1">
+                  <div class="row f"><span class="lab">Any known issues? <small>· optional, honest detail sharpens the estimate</small></span>
+                    <div class="choice"><div class="on">No, it's in good shape</div><div>Yes, let me note a few things</div></div></div>
+                </div>
+              </div>
+
+              <div class="tot">
+                <span class="lab">Estimate <small>Fills in as the blocks above fill. Year, make and model still needed.</small></span>
+                <span class="n dim">$ —</span>
+              </div>
+              <p class="fine">Estimates come from depreciation curves blended with comparable listings.</p>
+              <div class="acts"><div class="btn y">Get my estimate</div></div>
+            </div>
+          </div>
+          <div class="m-foot"><span>HIGHWAYLOT — free car valuation and price guide.</span><span class="fl"><span>Value my car</span><span>wikiLOT</span><span>Terms</span><span>Privacy</span></span></div>
+        </div>
+      </div>
+      <p class="cap">Form. The one yellow item is the button; the headline number sits in the strip.</p>
+    </div>
+
+    <div>
+      <div class="frame" data-w="1280">
+        <div class="mock">
+          <div class="m-nav">
+            <span class="wm"><svg viewBox="0 0 32 34"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>HIGHWAYLOT</span>
+            <span class="lk on">Value my car</span><span class="lk">wikiLOT</span>
+          </div>
+          <div class="vbody">
+            <div class="stk">
+              <div class="stk-h">
+                <div><div class="k">Your estimate</div><div class="t">Kia Soul · 5 years old</div></div>
+                <div class="r">Free instant estimate</div>
+              </div>
+              <div class="blk">
+                <p class="blk-t">Vehicle</p>
+                <div class="spec c3">
+                  <div class="row"><span class="lab">Make</span><span class="val">Kia</span></div>
+                  <div class="row"><span class="lab">Model</span><span class="val">Soul</span></div>
+                  <div class="row"><span class="lab">Age</span><span class="val">5 years old</span></div>
+                </div>
+              </div>
+              <div class="blk">
+                <p class="blk-t">How this was built</p>
+                <div class="spec c1">
+                  <div class="row"><span class="lab">Method</span><span class="val">Depreciation curves blended with comparable listings</span></div>
+                  <div class="row"><span class="lab">Cost</span><span class="val">Free, no login</span></div>
+                </div>
+              </div>
+              <div class="tot y">
+                <span class="lab">Estimate <small>Kia Soul · 5 years old</small></span>
+                <span class="n">$9,650</span>
+              </div>
+              <p class="fine">This estimate comes from depreciation curves blended with comparable listings.</p>
+              <div class="acts"><div class="btn i">Value another car</div><div class="btn o">Kia in wikiLOT</div></div>
+            </div>
+          </div>
+          <div class="m-foot"><span>HIGHWAYLOT — free car valuation and price guide.</span><span class="fl"><span>Value my car</span><span>wikiLOT</span><span>Terms</span><span>Privacy</span></span></div>
+        </div>
+      </div>
+      <p class="cap">Result. The total line fills and takes the yellow; the buttons go ink.</p>
+    </div>
+  </div>
+
+  <!-- 4 · wikilot -->
+  <h2>wikiLOT index</h2>
+  <p class="sub">Flat ink band with the two real 5-year figures in the headline, one ruled strip for body styles, and a sticker per make.</p>
+  <div class="frame" data-w="1280">
+    <div class="mock">
+      <div class="m-nav">
+        <span class="wm"><svg viewBox="0 0 32 34"><path d="M 16 1 L 30 6.5 L 30 17 Q 30 27 16 33 Q 2 27 2 17 L 2 6.5 Z" fill="#F5B700" stroke="#1B2431" stroke-width="2"/><path d="M 16 6 L 16 28" stroke="#1B2431" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/></svg>HIGHWAYLOT</span>
+        <span class="lk">Value my car</span><span class="lk on">wikiLOT</span>
+      </div>
+      <div class="hero">
+        <p class="k">wikiLOT · the car price guide</p>
+        <p class="t">What a car should cost at 5 years old: Kia Soul <span class="y">$9,650</span>, Cadillac Escalade $47,500.</p>
+      </div>
+      <div class="wbody">
+        <p class="sec">Typical new price by body style</p>
+        <div class="stk bstrip">
+          <div class="bcells">
+            <div><span class="lab">Sedan</span><div class="n">~$28,000</div><div class="s">new</div></div>
+            <div><span class="lab">Coupe</span><div class="n">~$32,000</div><div class="s">new</div></div>
+            <div><span class="lab">Hatchback</span><div class="n">~$24,000</div><div class="s">new</div></div>
+            <div><span class="lab">SUV</span><div class="n">~$38,000</div><div class="s">new</div></div>
+            <div><span class="lab">Truck</span><div class="n">~$45,000</div><div class="s">new</div></div>
+            <div><span class="lab">Van/Minivan</span><div class="n">~$36,000</div><div class="s">new</div></div>
+            <div><span class="lab">Convertible</span><div class="n">~$40,000</div><div class="s">new</div></div>
+          </div>
+        </div>
+
+        <p class="sec" style="margin-top:36px">By make · new starting around, then models</p>
+        <div class="makes" style="margin-top:0">
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Acura</span><span class="rr"><div class="k">New starting around</div><div class="n">$38,000</div></span></div><div class="list">
+            <div class="row"><span class="val">MDX</span><span class="val num">$34,100</span></div>
+            <div class="row"><span class="val">RDX</span><span class="val num">$28,850</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Audi</span><span class="rr"><div class="k">New starting around</div><div class="n">$52,000</div></span></div><div class="list">
+            <div class="row"><span class="val">A4</span><span class="val num">$17,550</span></div>
+            <div class="row"><span class="val">Q5</span><span class="val num">$25,750</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">BMW</span><span class="rr"><div class="k">New starting around</div><div class="n">$55,000</div></span></div><div class="list">
+            <div class="row"><span class="val">3 Series</span><span class="val num">$19,400</span></div>
+            <div class="row"><span class="val">X5</span><span class="val num">$35,100</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Buick</span><span class="rr"><div class="k">New starting around</div><div class="n">$32,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Encore</span><span class="val num">$16,000</span></div>
+            <div class="row"><span class="val">Enclave</span><span class="val num">$26,050</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Cadillac</span><span class="rr"><div class="k">New starting around</div><div class="n">$56,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Escalade</span><span class="val num">$47,500</span></div>
+            <div class="row"><span class="val">XT5</span><span class="val num">$27,800</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Chevrolet</span><span class="rr"><div class="k">New starting around</div><div class="n">$40,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Silverado</span><span class="val num">$31,600</span></div>
+            <div class="row"><span class="val">Equinox</span><span class="val num">$19,300</span></div>
+            <div class="row"><span class="val">Malibu</span><span class="val num">$12,950</span></div>
+            <div class="row"><span class="val">Tahoe</span><span class="val num">$36,050</span></div>
+            <div class="row"><span class="val">Traverse</span><span class="val num">$23,800</span></div>
+            <div class="row"><span class="val">Colorado</span><span class="val num">$26,100</span></div>
+            <div class="row"><span class="val">Camaro</span><span class="val num">$15,600</span></div>
+            <div class="row"><span class="val">Blazer</span><span class="val num">$23,150</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Chrysler</span><span class="rr"><div class="k">New starting around</div><div class="n">$33,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Pacifica</span><span class="val num">$15,500</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Dodge</span><span class="rr"><div class="k">New starting around</div><div class="n">$36,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Charger</span><span class="val num">$14,350</span></div>
+            <div class="row"><span class="val">Durango</span><span class="val num">$22,650</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Ford</span><span class="rr"><div class="k">New starting around</div><div class="n">$42,000</div></span></div><div class="list">
+            <div class="row"><span class="val">F-150</span><span class="val num">$30,000</span></div>
+            <div class="row"><span class="val">Explorer</span><span class="val num">$24,950</span></div>
+            <div class="row"><span class="val">Escape</span><span class="val num">$18,700</span></div>
+            <div class="row"><span class="val">Mustang</span><span class="val num">$14,250</span></div>
+            <div class="row"><span class="val">Bronco Sport</span><span class="val num">$18,700</span></div>
+            <div class="row"><span class="val">Expedition</span><span class="val num">$36,200</span></div>
+            <div class="row"><span class="val">Edge</span><span class="val num">$23,700</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">GMC</span><span class="rr"><div class="k">New starting around</div><div class="n">$46,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Sierra</span><span class="val num">$35,400</span></div>
+            <div class="row"><span class="val">Yukon</span><span class="val num">$41,100</span></div>
+            <div class="row"><span class="val">Terrain</span><span class="val num">$21,200</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Honda</span><span class="rr"><div class="k">New starting around</div><div class="n">$29,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Civic</span><span class="val num">$12,950</span></div>
+            <div class="row"><span class="val">Accord</span><span class="val num">$14,500</span></div>
+            <div class="row"><span class="val">CR-V</span><span class="val num">$21,550</span></div>
+            <div class="row"><span class="val">Pilot</span><span class="val num">$27,800</span></div>
+            <div class="row"><span class="val">Odyssey</span><span class="val num">$19,700</span></div>
+            <div class="row"><span class="val">Ridgeline</span><span class="val num">$31,150</span></div></div></div>
+
+          <div class="stk mk"><div class="stk-h"><span class="t">Hyundai</span><span class="rr"><div class="k">New starting around</div><div class="n">$27,000</div></span></div><div class="list">
+            <div class="row"><span class="val">Elantra</span><span class="val num">$10,350</span></div>
+            <div class="row"><span class="val">Tucson</span><span class="val num">$18,300</span></div>
+            <div class="row"><span class="val">Santa Fe</span><span class="val num">$20,800</span></div>
+            <div class="row"><span class="val">Sonata</span><span class="val num">$13,150</span></div>
+            <div class="row"><span class="val">Palisade</span><span class="val num">$25,200</span></div>
+            <div class="row"><span class="val">Kona</span><span class="val num">$15,150</span></div></div></div>
+
+        </div>
+      </div>
+      <div class="m-foot"><span>HIGHWAYLOT — free car valuation and price guide.</span><span class="fl"><span>Value my car</span><span>wikiLOT</span><span>Terms</span><span>Privacy</span></span></div>
+    </div>
+  </div>
+  <p class="cap">Twelve of the makes shown; the rest follow in the same grid.</p>
+
+  <!-- 5 · why -->
+  <h2>Why it's different</h2>
+  <ul class="why">
+    <li>The numbers are laid out like a bill: label on the left, figure on the right, total at the bottom. A buyer already knows how to read it.</li>
+    <li>Yellow is spent once per screen. The button on the form, the total on the result, the one price in the wikiLOT headline.</li>
+    <li>Every page is white paper with an ink strip across the top, so the landing, the form and the guide look like one printed set.</li>
+    <li>The form becomes four blocks instead of eleven loose fields, and the estimate sits where a total sits, so you can see it filling in.</li>
+    <li>No shapes, no icons beyond the shield. The rules do the work.</li>
+  </ul>
+
+  <!-- 6 · kept / changed -->
+  <p class="kc"><b>What was kept from the handoff:</b> the all-yellow landing field with Terms and Privacy inside it, the Anton wordmark, the ink nav with the shield mark, the hero headline with the real number inline, yellow-fill primary button with ink text, 8px radius and soft shadow on cards, hover lift, the Inter form fields and every figure and field label from the live pages.</p>
+  <p class="kc"><b>What I changed:</b> cards go from ink to white with an ink header strip; the two landing cards become one card with ruled rows plus a greyed "Buy and sell · Next" row; the Value My Car hero folds into the sticker header; the form is grouped into four blocks with the estimate as a total line; the wikiLOT diagonal hero and stat widget become a flat ink band with the two figures in the headline; make cards become ruled price lists and the coloured make avatars are gone; the yellow rule under the nav is dropped so yellow stays reserved.</p>
+
+</div>
+<script>
+(function(){
+  function fit(){
+    document.querySelectorAll('.frame').forEach(function(f){
+      var m=f.firstElementChild, w=parseInt(f.dataset.w,10)||1280;
+      var s=Math.min(1, f.clientWidth/w);
+      m.style.transform='scale('+s+')';
+      f.style.height=Math.round(m.offsetHeight*s)+'px';
+    });
+  }
+  fit();
+  window.addEventListener('load',fit);
+  window.addEventListener('resize',fit);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+  setTimeout(fit,800);
+})();
+</script>
+</body>
+</html>
