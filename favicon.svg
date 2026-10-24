@@ -1,5 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="10" fill="#F4F3EE"/>
-  <rect x="1" y="1" width="62" height="62" rx="9" fill="none" stroke="#D9D7CF" stroke-width="2"/>
-  <text x="32" y="43" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="25" letter-spacing="-1" fill="#16191C">F&amp;V</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Fenwick and Vale">
+<rect width="32" height="32" rx="7" fill="#14120F"/>
+<circle cx="16" cy="18.5" r="6.4" fill="none" stroke="#BFA054" stroke-width="2.3"/>
+<circle cx="16" cy="18.5" r="2.5" fill="#BFA054"/>
+<line x1="8.38" y1="13.17" x2="6.01" y2="11.5" stroke="#BFA054" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="11.71" y1="10.25" x2="10.04" y2="7.06" stroke="#BFA054" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="16" y1="9.2" x2="16" y2="5.1" stroke="#BFA054" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="20.29" y1="10.25" x2="21.96" y2="7.06" stroke="#BFA054" stroke-width="1.8" stroke-linecap="round"/>
+<line x1="23.62" y1="13.17" x2="25.99" y2="11.5" stroke="#BFA054" stroke-width="1.8" stroke-linecap="round"/>
+<path d="M6.5 21.6 Q16 29.6 25.5 21.6" fill="none" stroke="#BFA054" stroke-width="1.7" stroke-linecap="round"/>
 </svg>

@@ -5,16 +5,25 @@ Cocoa Beach, Brevard County, Florida. It sells websites, Google Business
 Profile setup, review requests done by Google's rules, and Google Ads
 management to local businesses, with every price on the page.
 
-The look: warm paper, near-black ink, one dark green, a serif for headings
-(Fraunces) and a plain sans for everything else (Public Sans). Price cards,
-tables for add-ons, a dark band for the important parts. No configurator:
-every price is printed, and every page that asks for contact ends in a short
-request form that stores to the site's own storage instead of a form service.
+The look is "Lashes of the Sun": the mark is the alchemical sign for gold,
+☉, with rays across the top only, so on a second look it is an eye. The site
+is near-black and gold by default (Nigredo) with an ivory version (Albedo)
+behind the sun button in the header, remembered per browser. Cormorant
+Garamond for headings, EB Garamond for text, both self-hosted.
 
-A second design (v.2, "a work order, not a brochure": grotesque and mono type,
-indexed rows, a live clock, Cape orange) ran briefly in October 2026 and was
-set aside in favor of this one. It is in the git history, not on the site.
-`/v1` and anything under it redirect to the home page.
+What moves, all in `assets/site.js`, all off for visitors who ask for less
+motion: the big eye's pupil follows the cursor (it wanders on phones) and
+blinks now and then, gold dust drifts up through the home hero, the
+instrument ring around the mark turns slowly, sections rise in as they
+scroll into view (from a visible start), and the header tightens on scroll.
+The home page also reads its own weight, file count, load time and the
+visitor's screen size from the browser and shows them live.
+
+Links between pages are relative (`websites.html`, `../guides.html`), so the
+same files work on Vercel, where clean URLs drop the `.html`, and as a
+click-through preview anywhere. `404.html` is the exception: Vercel serves it
+at any depth, so it uses root links. The design history (v.1 green and
+serif, v.2 grotesque and mono) is in git, not on the site.
 
 ## What's here
 
@@ -38,31 +47,20 @@ request form. No framework, no build step, no npm, no `requirements.txt`.
 | `api/request.py` | `POST /api/request`: validates and stores one request |
 | `api/requests.py` | `GET`/`DELETE /api/requests`: the admin read-back, behind `ADMIN_TOKEN` |
 | `assets/site.css` | The one stylesheet |
+| `assets/site.js` | Theme switch, header, mobile menu, the eye, the dust, reveals, live readouts, the Work reel |
 | `assets/request.js` | Submits the request form without a reload; one script for every form on the site |
-| `assets/fonts/*.woff2` | The two typefaces, latin subsets, self-hosted |
+| `assets/fonts/*.woff2` | Cormorant Garamond and EB Garamond, variable, latin subsets, self-hosted |
 | `assets/og.png` | The 1200x630 share image |
 | `favicon.svg`, `site.webmanifest`, `robots.txt`, `sitemap.xml` | The usual. The sitemap lists `/work` but leaves the `/work/*.html` concept pages out |
 | `vercel.json` | Clean URLs, the `/v1` redirects, three security headers, a one-year cache on the fonts. No `functions` block: Vercel detects `api/*.py` on its own |
 
-## Type
+## Type and color
 
-Two families, two files, about 44 KB, served from `/assets/fonts/`. No
-request goes to Google Fonts from the main site.
-
-- **Fraunces** 600 for headings and the brand name. Open Font License.
-- **Public Sans** (variable, 400 to 600) for body text, prices, labels and
-  buttons. Open Font License.
-
-Both were downloaded from the Google Fonts css2 endpoint as latin subsets and
-are committed here. To change a weight, fetch a new file the same way and
-update the `@font-face` block at the top of `assets/site.css`.
-
-## Color
-
-Paper `#F4F3EE`, white `#FFFFFF` for cards, ink `#16191C`, soft gray
-`#4C5157` for secondary text, line `#D9D7CF`, and one accent: dark green
-`#1E4D3B` for links, buttons, the focus ring and the "most people pick this"
-card (on `#E3EBE5`).
+Cormorant Garamond (headings, labels, prices) and EB Garamond (text), both
+variable fonts from the Google Fonts css2 endpoint, latin subsets, committed
+in `assets/fonts/`. Color tokens live at the top of `assets/site.css`: gold
+`#BFA054` on near-black `#12100D` for Nigredo, deeper gold `#8C7433` on ivory
+`#F6F1E6` for Albedo, where the thin lines need more weight.
 
 ## The request form
 
@@ -164,19 +162,12 @@ To add a tile:
 4. Do not add it to `sitemap.xml`; `/work` is already there and the
    concept pages are `noindex`.
 
-## Motion
-
-Almost none, on purpose: underlines on hover, the arrow on a Work screenshot
-nudging three pixels, and the focus ring. The arrow nudge honors
-`prefers-reduced-motion`.
-
 ## Weight
 
-One script file, `assets/request.js`, on the pages with the form (Websites,
-Google, About, For agencies). No script on the other pages. The seven
-concept pages under `/work/` carry their own inline scripts (palette and
-language switchers). The footer colophon carries the line "I use AI tools
-for drafting and code. Every page is read, checked and signed off by me."
+Two script files on every page (`site.js`, and `request.js` where there is a
+form), one stylesheet, four font files. The home page shows its own real
+weight live, so there is no number to keep updated here. The seven concept
+pages under `/work/` carry their own inline scripts and Google Fonts links.
 
 ## How it deploys
 

@@ -2,23 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Requests · Fenwick &amp; Vale</title>
+<meta name="description" content="Private.">
 <meta name="robots" content="noindex, nofollow">
-<title>Requests · Fenwick and Vale</title>
-<meta name="theme-color" content="#F4F3EE">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/public-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="canonical" href="https://fenwickvale.com/admin">
+<meta name="theme-color" content="#12100D">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fenwick &amp; Vale">
+<meta property="og:title" content="Requests · Fenwick &amp; Vale">
+<meta property="og:description" content="Private.">
+<meta property="og:url" content="https://fenwickvale.com/admin">
+<meta property="og:image" content="https://fenwickvale.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fenwick and Vale. The sign for gold with lashes. Websites and Google for Brevard County businesses.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/cormorant-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ebgaramond-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>try{if(localStorage.getItem('fv-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="/">Fenwick and Vale</a>
-  </div>
-</header>
-
+<header class="top"><div class="wrap"><a class="brand" href="index.html"><svg viewBox="40 40 160 160" aria-hidden="true" focusable="false"><circle cx="120" cy="134" r="40" fill="none" stroke="currentColor" stroke-width="5"></circle><g data-pupil="3" data-cx="0.5" data-cy="0.5875"><circle cx="120" cy="134" r="10" fill="currentColor"></circle></g><path d="M70.19 119.06 L57.04 111.08 L72.24 113.43 Z M76.99 104.77 L62.88 90.17 L80.64 100.02 Z M87.77 93.19 L76.41 71.74 L92.68 89.76 Z M101.53 85.39 L96.24 58.66 L107.25 83.59 Z M117 82.09 L120 54 L123 82.09 Z M132.75 83.59 L143.76 58.66 L138.47 85.39 Z M147.32 89.76 L163.59 71.74 L152.23 93.19 Z M159.36 100.02 L177.12 90.17 L163.01 104.77 Z M167.76 113.43 L182.96 111.08 L169.81 119.06 Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path><path d="M55.2 152 Q120 216 184.8 152 Q120 208 55.2 152 Z" fill="currentColor"></path></svg><span>Fenwick &amp; Vale</span></a><div class="tools"><button class="icon-btn" type="button" id="theme" aria-pressed="false" aria-label="Switch to the light look"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle><circle cx="12" cy="12" r="2.2" fill="currentColor"></circle></svg></button></div></div></header>
 <main id="main" class="wrap admin">
   <h1>Requests</h1>
   <p class="meta">Private. What people typed into the form, newest first. Not indexed, not linked.</p>
@@ -30,10 +40,10 @@
   </form>
 
   <div id="list" hidden>
-    <div class="tools">
-      <button class="btn secondary" type="button" id="copy">Copy as text</button>
-      <button class="btn secondary" type="button" id="reload">Reload</button>
-      <button class="btn secondary" type="button" id="forget">Forget token</button>
+    <div class="bar">
+      <button class="btn ghost" type="button" id="copy">Copy as text</button>
+      <button class="btn ghost" type="button" id="reload">Reload</button>
+      <button class="btn ghost" type="button" id="forget">Forget token</button>
       <span class="count" id="count"></span>
     </div>
     <table class="req" id="table">
@@ -43,126 +53,7 @@
     <p class="state" id="state" role="status" aria-live="polite"></p>
   </div>
 </main>
-
-<footer class="footer">
-  <div class="wrap">
-    <p class="small">Fenwick and Vale · <a href="/">Back to the site</a></p>
-  </div>
-</footer>
-
-<script>
-(function () {
-  var KEY = 'fv-admin-token';
-  var gate = document.getElementById('gate');
-  var gateStatus = document.getElementById('gate-status');
-  var list = document.getElementById('list');
-  var rowsEl = document.getElementById('rows');
-  var state = document.getElementById('state');
-  var count = document.getElementById('count');
-  var rows = [];
-
-  function getToken() { try { return sessionStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
-  function setToken(v) { try { if (v) sessionStorage.setItem(KEY, v); else sessionStorage.removeItem(KEY); } catch (e) {} }
-
-  function when(ts) {
-    var d = new Date(ts * 1000);
-    return d.toLocaleString('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
-  }
-  function contactLink(c) {
-    var a = document.createElement('a');
-    var digits = c.replace(/[^0-9+]/g, '');
-    if (c.indexOf('@') > -1) a.href = 'mailto:' + c;
-    else if (digits.length >= 7) a.href = 'tel:' + digits;
-    else a.removeAttribute('href');
-    a.textContent = c;
-    return a;
-  }
-  function cell(cls, text) { var td = document.createElement('td'); if (cls) td.className = cls; td.textContent = text; return td; }
-
-  function render() {
-    rowsEl.textContent = '';
-    count.textContent = rows.length + (rows.length === 1 ? ' request' : ' requests');
-    if (!rows.length) { state.textContent = 'Nothing yet.'; return; }
-    state.textContent = '';
-    rows.forEach(function (r) {
-      var tr = document.createElement('tr');
-      tr.appendChild(cell('when', when(r.ts)));
-      tr.appendChild(cell('', r.name || ''));
-      var tdc = document.createElement('td'); tdc.appendChild(contactLink(r.contact || '')); tr.appendChild(tdc);
-      tr.appendChild(cell('', r.business || ''));
-      tr.appendChild(cell('note', r.note || ''));
-      tr.appendChild(cell('page', r.page || ''));
-      var tdd = document.createElement('td');
-      var del = document.createElement('button'); del.type = 'button'; del.className = 'del'; del.textContent = 'Delete';
-      del.setAttribute('aria-label', 'Delete the request from ' + (r.name || 'unknown'));
-      del.addEventListener('click', function () { remove(r, tr); });
-      tdd.appendChild(del); tr.appendChild(tdd);
-      rowsEl.appendChild(tr);
-    });
-  }
-
-  function asText() {
-    return rows.map(function (r) {
-      var parts = [when(r.ts), r.name, r.contact];
-      if (r.business) parts.push(r.business);
-      if (r.page) parts.push('from ' + r.page);
-      var line = parts.join(' · ');
-      return r.note ? line + '\n  ' + r.note.replace(/\n/g, '\n  ') : line;
-    }).join('\n');
-  }
-
-  function api(method, path) {
-    return fetch(path, { method: method, credentials: 'same-origin', headers: { 'Authorization': 'Bearer ' + getToken() } });
-  }
-
-  function load() {
-    state.textContent = 'Loading…';
-    api('GET', '/api/requests').then(function (r) {
-      return r.json().catch(function () { return {}; }).then(function (data) {
-        if (r.status === 401) { setToken(''); list.hidden = true; gate.hidden = false; gateStatus.textContent = 'Wrong token.'; return; }
-        if (r.status === 503) { state.textContent = 'Storage or ADMIN_TOKEN is not set up yet. See the README.'; list.hidden = false; gate.hidden = true; return; }
-        if (!r.ok || !data.ok) { state.textContent = data.error || 'Could not load.'; list.hidden = false; gate.hidden = true; return; }
-        rows = data.rows || [];
-        gate.hidden = true; list.hidden = false;
-        render();
-      });
-    }).catch(function () { state.textContent = 'Network error.'; list.hidden = false; gate.hidden = true; });
-  }
-
-  function remove(r, tr) {
-    if (!window.confirm('Delete the request from ' + (r.name || 'this person') + '? This cannot be undone.')) return;
-    api('DELETE', '/api/requests?id=' + encodeURIComponent(r.id)).then(function (res) {
-      if (!res.ok) { state.textContent = 'Delete failed (' + res.status + ').'; return; }
-      rows = rows.filter(function (x) { return x.id !== r.id; });
-      tr.remove();
-      count.textContent = rows.length + (rows.length === 1 ? ' request' : ' requests');
-      state.textContent = 'Deleted.';
-    }).catch(function () { state.textContent = 'Network error.'; });
-  }
-
-  gate.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var v = gate.elements.token.value.trim();
-    if (!v) { gateStatus.textContent = 'Paste the token.'; return; }
-    setToken(v); gateStatus.textContent = '';
-    load();
-  });
-  document.getElementById('reload').addEventListener('click', load);
-  document.getElementById('forget').addEventListener('click', function () { setToken(''); rows = []; list.hidden = true; gate.hidden = false; gate.elements.token.value = ''; gate.elements.token.focus(); });
-  document.getElementById('copy').addEventListener('click', function () {
-    var text = asText();
-    var ok = function () { state.textContent = 'Copied ' + rows.length + ' to the clipboard.'; };
-    var fail = function () {
-      var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.left = '-9999px';
-      document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); ok(); } catch (e) { state.textContent = 'Copy failed. Select the table and copy by hand.'; }
-      document.body.removeChild(ta);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fail); else fail();
-  });
-
-  if (getToken()) load(); else gate.elements.token.focus();
-})();
-</script>
+<script src="assets/site.js" defer></script>
+<script>try{if(localStorage.getItem('fv-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}document.documentElement.classList.add('js')</script>
 </body>
 </html>

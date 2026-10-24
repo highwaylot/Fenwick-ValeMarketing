@@ -1,12 +1,21 @@
 {
-  "name": "Fenwick and Vale",
-  "short_name": "Fenwick and Vale",
+  "name": "Fenwick & Vale",
+  "short_name": "Fenwick & Vale",
   "description": "Websites and Google for Brevard County businesses. Prices on the page.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#F4F3EE",
-  "theme_color": "#1E4D3B",
+  "background_color": "#12100D",
+  "theme_color": "#12100D",
   "icons": [
-    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
   ]
 }

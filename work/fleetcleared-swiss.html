@@ -389,28 +389,25 @@ figcaption{ font-size:13px; color:var(--ink-2); margin-top:8px; }
 </style>
 <noscript><style>.fit{ overflow:auto !important; } .fit > *{ position:static !important; transform:none !important; }</style></noscript>
 <style id="fv-bar-css">
-/* Fenwick and Vale top bar. The page below it is the work and keeps its own look. */
-@font-face{font-family:"Public Sans";font-style:normal;font-weight:400 600;font-display:swap;src:url(/assets/fonts/public-sans-latin-var.woff2) format("woff2")}
-@font-face{font-family:"Fraunces";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/fraunces-latin-600.woff2) format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:300 700;font-display:swap;src:url(../assets/fonts/cormorant-latin-var.woff2) format("woff2")}
 #fv-bar,#fv-bar *{box-sizing:border-box;margin:0;letter-spacing:0;text-transform:none;border-radius:0;box-shadow:none}
-#fv-bar{position:relative;z-index:10001;background:#F4F3EE;color:#16191C;border-bottom:1px solid #D9D7CF;font:400 15px/1.5 "Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
-#fv-bar .fv-in{max-width:1120px;margin:0 auto;padding:0 32px;min-height:48px;display:flex;align-items:center;flex-wrap:wrap;column-gap:24px;row-gap:0}
-#fv-bar .fv-brand{display:inline-flex;align-items:center;gap:8px;font-family:"Fraunces",Georgia,"Times New Roman",serif;font-weight:600;font-size:19px;color:#16191C;text-decoration:none;padding:10px 0;min-height:44px;margin-right:auto;white-space:nowrap}
-#fv-bar .fv-brand svg{width:20px;height:20px;flex:none;color:#16191C}
-#fv-bar .fv-brand .fv-sec{font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:400;font-size:14px;color:#4C5157}
-#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;display:flex;flex-wrap:wrap;column-gap:20px;font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px}
-#fv-bar nav a{color:#16191C;text-decoration:none;display:inline-block;padding:12px 0;min-height:44px;line-height:20px;position:relative;white-space:nowrap;background:none;border:0}
-#fv-bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:2px;background:#1E4D3B;transform:scaleX(0);transform-origin:0 50%;transition:transform 150ms ease-out}
+#fv-bar{position:relative;z-index:10001;background:#12100D;color:#F3ECDD;border-bottom:1px solid #BFA054;font:500 17px/1.4 "Cormorant Garamond",Garamond,Georgia,serif}
+#fv-bar .fv-in{max-width:1180px;margin:0 auto;padding:0 32px;min-height:54px;display:flex;align-items:center;flex-wrap:wrap;column-gap:24px}
+#fv-bar .fv-brand{display:inline-flex;align-items:center;gap:10px;color:#F3ECDD;text-decoration:none;padding:8px 0;min-height:44px;margin-right:auto;white-space:nowrap;letter-spacing:.24em;text-transform:uppercase;font-size:15px}
+#fv-bar .fv-brand svg{width:28px;height:28px;flex:none;color:#BFA054}
+#fv-bar .fv-sec{letter-spacing:.08em;text-transform:none;color:#B8AE9A;font-style:italic;font-size:16px}
+#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;display:flex;flex-wrap:wrap;column-gap:20px;font-size:17px}
+#fv-bar nav a{color:#F3ECDD;text-decoration:none;display:inline-block;padding:12px 0;min-height:44px;line-height:20px;position:relative;white-space:nowrap;background:none;border:0}
+#fv-bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:1px;background:#BFA054;transform:scaleX(0);transform-origin:0 50%;transition:transform 200ms ease-out}
 #fv-bar nav a:hover::after,#fv-bar nav a:focus-visible::after{transform:scaleX(1)}
-#fv-bar nav a:hover{background:none;color:#16191C}
-#fv-bar a:focus-visible{outline:2px solid #1E4D3B;outline-offset:3px}
-#fv-bar nav .fv-dim{color:#4C5157}
-@media (max-width:720px){#fv-bar .fv-in{padding:0 16px;column-gap:16px}#fv-bar nav{height:auto;padding:0;border:0;background:none;position:static;flex-basis:100%;column-gap:16px}#fv-bar nav a{padding:8px 0;min-height:40px;line-height:20px}#fv-bar nav a::after{bottom:6px}}
+#fv-bar a:focus-visible{outline:2px solid #E2C77E;outline-offset:3px}
+#fv-bar nav .fv-dim{color:#B8AE9A;font-style:italic}
+@media (max-width:720px){#fv-bar .fv-in{padding:0 16px;column-gap:16px}#fv-bar nav{flex-basis:100%;column-gap:16px}#fv-bar nav a{padding:8px 0;min-height:40px}#fv-bar nav a::after{bottom:6px}}
 @media (prefers-reduced-motion:reduce){#fv-bar nav a::after{transition:none}}
 </style>
 </head>
 <body>
-<div id="fv-bar"><div class="fv-in"><a class="fv-brand" href="/"><span>Fenwick and Vale</span><span class="fv-sec">· Work</span></a><nav aria-label="Work"><a href="/work">&larr; All work</a><a href="/work/fleetcleared-signpainter" title="FleetCleared · The Sign Painter"><span class="fv-dim">Previous:</span> The Sign Painter</a><a href="/work/highwaylot-board" title="HighwayLot · The Board"><span class="fv-dim">Next:</span> The Board</a></nav></div></div>
+<div id="fv-bar"><div class="fv-in"><a class="fv-brand" href="../index.html"><svg viewBox="40 40 160 160" aria-hidden="true" focusable="false"><circle cx="120" cy="134" r="40" fill="none" stroke="currentColor" stroke-width="5"></circle><g><circle cx="120" cy="134" r="10" fill="currentColor"></circle></g><path d="M70.19 119.06 L57.04 111.08 L72.24 113.43 Z M76.99 104.77 L62.88 90.17 L80.64 100.02 Z M87.77 93.19 L76.41 71.74 L92.68 89.76 Z M101.53 85.39 L96.24 58.66 L107.25 83.59 Z M117 82.09 L120 54 L123 82.09 Z M132.75 83.59 L143.76 58.66 L138.47 85.39 Z M147.32 89.76 L163.59 71.74 L152.23 93.19 Z M159.36 100.02 L177.12 90.17 L163.01 104.77 Z M167.76 113.43 L182.96 111.08 L169.81 119.06 Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path><path d="M55.2 152 Q120 216 184.8 152 Q120 208 55.2 152 Z" fill="currentColor"></path></svg><span>Fenwick &amp; Vale</span><span class="fv-sec">· Work</span></a><nav aria-label="Work"><a href="../work.html">&larr; All work</a><a href="fleetcleared-signpainter.html" title="FleetCleared · The Sign Painter"><span class="fv-dim">Previous:</span> The Sign Painter</a><a href="highwaylot-board.html" title="HighwayLot · The Board"><span class="fv-dim">Next:</span> The Board</a></nav></div></div>
 <nav id="r2nav" aria-label="Round 2 pages">
   <div class="in">
     <span class="here">The Swiss</span>
