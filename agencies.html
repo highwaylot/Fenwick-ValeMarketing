@@ -2,116 +2,99 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>White-label website builds for Florida agencies · Fenwick and Vale</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>White-label website builds for Florida agencies · Fenwick &amp; Vale</title>
 <meta name="description" content="An overflow build partner for agencies in Brevard and across Florida. Five-page sites in two weeks, fixed price, your name on the work, I never contact your client.">
 <link rel="canonical" href="https://fenwickvale.com/agencies">
-<meta name="theme-color" content="#F4F3EE">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#12100D">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Fenwick and Vale">
-<meta property="og:title" content="White-label website builds for Florida agencies · Fenwick and Vale">
+<meta property="og:site_name" content="Fenwick &amp; Vale">
+<meta property="og:title" content="White-label website builds for Florida agencies · Fenwick &amp; Vale">
 <meta property="og:description" content="An overflow build partner for agencies in Brevard and across Florida. Five-page sites in two weeks, fixed price, your name on the work, I never contact your client.">
 <meta property="og:url" content="https://fenwickvale.com/agencies">
 <meta property="og:image" content="https://fenwickvale.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard County businesses. Prices on the page.">
+<meta property="og:image:alt" content="Fenwick and Vale. The sign for gold with lashes. Websites and Google for Brevard County businesses.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/assets/fonts/public-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" href="assets/fonts/cormorant-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ebgaramond-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>try{if(localStorage.getItem('fv-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav">
+<header class="top">
   <div class="wrap">
-    <a class="brand" href="/">Fenwick and Vale</a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="/websites">Websites</a></li>
-        <li><a href="/work">Work</a></li>
-        <li><a href="/google">Google</a></li>
-        <li><a href="/guides">Guides</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/agencies" aria-current="page">For agencies</a></li>
-      </ul>
-    </nav>
+    <a class="brand" href="index.html" aria-label="Fenwick and Vale, home"><svg viewBox="40 40 160 160" aria-hidden="true" focusable="false"><circle cx="120" cy="134" r="40" fill="none" stroke="currentColor" stroke-width="5"></circle><g data-pupil="3" data-cx="0.5" data-cy="0.5875"><circle cx="120" cy="134" r="10" fill="currentColor"></circle></g><path d="M70.19 119.06 L57.04 111.08 L72.24 113.43 Z M76.99 104.77 L62.88 90.17 L80.64 100.02 Z M87.77 93.19 L76.41 71.74 L92.68 89.76 Z M101.53 85.39 L96.24 58.66 L107.25 83.59 Z M117 82.09 L120 54 L123 82.09 Z M132.75 83.59 L143.76 58.66 L138.47 85.39 Z M147.32 89.76 L163.59 71.74 L152.23 93.19 Z M159.36 100.02 L177.12 90.17 L163.01 104.77 Z M167.76 113.43 L182.96 111.08 L169.81 119.06 Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path><path d="M55.2 152 Q120 216 184.8 152 Q120 208 55.2 152 Z" fill="currentColor"></path></svg><span>Fenwick &amp; Vale</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main"><a href="websites.html">Websites</a><a href="work.html">Work</a><a href="google.html">Google</a><a href="guides.html">Guides</a><a href="about.html">About</a><a href="agencies.html" aria-current="page">For agencies</a><button class="icon-btn close" type="button" aria-label="Close the menu"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></nav>
+    <div class="tools">
+      <button class="icon-btn" type="button" id="theme" aria-pressed="false" aria-label="Switch to the light look"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle><circle cx="12" cy="12" r="2.2" fill="currentColor"></circle></svg></button>
+      <button class="icon-btn menu-btn" type="button" id="menu" aria-expanded="false" aria-controls="site-nav" aria-label="Open the menu"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
+    </div>
   </div>
 </header>
-
 <main id="main">
-  <section class="hero">
-    <div class="wrap">
-      <span class="eyebrow">For agencies</span>
-      <h1>I build the sites you've sold.</h1>
-      <p class="lead">You keep the client, your name goes on the work, I never contact them. Five pages, written copy, mobile, done in two weeks, fixed price. Send one over at the fixed price and judge the work before you send another.</p>
-    </div>
-  </section>
+<section class="hero plain">
+  <div class="wrap"><div class="copy"><p class="label">For agencies</p><h1>I build the sites you've sold.</h1><p class="lead">You keep the client, your name goes on the work, I never contact them. Five pages, written copy, mobile, done in two weeks, fixed price. Send one over at the fixed price and judge the work before you send another.</p></div></div>
+</section>
 
-  <section class="section" aria-labelledby="prices">
-    <div class="wrap">
-      <h2 id="prices">Agency prices</h2>
-      <ul class="cards">
-        <li class="card">
-          <h3>One page</h3>
-          <span class="price">$600</span>
-          <p>A landing page, written copy, your Google listing fixed. Live two weeks after content.</p>
-        </li>
-        <li class="card">
-          <h3>Five pages</h3>
-          <span class="price">$1,200</span>
-          <p>Home, services, about, reviews, contact. Written copy, photos handled, Google listing set up, review link and QR code. Live two to three weeks after content.</p>
-        </li>
-        <li class="card">
-          <h3>The whole shop</h3>
-          <span class="price">$3,500</span>
-          <p>Ten to fifteen pages, Google profile and reviews set up, ads tracking wired, 90 days of the care plan. Live four to six weeks after content.</p>
-        </li>
-      </ul>
-      <p class="measure" style="margin-top:28px">The price is lower because the work is smaller. You supply the brief, the content and the photos. One round of revisions. No calls with your client. The invoice goes to your agency, and the first job is paid up front; net 15 starts after that.</p>
-    </div>
-  </section>
+<section class="sec" aria-labelledby="ap-h">
+  <div class="wrap">
+    <div class="sec-head" data-rv><p class="label" id="ap-h">Agency prices</p></div>
+    <ul class="plates">
+      <li class="plate" data-rv><h3>One page</h3><span class="price">$600</span><p>A landing page, written copy, your Google listing fixed. Live two weeks after content.</p></li>
+      <li class="plate pick" data-rv><span class="seal-tag">The usual job</span><h3>Five pages</h3><span class="price">$1,200</span><p>Home, services, about, reviews, contact. Written copy, photos handled, Google listing set up, review link and QR code. Live two to three weeks after content.</p></li>
+      <li class="plate" data-rv><h3>The whole shop</h3><span class="price">$3,500</span><p>Ten to fifteen pages, Google profile and reviews set up, ads tracking wired, 90 days of the care plan. Live four to six weeks after content.</p></li>
+    </ul>
+    <p class="terms" data-rv>The price is lower because the work is smaller. You supply the brief, the content and the photos. One round of revisions. No calls with your client. The invoice goes to your agency, and the first job is paid up front; net 15 starts after that.</p>
+  </div>
+</section>
 
-  <section class="section" aria-labelledby="get">
-    <div class="wrap">
-      <h2 id="get">What you get</h2>
-      <p class="measure">The same build I sell direct, minus the client calls.</p>
-    </div>
-  </section>
+<section class="sec band" aria-label="What you get and what I don't do">
+  <div class="wrap split">
+    <div data-rv><p class="label">What you get</p><h2 style="margin-top:14px">The same build I sell direct, minus the client calls.</h2></div>
+    <div data-rv><p class="label">What I don't do</p><h2 style="margin-top:14px">Pitch your clients, ever, or list them as my work without your say-so.</h2></div>
+  </div>
+</section>
 
-  <section class="section dark" aria-labelledby="dont">
-    <div class="wrap">
-      <h2 id="dont">What I don't do</h2>
-      <p class="measure">Pitch your clients, ever, or list them as my work without your say-so.</p>
-    </div>
-  </section>
-
-  <section class="section" aria-label="Send a job">
-    <div class="wrap ask-wrap">
-      <form class="ask" method="post" action="/api/request" novalidate>
-        <h2 class="ask-title">Send one over.</h2>
+<section class="sec" aria-labelledby="ask-h">
+  <div class="wrap ask-wrap">
+    <div class="sec-head" data-rv><p class="label">Send one over</p><h2 id="ask-h">Send one over.</h2><p class="soft">Tell me the job in a line. I reply within one business day with a yes, a no, or a question.</p></div>
+    <div data-rv><form class="ask" method="post" action="/api/request" novalidate>
+        <h3 class="ask-title">Send one over.</h3>
         <div class="field"><label for="ask-name">Name</label><input id="ask-name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80"></div>
         <div class="field"><label for="ask-contact">Phone or email</label><input id="ask-contact" name="contact" type="text" autocomplete="tel" inputmode="email" required minlength="5" maxlength="120"></div>
         <div class="field"><label for="ask-business">Business <span class="opt">optional</span></label><input id="ask-business" name="business" type="text" autocomplete="organization" maxlength="120"></div>
         <div class="field"><label for="ask-note">The job, in a line <span class="opt">optional</span></label><textarea id="ask-note" name="note" rows="3" maxlength="1000"></textarea></div>
         <div class="hp" aria-hidden="true"><label for="ask-botcheck">Leave this field empty</label><input id="ask-botcheck" name="botcheck" type="text" tabindex="-1" autocomplete="off"></div>
-        <button class="btn" type="submit">Send</button>
+        <div><button class="btn" type="submit">Send <span class="arr" aria-hidden="true">&rarr;</span></button></div>
         <p class="ask-status" role="status" aria-live="polite"></p>
-      </form>
-    </div>
-  </section>
+      </form></div>
+  </div>
+</section>
 </main>
-
-<footer class="footer">
+<footer class="foot">
   <div class="wrap">
-    <p>Fenwick and Vale · Cocoa Beach, Florida · Veteran-owned.</p>
-    <p>A one-person business. Not affiliated with Google.</p>
-    <p class="small"><a href="/about">About</a> · <a href="/work">Work</a> · <a href="/agencies">For agencies</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
-    <p class="small colophon">Hand-coded in Cocoa Beach. No trackers, no cookies, no stock photos. I use AI tools for drafting and code. Every page is read, checked and signed off by me.</p>
+    <div class="mark">
+      <svg viewBox="40 40 160 160" role="img" aria-label="The Fenwick and Vale mark" focusable="false"><circle cx="120" cy="134" r="40" fill="none" stroke="currentColor" stroke-width="5"></circle><g data-pupil="4" data-cx="0.5" data-cy="0.5875"><circle cx="120" cy="134" r="10" fill="currentColor"></circle></g><path d="M70.19 119.06 L57.04 111.08 L72.24 113.43 Z M76.99 104.77 L62.88 90.17 L80.64 100.02 Z M87.77 93.19 L76.41 71.74 L92.68 89.76 Z M101.53 85.39 L96.24 58.66 L107.25 83.59 Z M117 82.09 L120 54 L123 82.09 Z M132.75 83.59 L143.76 58.66 L138.47 85.39 Z M147.32 89.76 L163.59 71.74 L152.23 93.19 Z M159.36 100.02 L177.12 90.17 L163.01 104.77 Z M167.76 113.43 L182.96 111.08 L169.81 119.06 Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path><path d="M55.2 152 Q120 216 184.8 152 Q120 208 55.2 152 Z" fill="currentColor"></path></svg>
+      <div class="word">Fenwick &amp; Vale</div>
+      <div class="rule"></div>
+      <div class="motto">SOLVE ET COAGULA</div>
+      <div class="dots" aria-hidden="true"><i></i><i></i><i class="open"></i></div>
+    </div>
+    <div class="lines">
+      <p>Fenwick and Vale · Cocoa Beach, Florida · Veteran-owned.</p>
+      <p>A one-person business. Not affiliated with Google.</p>
+      <p class="links"><a href="about.html">About</a><a href="work.html">Work</a><a href="agencies.html">For agencies</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></p>
+      <p class="colophon">Hand-coded in Cocoa Beach. No trackers, no cookies, no stock photos. I use AI tools for drafting and code. Every page is read, checked and signed off by me.</p>
+    </div>
   </div>
 </footer>
-<script src="/assets/request.js" defer></script>
+<script src="assets/site.js" defer></script>
+<script src="assets/request.js" defer></script>
 </body>
 </html>

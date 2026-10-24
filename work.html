@@ -2,132 +2,82 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Work · Fenwick and Vale</title>
-<meta name="description" content="Seven website designs for two Florida businesses, HighwayLot and FleetCleared, each a full click-through. Built and run by Fenwick and Vale in Cocoa Beach.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Work · Fenwick &amp; Vale</title>
+<meta name="description" content="Three live sites and seven website designs for two Florida businesses, HighwayLot and FleetCleared, each a full click-through. Built and run by Fenwick and Vale in Cocoa Beach.">
 <link rel="canonical" href="https://fenwickvale.com/work">
-<meta name="theme-color" content="#F4F3EE">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#12100D">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Fenwick and Vale">
-<meta property="og:title" content="Work · Fenwick and Vale">
-<meta property="og:description" content="Seven website designs for two Florida businesses, HighwayLot and FleetCleared, each a full click-through. Built and run by Fenwick and Vale in Cocoa Beach.">
+<meta property="og:site_name" content="Fenwick &amp; Vale">
+<meta property="og:title" content="Work · Fenwick &amp; Vale">
+<meta property="og:description" content="Three live sites and seven website designs for two Florida businesses, HighwayLot and FleetCleared, each a full click-through. Built and run by Fenwick and Vale in Cocoa Beach.">
 <meta property="og:url" content="https://fenwickvale.com/work">
 <meta property="og:image" content="https://fenwickvale.com/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Fenwick and Vale. Websites and Google for Brevard County businesses. Prices on the page.">
+<meta property="og:image:alt" content="Fenwick and Vale. The sign for gold with lashes. Websites and Google for Brevard County businesses.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="/assets/fonts/public-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/fraunces-latin-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="preload" href="assets/fonts/cormorant-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ebgaramond-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>try{if(localStorage.getItem('fv-theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="nav">
+<header class="top">
   <div class="wrap">
-    <a class="brand" href="/">Fenwick and Vale</a>
-    <nav aria-label="Main">
-      <ul>
-        <li><a href="/websites">Websites</a></li>
-        <li><a href="/work" aria-current="page">Work</a></li>
-        <li><a href="/google">Google</a></li>
-        <li><a href="/guides">Guides</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/agencies">For agencies</a></li>
-      </ul>
-    </nav>
+    <a class="brand" href="index.html" aria-label="Fenwick and Vale, home"><svg viewBox="40 40 160 160" aria-hidden="true" focusable="false"><circle cx="120" cy="134" r="40" fill="none" stroke="currentColor" stroke-width="5"></circle><g data-pupil="3" data-cx="0.5" data-cy="0.5875"><circle cx="120" cy="134" r="10" fill="currentColor"></circle></g><path d="M70.19 119.06 L57.04 111.08 L72.24 113.43 Z M76.99 104.77 L62.88 90.17 L80.64 100.02 Z M87.77 93.19 L76.41 71.74 L92.68 89.76 Z M101.53 85.39 L96.24 58.66 L107.25 83.59 Z M117 82.09 L120 54 L123 82.09 Z M132.75 83.59 L143.76 58.66 L138.47 85.39 Z M147.32 89.76 L163.59 71.74 L152.23 93.19 Z M159.36 100.02 L177.12 90.17 L163.01 104.77 Z M167.76 113.43 L182.96 111.08 L169.81 119.06 Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path><path d="M55.2 152 Q120 216 184.8 152 Q120 208 55.2 152 Z" fill="currentColor"></path></svg><span>Fenwick &amp; Vale</span></a>
+    <nav class="nav" id="site-nav" aria-label="Main"><a href="websites.html">Websites</a><a href="work.html" aria-current="page">Work</a><a href="google.html">Google</a><a href="guides.html">Guides</a><a href="about.html">About</a><a href="agencies.html">For agencies</a><button class="icon-btn close" type="button" aria-label="Close the menu"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button></nav>
+    <div class="tools">
+      <button class="icon-btn" type="button" id="theme" aria-pressed="false" aria-label="Switch to the light look"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.5"></circle><circle cx="12" cy="12" r="2.2" fill="currentColor"></circle></svg></button>
+      <button class="icon-btn menu-btn" type="button" id="menu" aria-expanded="false" aria-controls="site-nav" aria-label="Open the menu"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg></button>
+    </div>
   </div>
 </header>
-
 <main id="main">
-  <section class="hero">
-    <div class="wrap">
-      <h1>Work.</h1>
-      <p class="lead">Three live sites, then seven designs you can click through. Every one of these was built here.</p>
-    </div>
-  </section>
+<section class="hero plain">
+  <div class="wrap"><div class="copy"><p class="label">Work</p><h1>Work.</h1><p class="lead">Three live sites, then seven designs you can click through. Every one of these was built here.</p></div></div>
+</section>
 
-  <section class="section dark" aria-labelledby="live">
-    <div class="wrap">
-      <h2 id="live">Live</h2>
-      <ul class="rows">
-        <li><span class="name"><a href="https://highwaylot.com">HighwayLot</a></span><span>Free car valuation and a price guide by make and model.</span></li>
-        <li><span class="name"><a href="https://mostmath.com">MOSTMATH</a></span><span>Math practice built to be read, not scrolled.</span></li>
-        <li><span class="name"><a href="https://fleetcleared.com">FleetCleared</a></span><span>Free DOT compliance guides and a consultant directory for small carriers.</span></li>
-      </ul>
-      <p class="soft" style="margin-top:24px">Fenwick and Vale does not sell marketing to businesses listed on FleetCleared.</p>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="designs">
-    <div class="wrap">
-      <h2 id="designs">Designs</h2>
-      <p class="measure soft">Four directions for HighwayLot, three for FleetCleared. Each opens as a full page: the screens, the palette and the reasoning. Click the picture.</p>
-      <ul class="shots">
-        <li>
-          <a class="shot" href="/work/highwaylot-board">
-            <span class="shot-label"><span class="shot-client">HighwayLot</span> The Board <span class="arrow" aria-hidden="true">&rarr;</span></span>
-            <img src="/work/shots/highwaylot-board.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Board concept for HighwayLot: a yellow field, ink type and big tabular numerals, set like a used-car lot's price board.">
-          </a>
-          <p>Every page is set like the price board at the front of a used-car lot: yellow field, ink type, big numerals, and the price is always the loudest thing in view.</p>
-        </li>
-        <li>
-          <a class="shot" href="/work/highwaylot-ledger">
-            <span class="shot-label"><span class="shot-client">HighwayLot</span> The Ledger <span class="arrow" aria-hidden="true">&rarr;</span></span>
-            <img src="/work/shots/highwaylot-ledger.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Ledger concept for HighwayLot: a ruled paper page in ink with one yellow highlighter stroke.">
-          </a>
-          <p>Paper leads and ink writes; every screen is a ruled page, and the one number that matters gets a yellow marker stroke.</p>
-        </li>
-        <li>
-          <a class="shot" href="/work/highwaylot-highway">
-            <span class="shot-label"><span class="shot-client">HighwayLot</span> The Highway <span class="arrow" aria-hidden="true">&rarr;</span></span>
-            <img src="/work/shots/highwaylot-highway.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Highway concept for HighwayLot: dark ink pages with a dashed lane line down the middle and yellow numbers.">
-          </a>
-          <p>Ink leads, and the dashed lane line from the shield becomes one vertical rule down every page, with content either side of it like mile markers and the numbers in yellow.</p>
-        </li>
-        <li>
-          <a class="shot" href="/work/highwaylot-sticker">
-            <span class="shot-label"><span class="shot-client">HighwayLot</span> The Window Sticker <span class="arrow" aria-hidden="true">&rarr;</span></span>
-            <img src="/work/shots/highwaylot-sticker.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Window Sticker concept for HighwayLot: white cards with an ink header strip, ruled spec blocks and a total line.">
-          </a>
-          <p>Every screen is a white card with an ink header strip, ruled spec blocks and a total line at the bottom, laid out the way a new-car window sticker is.</p>
-        </li>
-        <li>
-          <a class="shot" href="/work/fleetcleared-dispatcher">
-            <span class="shot-label"><span class="shot-client">FleetCleared</span> The Dispatcher <span class="arrow" aria-hidden="true">&rarr;</span></span>
-            <img src="/work/shots/fleetcleared-dispatcher.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Dispatcher concept for FleetCleared: a dark status board with a palette switcher and an English/Spanish, day/night control.">
-          </a>
-          <p>A status board for small carriers: five palettes with a live switcher, one English/Spanish and day/night control on every screen, nine website screens and nine social pieces.</p>
-        </li>
-        <li>
-          <a class="shot" href="/work/fleetcleared-signpainter">
-            <span class="shot-label"><span class="shot-client">FleetCleared</span> The Sign Painter <span class="arrow" aria-hidden="true">&rarr;</span></span>
-            <img src="/work/shots/fleetcleared-signpainter.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Sign Painter concept for FleetCleared: a green road-sign plate with white slab letters and an arrow.">
-          </a>
-          <p>A painted road sign carried across the whole site: a green plate with white slab letters, six social posts, and the deep pages in English and Spanish with the switch between them.</p>
-        </li>
-        <li>
-          <a class="shot" href="/work/fleetcleared-swiss">
-            <span class="shot-label"><span class="shot-client">FleetCleared</span> The Swiss <span class="arrow" aria-hidden="true">&rarr;</span></span>
-            <img src="/work/shots/fleetcleared-swiss.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Swiss concept for FleetCleared: one typeface, eight colors and a ledger grid on a light page.">
-          </a>
-          <p>Eight colors, one typeface and a ledger grid, tested on the crowded screens: a directory you can compare three consultants in, a sixteen-rule guide and a ten-square result.</p>
-        </li>
-      </ul>
-      <p class="small" style="margin-top:24px">The designs are demos, not live sites. Each keeps its own typefaces, so those pages load fonts from Google; the rest of this site does not.</p>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
+<section class="sec band" aria-labelledby="lv-h">
   <div class="wrap">
-    <p>Fenwick and Vale · Cocoa Beach, Florida · Veteran-owned.</p>
-    <p>A one-person business. Not affiliated with Google.</p>
-    <p class="small"><a href="/about">About</a> · <a href="/work">Work</a> · <a href="/agencies">For agencies</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
-    <p class="small colophon">Hand-coded in Cocoa Beach. No trackers, no cookies, no stock photos. I use AI tools for drafting and code. Every page is read, checked and signed off by me.</p>
+    <div class="sec-head" data-rv><p class="label">Live</p><h2 id="lv-h">Running right now.</h2></div>
+    <ul class="rows"><li data-rv><span class="name"><a href="https://highwaylot.com">HighwayLot</a></span><span class="soft">Free car valuation and a price guide by make and model.</span><span class="dom">highwaylot.com</span></li><li data-rv><span class="name"><a href="https://mostmath.com">MOSTMATH</a></span><span class="soft">Math practice built to be read, not scrolled.</span><span class="dom">mostmath.com</span></li><li data-rv><span class="name"><a href="https://fleetcleared.com">FleetCleared</a></span><span class="soft">Free DOT compliance guides and a consultant directory for small carriers.</span><span class="dom">fleetcleared.com</span></li></ul>
+    <p class="soft" style="margin-top:22px;font-size:17px">Fenwick and Vale does not sell marketing to businesses listed on FleetCleared.</p>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="ds-h">
+  <div class="wrap">
+    <div class="reel-head">
+      <div class="sec-head" style="margin-bottom:0" data-rv><p class="label">Designs</p><h2 id="ds-h">Seven directions, each a full page.</h2><p class="soft">Four for HighwayLot, three for FleetCleared. Swipe, use the arrows, or open one to see the screens, the palette and the reasoning.</p></div>
+      <div class="reel-ctl"><button class="icon-btn" type="button" data-reel="prev" aria-label="Previous design">&larr;</button><span class="count" aria-live="polite">I / VII</span><button class="icon-btn" type="button" data-reel="next" aria-label="Next design">&rarr;</button></div>
+    </div>
+    <ul class="reel" tabindex="0" aria-label="Seven website designs. Use the left and right arrow keys to move."><li class="slide"><a class="frame" href="work/highwaylot-board.html"><img src="work/shots/highwaylot-board.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Board concept for HighwayLot: a yellow field, ink type and big tabular numerals, set like a used-car lot&#x27;s price board."><span class="open">Open the full page &rarr;</span></a><div class="cap"><p class="label">HighwayLot</p><h3>The Board</h3><p>Every page is set like the price board at the front of a used-car lot: yellow field, ink type, big numerals, and the price is always the loudest thing in view.</p></div></li><li class="slide"><a class="frame" href="work/highwaylot-ledger.html"><img src="work/shots/highwaylot-ledger.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Ledger concept for HighwayLot: a ruled paper page in ink with one yellow highlighter stroke."><span class="open">Open the full page &rarr;</span></a><div class="cap"><p class="label">HighwayLot</p><h3>The Ledger</h3><p>Paper leads and ink writes; every screen is a ruled page, and the one number that matters gets a yellow marker stroke.</p></div></li><li class="slide"><a class="frame" href="work/highwaylot-highway.html"><img src="work/shots/highwaylot-highway.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Highway concept for HighwayLot: dark ink pages with a dashed lane line down the middle and yellow numbers."><span class="open">Open the full page &rarr;</span></a><div class="cap"><p class="label">HighwayLot</p><h3>The Highway</h3><p>Ink leads, and the dashed lane line from the shield becomes one vertical rule down every page, with content either side of it like mile markers.</p></div></li><li class="slide"><a class="frame" href="work/highwaylot-sticker.html"><img src="work/shots/highwaylot-sticker.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Window Sticker concept for HighwayLot: white cards with an ink header strip, ruled spec blocks and a total line."><span class="open">Open the full page &rarr;</span></a><div class="cap"><p class="label">HighwayLot</p><h3>The Window Sticker</h3><p>Every screen is a white card with an ink header strip, ruled spec blocks and a total line at the bottom, laid out the way a new-car window sticker is.</p></div></li><li class="slide"><a class="frame" href="work/fleetcleared-dispatcher.html"><img src="work/shots/fleetcleared-dispatcher.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Dispatcher concept for FleetCleared: a dark status board with a palette switcher and an English and Spanish, day and night control."><span class="open">Open the full page &rarr;</span></a><div class="cap"><p class="label">FleetCleared</p><h3>The Dispatcher</h3><p>A status board for small carriers: five palettes with a live switcher, one English/Spanish and day/night control on every screen.</p></div></li><li class="slide"><a class="frame" href="work/fleetcleared-signpainter.html"><img src="work/shots/fleetcleared-signpainter.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Sign Painter concept for FleetCleared: a green road-sign plate with white slab letters and an arrow."><span class="open">Open the full page &rarr;</span></a><div class="cap"><p class="label">FleetCleared</p><h3>The Sign Painter</h3><p>A painted road sign carried across the whole site: a green plate with white slab letters, six social posts, and the deep pages in English and Spanish.</p></div></li><li class="slide"><a class="frame" href="work/fleetcleared-swiss.html"><img src="work/shots/fleetcleared-swiss.jpg" width="1280" height="800" loading="lazy" decoding="async" alt="The Swiss concept for FleetCleared: one typeface, eight colors and a ledger grid on a light page."><span class="open">Open the full page &rarr;</span></a><div class="cap"><p class="label">FleetCleared</p><h3>The Swiss</h3><p>Eight colors, one typeface and a ledger grid, tested on the crowded screens: a directory you can compare three consultants in, a sixteen-rule guide and a ten-square result.</p></div></li></ul>
+    <p class="soft" style="font-size:16px">The designs are demos, not live sites. Each keeps its own typefaces, so those pages load fonts from Google; the rest of this site does not.</p>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="mark">
+      <svg viewBox="40 40 160 160" role="img" aria-label="The Fenwick and Vale mark" focusable="false"><circle cx="120" cy="134" r="40" fill="none" stroke="currentColor" stroke-width="5"></circle><g data-pupil="4" data-cx="0.5" data-cy="0.5875"><circle cx="120" cy="134" r="10" fill="currentColor"></circle></g><path d="M70.19 119.06 L57.04 111.08 L72.24 113.43 Z M76.99 104.77 L62.88 90.17 L80.64 100.02 Z M87.77 93.19 L76.41 71.74 L92.68 89.76 Z M101.53 85.39 L96.24 58.66 L107.25 83.59 Z M117 82.09 L120 54 L123 82.09 Z M132.75 83.59 L143.76 58.66 L138.47 85.39 Z M147.32 89.76 L163.59 71.74 L152.23 93.19 Z M159.36 100.02 L177.12 90.17 L163.01 104.77 Z M167.76 113.43 L182.96 111.08 L169.81 119.06 Z" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linejoin="round"></path><path d="M55.2 152 Q120 216 184.8 152 Q120 208 55.2 152 Z" fill="currentColor"></path></svg>
+      <div class="word">Fenwick &amp; Vale</div>
+      <div class="rule"></div>
+      <div class="motto">SOLVE ET COAGULA</div>
+      <div class="dots" aria-hidden="true"><i></i><i></i><i class="open"></i></div>
+    </div>
+    <div class="lines">
+      <p>Fenwick and Vale · Cocoa Beach, Florida · Veteran-owned.</p>
+      <p>A one-person business. Not affiliated with Google.</p>
+      <p class="links"><a href="about.html">About</a><a href="work.html">Work</a><a href="agencies.html">For agencies</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></p>
+      <p class="colophon">Hand-coded in Cocoa Beach. No trackers, no cookies, no stock photos. I use AI tools for drafting and code. Every page is read, checked and signed off by me.</p>
+    </div>
   </div>
 </footer>
+<script src="assets/site.js" defer></script>
 </body>
 </html>
