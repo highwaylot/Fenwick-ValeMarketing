@@ -345,3 +345,16 @@ td .note { display: block; font-size: 16px; color: var(--soft); }
 .statement { font-size: clamp(56px, 9vw, 132px); line-height: 0.95; letter-spacing: -0.015em; }
 .statement-sub { font-family: var(--display); font-style: italic; font-size: clamp(26px, 3vw, 40px); line-height: 1.2; color: var(--gold-text); max-width: 28ch; }
 .manifesto-body { max-width: 52ch; color: var(--soft); }
+
+/* The first three: the trade, framed like a plate */
+.founding { position: relative; border: 1px solid var(--gold); padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px) clamp(30px, 4vw, 52px); display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: clamp(28px, 5vw, 72px); align-items: center; background: linear-gradient(160deg, var(--raise), var(--ground) 70%); box-shadow: 0 0 80px -30px var(--glow); }
+.founding::before { content: ""; position: absolute; inset: 7px; border: 1px solid var(--line); pointer-events: none; }
+.founding .seal-tag { position: absolute; top: -15px; left: clamp(20px, 4vw, 52px); background: var(--gold); color: var(--btn-fg); font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 0.24em; text-transform: uppercase; padding: 5px 12px; }
+.founding-price { position: relative; display: grid; gap: 4px; justify-items: start; }
+.founding-price s { font-family: var(--display); font-size: clamp(28px, 3vw, 38px); color: var(--faint); text-decoration-thickness: 2px; text-decoration-color: var(--gold); }
+.founding-price span { font-family: var(--display); font-size: clamp(72px, 9vw, 120px); line-height: 0.95; font-variant-numeric: lining-nums; color: var(--ink); }
+.founding-price p { font-family: var(--display); font-style: italic; font-size: 21px; color: var(--gold-text); }
+.founding-copy { position: relative; display: grid; gap: 16px; }
+.founding-copy h2 { font-size: clamp(32px, 3.6vw, 48px); }
+@media (max-width: 900px) { .founding { grid-template-columns: 1fr; } }
+[id] { scroll-margin-top: 96px; }
