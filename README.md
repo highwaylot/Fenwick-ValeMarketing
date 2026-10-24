@@ -162,19 +162,12 @@ To add a tile:
 4. Do not add it to `sitemap.xml`; `/work` is already there and the
    concept pages are `noindex`.
 
-## Motion
-
-Almost none, on purpose: underlines on hover, the arrow on a Work screenshot
-nudging three pixels, and the focus ring. The arrow nudge honors
-`prefers-reduced-motion`.
-
 ## Weight
 
-One script file, `assets/request.js`, on the pages with the form (Websites,
-Google, About, For agencies). No script on the other pages. The seven
-concept pages under `/work/` carry their own inline scripts (palette and
-language switchers). The footer colophon carries the line "I use AI tools
-for drafting and code. Every page is read, checked and signed off by me."
+Two script files on every page (`site.js`, and `request.js` where there is a
+form), one stylesheet, four font files. The home page shows its own real
+weight live, so there is no number to keep updated here. The seven concept
+pages under `/work/` carry their own inline scripts and Google Fonts links.
 
 ## How it deploys
 
