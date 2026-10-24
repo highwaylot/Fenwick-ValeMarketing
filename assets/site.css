@@ -117,7 +117,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 @keyframes draw { from { stroke-dashoffset: 1600; } to { stroke-dashoffset: 0; } }
 @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.035); } }
 @keyframes pulse { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.06); } }
-.stage-note { position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); font-family: var(--display); font-style: italic; font-size: 15px; color: var(--faint); white-space: nowrap; }
+.stage-note { position: absolute; left: 50%; bottom: clamp(-40px, -2.6vw, -22px); transform: translateX(-50%); font-family: var(--display); font-style: italic; font-size: 15px; color: var(--faint); white-space: nowrap; }
 
 /* ---------- Buttons ---------- */
 .actions { display: flex; flex-wrap: wrap; gap: 14px; }
