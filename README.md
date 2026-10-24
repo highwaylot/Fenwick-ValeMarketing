@@ -78,8 +78,8 @@ How it works:
 - `assets/request.js` posts the fields as JSON to `/api/request` with
   `fetch`, no reload. On success the form is replaced with "Got it. I'll call
   or write back within one business day." On a 503 or a network error it
-  shows "The form isn't connected yet. Email hello@fenwickvale.com and I'll
-  reply the same way."
+  shows "The form isn't taking requests yet. Please try again in a few
+  days."
 - `api/request.py` (Vercel Python function, stdlib only) checks the fields
   (name 2 to 80 characters, contact 5 to 120, business up to 120, note up to
   1000, honeypot empty), refuses cross-site requests, allows five requests
@@ -206,8 +206,10 @@ the Vercel CLI.
   pier, a client's shop), with the first name in the caption and alt text,
   and add the name to the story paragraph. Not a studio backdrop, not a
   sunset.
-- Confirm hello@fenwickvale.com exists and receives mail. Every contact
-  point on the site goes there or into the request form.
+- There is no email address on the site. hello@fenwickvale.com was removed
+  everywhere on October 24, 2026 because it doesn't receive mail yet, so the
+  request form is the only way in. Once a real address works, add it back
+  to the footer and beside each form.
 - Connect Upstash Redis and set `ADMIN_TOKEN` (see "The request form"
   above), then send one test request from the live site and check it shows
   up at `/admin`. Until storage is connected the form shows the email

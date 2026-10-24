@@ -141,7 +141,7 @@ class handler(BaseHTTPRequestHandler):
         except Exception:
             return self._send(500, {"ok": False, "error": "Couldn't save that right now. Try again in a bit."})
         if count > RATE_LIMIT:
-            return self._send(429, {"ok": False, "error": "Too many requests from this connection. Try again in an hour, or email hello@fenwickvale.com."})
+            return self._send(429, {"ok": False, "error": "Too many requests from this connection. Try again in an hour."})
 
         record = make_record(fields, referer_path(self.headers))
         try:

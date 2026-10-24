@@ -2,7 +2,7 @@
 (function () {
   var forms = document.querySelectorAll('form.ask');
   if (!forms.length) return;
-  var FALLBACK = "The form isn't connected yet. Email hello@fenwickvale.com and I'll reply the same way.";
+  var FALLBACK = "The form isn't taking requests yet. Please try again in a few days.";
   var DONE = "Got it. I'll call or write back within one business day.";
 
   function status(form, text) {
