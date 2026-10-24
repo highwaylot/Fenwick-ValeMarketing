@@ -336,3 +336,12 @@ td .note { display: block; font-size: 16px; color: var(--soft); }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .js .rv-wait { opacity: 1; transform: none; }
 }
+
+/* Manifesto band on the home page */
+.manifesto { overflow: hidden; padding-block: clamp(88px, 11vw, 160px); background: radial-gradient(ellipse at 80% 50%, var(--glow), transparent 60%), var(--ground); }
+.manifesto .wm { position: absolute; right: -6%; top: 50%; width: min(62vw, 720px); transform: translateY(-50%); color: var(--gold); opacity: 0.07; pointer-events: none; }
+.manifesto .wm svg { width: 100%; height: auto; display: block; }
+.manifesto .wrap { position: relative; display: grid; gap: 22px; }
+.statement { font-size: clamp(56px, 9vw, 132px); line-height: 0.95; letter-spacing: -0.015em; }
+.statement-sub { font-family: var(--display); font-style: italic; font-size: clamp(26px, 3vw, 40px); line-height: 1.2; color: var(--gold-text); max-width: 28ch; }
+.manifesto-body { max-width: 52ch; color: var(--soft); }
